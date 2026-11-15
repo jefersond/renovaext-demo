@@ -34,7 +34,21 @@
             Agenda Comercial de Renovações para Oficinas de Extintores • Dados 100% Isolados por Empresa (RLS)
           </span>
         </div>
-        <div class="flex flex-wrap items-center gap-4">
+        <div class="flex flex-wrap items-center gap-3">
+          <button
+            type="button"
+            onclick="selectLeadIntentAndScroll('solicitar_demonstracao')"
+            class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-bold transition-colors cursor-pointer"
+          >
+            Solicitar demonstração
+          </button>
+          <button
+            type="button"
+            onclick="selectLeadIntentAndScroll('quero_participar_piloto')"
+            class="px-3 py-1 rounded-lg bg-emerald-700 hover:bg-emerald-600 text-white font-bold transition-colors cursor-pointer"
+          >
+            Quero participar do piloto
+          </button>
           <a href="./proposta-piloto.html" class="text-slate-300 hover:text-white font-semibold underline">
             Proposta de Piloto (R$ 49 / R$ 79)
           </a>
@@ -42,7 +56,7 @@
             href="./index.html?demo=1"
             class="px-3 py-1 rounded-lg bg-red-600 hover:bg-red-500 text-white font-bold transition-colors"
           >
-            Testar Demonstração Fictícia Agora →
+            Testar Demonstração Fictícia →
           </a>
         </div>
       </div>
@@ -60,17 +74,25 @@
         Você importa sua planilha atual (<code class="font-mono text-red-300">.CSV</code> ou <code class="font-mono text-red-300">.XLSX</code>), visualiza os clientes por janela de acompanhamento (Atrasados, 30, 60, 90 dias e Dados Incompletos) e gera propostas comerciais em PDF com os preços da sua oficina.
       </p>
       <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+        <button
+          type="button"
+          onclick="selectLeadIntentAndScroll('solicitar_demonstracao')"
+          class="px-6 py-3.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-extrabold text-sm sm:text-base shadow-lg shadow-red-950/60 transition-all cursor-pointer"
+        >
+          Solicitar demonstração
+        </button>
+        <button
+          type="button"
+          onclick="selectLeadIntentAndScroll('quero_participar_piloto')"
+          class="px-6 py-3.5 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white font-extrabold text-sm sm:text-base shadow-lg shadow-emerald-950/60 transition-all cursor-pointer"
+        >
+          Quero participar do piloto (R$ 49 ou R$ 79)
+        </button>
         <a
           href="./index.html?demo=1"
-          class="px-6 py-3.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-extrabold text-sm sm:text-base shadow-lg shadow-red-950/60 transition-all"
-        >
-          Abrir Demonstração Navegável (Dados Fictícios) →
-        </a>
-        <a
-          href="./proposta-piloto.html"
           class="px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-100 font-bold text-sm sm:text-base transition-all"
         >
-          Ver Proposta de Piloto de 30 Dias (R$ 49 e R$ 79)
+          Abrir Demonstração Navegável (Dados Fictícios) →
         </a>
       </div>
     </header>
@@ -81,9 +103,14 @@
         <div class="px-5 py-3.5 bg-slate-900 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
           <div class="flex items-center gap-2.5">
             <span class="w-3 h-3 rounded-full bg-red-500 animate-pulse"></span>
-            <h2 class="text-sm sm:text-base font-bold text-white">
-              Vídeo Demonstrativo (2min 15s): 1. Importar Planilha → 2. Visualizar Vencimentos → 3. Gerar Proposta PDF
-            </h2>
+            <div>
+              <h2 class="text-sm sm:text-base font-bold text-white">
+                Demonstração Guiada em Vídeo (2min 15s): 1. Importar Planilha → 2. Visualizar Vencimentos → 3. Gerar Proposta PDF
+              </h2>
+              <p class="text-[11px] text-slate-400">
+                Apresentação visual passo a passo das 3 telas e regras reais executadas pelo MVP sobre a carteira fictícia de demonstração.
+              </p>
+            </div>
           </div>
           <div class="flex items-center gap-2 text-xs">
             <button
@@ -218,39 +245,283 @@
         </div>
       </div>
 
-      <!-- CTA Final -->
-      <div class="p-8 rounded-2xl bg-gradient-to-r from-red-950/70 to-slate-900 border border-red-800/50 flex flex-col md:flex-row items-center justify-between gap-6">
-        <div class="space-y-2">
-          <span class="text-xs font-mono uppercase text-red-300 font-bold">
-            DEMONSTRAÇÃO 100% FICTÍCIA E SEGURA
-          </span>
-          <h3 class="text-xl font-extrabold text-white">
-            Experimente agora no computador ou celular
+      <!-- SEÇÃO OFICIAL DE CONVERSÃO: SOLICITAR DEMONSTRAÇÃO OU PARTICIPAR DO PILOTO -->
+      <section
+        id="solicitar"
+        class="p-6 sm:p-8 rounded-2xl bg-slate-900 border-2 border-red-600/80 shadow-2xl space-y-6 scroll-mt-6"
+      >
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+          <div class="space-y-1">
+            <span class="px-2.5 py-0.5 rounded bg-red-600 text-white font-mono text-xs font-bold">
+              CANAL COMERCIAL OFICIAL VERIFICADO
+            </span>
+            <h2 class="text-xl sm:text-2xl font-extrabold text-white pt-1">
+              Solicitar demonstração ou participar do piloto de 30 dias
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-300 max-w-2xl">
+              Preencha os dados básicos da sua oficina abaixo. O registro fica armazenado em base comercial separada dos dados operacionais das oficinas (protegida por Row Level Security — RLS) e gera imediatamente seu <strong>Protocolo Oficial de Recebimento</strong>.
+            </p>
+          </div>
+          <div class="text-xs text-slate-400 bg-slate-950 border border-slate-800 rounded-xl p-3.5 shrink-0 max-w-xs">
+            <strong class="text-white block mb-1">Suporte e Retorno Realistas:</strong>
+            Retorno comercial assíncrono em português em até <strong>1 dia útil (dias úteis, segunda a sexta-feira)</strong> diretamente para o e-mail comercial e/ou telefone informados.
+          </div>
+        </div>
+
+        <div
+          id="leadFormError"
+          role="alert"
+          class="hidden p-4 rounded-xl bg-red-950/90 border border-red-500 text-xs sm:text-sm text-red-200 font-semibold"
+        ></div>
+
+        <!-- Container de Confirmação com Protocolo -->
+        <div
+          id="leadReceiptContainer"
+          data-testid="public-lead-receipt"
+          class="hidden p-6 rounded-2xl bg-emerald-950/50 border-2 border-emerald-500 space-y-4"
+        >
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <span
+              id="receiptProtocolCode"
+              class="px-3 py-1 rounded bg-emerald-600 text-white font-mono text-xs sm:text-sm font-bold"
+            >
+              SOL-CONFIRMADO
+            </span>
+            <span class="text-xs text-emerald-300 font-semibold">
+              ✓ Registro confirmado em base comercial isolada
+            </span>
+          </div>
+          <h3 class="text-lg sm:text-xl font-extrabold text-white">
+            Solicitação recebida com sucesso!
           </h3>
-          <p class="text-xs sm:text-sm text-slate-300 max-w-xl">
-            A demonstração pública utiliza exclusivamente dados fictícios em um ambiente separado, sem necessidade de enviar planilhas reais da sua empresa.
+          <p class="text-xs sm:text-sm text-slate-200 leading-relaxed">
+            Confirmamos o recebimento do cadastro da oficina <strong id="receiptWorkshopName" class="text-white"></strong> (responsável: <strong id="receiptResponsibleName" class="text-white"></strong>).
           </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 p-4 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-300">
+            <div>
+              <span class="text-slate-400">Modalidade:</span>
+              <strong id="receiptIntentLabel" class="text-white block mt-0.5"></strong>
+            </div>
+            <div>
+              <span class="text-slate-400">E-mail comercial para retorno:</span>
+              <strong id="receiptEmail" class="text-white block mt-0.5"></strong>
+            </div>
+            <div>
+              <span class="text-slate-400">Telefone / WhatsApp:</span>
+              <strong id="receiptPhone" class="text-white block mt-0.5"></strong>
+            </div>
+            <div>
+              <span class="text-slate-400">Carteira aproximada:</span>
+              <strong id="receiptPortfolioSize" class="text-white block mt-0.5"></strong>
+            </div>
+            <div class="sm:col-span-2">
+              <span class="text-slate-400">Plano de interesse em teste:</span>
+              <strong id="receiptPlanInterest" class="text-emerald-400 block mt-0.5"></strong>
+            </div>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            <strong>Próximo passo:</strong> Nossa equipe entrará em contato pelos dados informados acima em até 1 dia útil para apresentar a demonstração guiada ou ativar sua conta isolada do piloto de 30 dias. Nenhuma planilha real de clientes é solicitada antes do aceite das condições de uso.
+          </p>
+          <div class="flex flex-wrap gap-3 pt-1">
+            <button
+              type="button"
+              onclick="downloadLeadReceiptJson()"
+              class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold cursor-pointer"
+            >
+              Baixar Comprovante do Protocolo (.JSON)
+            </button>
+            <a
+              href="./index.html?demo=1"
+              class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold"
+            >
+              Explorar Demonstração Fictícia Enquanto Aguarda →
+            </a>
+          </div>
         </div>
-        <div class="flex flex-wrap gap-3 shrink-0">
-          <a
-            href="./index.html?demo=1"
-            class="px-5 py-3 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-sm transition-colors"
-          >
-            Testar Demonstração Agora →
-          </a>
-          <a
-            href="./proposta-piloto.html"
-            class="px-5 py-3 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-700 text-white font-bold text-sm transition-colors"
-          >
-            Conhecer o Piloto de 30 Dias
-          </a>
+
+        <!-- Formulário Funcional e Responsivo -->
+        <div id="leadFormContainer">
+          <form onsubmit="submitPublicLeadForm(event, '/comercial.html')" class="space-y-4">
+            <input type="hidden" id="leadIntentType" value="solicitar_demonstracao" />
+
+            <!-- Escolha rápida entre Solicitar Demonstração e Quero Participar do Piloto -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <button
+                type="button"
+                id="btnIntentDemo"
+                onclick="selectLeadIntentAndScroll('solicitar_demonstracao')"
+                class="p-3.5 rounded-xl border-2 border-red-500 bg-red-950/30 text-white text-left transition-all cursor-pointer"
+              >
+                <div class="text-xs font-mono uppercase text-red-300 font-bold">OPÇÃO 1</div>
+                <div class="text-sm font-extrabold mt-0.5">Solicitar demonstração</div>
+                <div class="text-xs text-slate-300 mt-0.5">
+                  Quero ver como funciona a importação e o radar na prática
+                </div>
+              </button>
+
+              <button
+                type="button"
+                id="btnIntentPiloto"
+                onclick="selectLeadIntentAndScroll('quero_participar_piloto')"
+                class="p-3.5 rounded-xl border border-slate-700 bg-slate-900/70 text-slate-300 text-left transition-all cursor-pointer hover:border-slate-500"
+              >
+                <div class="text-xs font-mono uppercase text-emerald-400 font-bold">OPÇÃO 2</div>
+                <div class="text-sm font-extrabold text-white mt-0.5">Quero participar do piloto</div>
+                <div class="text-xs text-slate-300 mt-0.5">
+                  Quero testar por 30 dias na minha oficina (R$ 49 ou R$ 79/mês)
+                </div>
+              </button>
+            </div>
+
+            <!-- Honeypot oculto contra spam -->
+            <div class="hidden" aria-hidden="true">
+              <label for="leadHoneypot">Não preencha este campo</label>
+              <input id="leadHoneypot" type="text" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="leadResponsibleName" class="block text-xs font-bold text-slate-200 mb-1">
+                  1. Nome do responsável *
+                </label>
+                <input
+                  id="leadResponsibleName"
+                  type="text"
+                  required
+                  minlength="2"
+                  placeholder="Ex: Roberto Almeida"
+                  class="w-full rounded-xl bg-slate-950 border border-slate-700 px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-red-500"
+                />
+              </div>
+
+              <div>
+                <label for="leadWorkshopName" class="block text-xs font-bold text-slate-200 mb-1">
+                  2. Nome da oficina *
+                </label>
+                <input
+                  id="leadWorkshopName"
+                  type="text"
+                  required
+                  minlength="2"
+                  placeholder="Ex: Almeida Extintores Ltda"
+                  class="w-full rounded-xl bg-slate-950 border border-slate-700 px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-red-500"
+                />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="leadEmail" class="block text-xs font-bold text-slate-200 mb-1">
+                  3. E-mail comercial *
+                </label>
+                <input
+                  id="leadEmail"
+                  type="email"
+                  required
+                  placeholder="contato@suaoficina.com.br"
+                  class="w-full rounded-xl bg-slate-950 border border-slate-700 px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-red-500"
+                />
+              </div>
+
+              <div>
+                <label for="leadPhone" class="block text-xs font-bold text-slate-200 mb-1">
+                  4. Telefone / WhatsApp (opcional)
+                </label>
+                <input
+                  id="leadPhone"
+                  type="tel"
+                  placeholder="(11) 99999-0000 (opcional)"
+                  class="w-full rounded-xl bg-slate-950 border border-slate-700 px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-red-500"
+                />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="leadPortfolioSize" class="block text-xs font-bold text-slate-200 mb-1">
+                  5. Tamanho aproximado da carteira *
+                </label>
+                <select
+                  id="leadPortfolioSize"
+                  required
+                  class="w-full rounded-xl bg-slate-950 border border-slate-700 px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-red-500"
+                >
+                  <option value="ate_50_clientes">Até 50 clientes ativos</option>
+                  <option value="51_a_150_clientes" selected>De 51 a 150 clientes ativos</option>
+                  <option value="151_a_300_clientes">De 151 a 300 clientes ativos</option>
+                  <option value="301_a_500_clientes">De 301 a 500 clientes ativos</option>
+                  <option value="mais_de_500_clientes">Mais de 500 clientes ativos</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="leadPlanInterest" class="block text-xs font-bold text-slate-200 mb-1">
+                  6. Plano de interesse (R$ 49 ou R$ 79) *
+                </label>
+                <select
+                  id="leadPlanInterest"
+                  required
+                  class="w-full rounded-xl bg-slate-950 border border-slate-700 px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-red-500"
+                >
+                  <option value="inicial_49">
+                    R$ 49/mês — Plano Inicial (até 150 clientes na carteira)
+                  </option>
+                  <option value="profissional_79" selected>
+                    R$ 79/mês — Plano Profissional (até 500 clientes na carteira)
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label for="leadNotes" class="block text-xs font-bold text-slate-200 mb-1">
+                7. Observações (opcional)
+              </label>
+              <textarea
+                id="leadNotes"
+                rows="2"
+                placeholder="Como sua oficina controla os vencimentos hoje (ex: planilha Excel, fichas, sistema fiscal) ou dúvidas específicas..."
+                class="w-full rounded-xl bg-slate-950 border border-slate-700 px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-red-500"
+              ></textarea>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-300">
+              <label class="flex items-start gap-2.5 cursor-pointer">
+                <input
+                  id="leadPrivacyConsent"
+                  type="checkbox"
+                  required
+                  class="mt-0.5 accent-red-600"
+                />
+                <span>
+                  <strong class="text-white">Política de Privacidade e Separação de Dados (LGPD):</strong>{' '}
+                  Autorizo o registro desta solicitação na tabela comercial separada do RenovaExt para retorno sobre a demonstração ou piloto de 30 dias. Estou ciente de que nenhuma cobrança é gerada neste formulário e de que não devo enviar planilhas reais de clientes antes da ativação da conta isolada por RLS.
+                </span>
+              </label>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-between gap-4 pt-1">
+              <span class="text-xs text-slate-400">
+                Protegido contra spam • Nenhuma planilha real é solicitada nesta etapa.
+              </span>
+              <button
+                type="submit"
+                id="leadSubmitBtn"
+                class="px-7 py-3.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-extrabold text-sm sm:text-base shadow-lg shadow-red-950/60 transition-all cursor-pointer"
+              >
+                <span id="leadSubmitBtnText">Confirmar Solicitação de Demonstração →</span>
+              </button>
+            </div>
+          </form>
         </div>
-      </div>
+      </section>
     </main>
 
     <footer class="mt-auto border-t border-slate-800 bg-slate-950 px-4 py-6 text-xs text-slate-500 text-center">
-      RenovaExt MVP • Isolamento Multi-Tenant (RLS) • Sem promessa de recuperação garantida de receita • Sem emissão de laudos técnicos.
+      RenovaExt MVP • Isolamento Multi-Tenant por Políticas RLS no PostgreSQL • Sem promessa de recuperação garantida de receita • Sem emissão de laudos técnicos.
     </footer>
+
+    <script src="./lead-capture-widget.js"></script>
 
     <!-- Motor de Renderização do Vídeo Demonstrativo de 2min 15s (135s) -->
     <script>
@@ -310,17 +581,17 @@
         ctx.fillStyle = '#0f172a';
         ctx.fillRect(0, 0, 1280, 720);
 
-        // Top Header da Aplicação Simulada
+        // Top Header da Apresentação Visual Guiada
         ctx.fillStyle = '#020617';
         ctx.fillRect(0, 0, 1280, 56);
-        drawRoundedRect(24, 14, 240, 28, 6, '#f59e0b', null);
+        drawRoundedRect(24, 14, 290, 28, 6, '#f59e0b', null);
         ctx.fillStyle = '#020617';
-        ctx.font = 'bold 13px "JetBrains Mono", monospace';
-        ctx.fillText('AMBIENTE DEMO (DADOS FICTÍCIOS)', 34, 33);
+        ctx.font = 'bold 12px "JetBrains Mono", monospace';
+        ctx.fillText('APRESENTAÇÃO VISUAL (BASE FICTÍCIA)', 34, 33);
 
         ctx.fillStyle = '#f8fafc';
         ctx.font = 'bold 18px Inter, sans-serif';
-        ctx.fillText('RenovaExt MVP — Oficina ProtegeFogo Extintores (Fictícia)', 285, 34);
+        ctx.fillText('RenovaExt MVP — Fluxo Real das 3 Telas (Oficina ProtegeFogo Fictícia)', 330, 34);
 
         // Indicador da Etapa Atual (1, 2 ou 3)
         let activeTab = 1;
