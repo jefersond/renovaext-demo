@@ -1,0 +1,659 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RenovaExt — Apresentação Comercial e Demonstração (2 min)</title>
+    <meta
+      name="description"
+      content="Transforme sua carteira de manutenção de extintores em uma agenda organizada de renovações, sem abandonar seu sistema atual. Assista à demonstração de 2 minutos."
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      .font-mono {
+        font-family: 'JetBrains Mono', monospace;
+      }
+    </style>
+  </head>
+  <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col">
+    <!-- Barra Superior -->
+    <div class="bg-slate-900 border-b border-slate-800 px-4 py-2.5 text-xs text-slate-300">
+      <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-2">
+          <span class="px-2 py-0.5 rounded bg-red-600 text-white font-mono font-bold">
+            RENOVAEXT MVP
+          </span>
+          <span>
+            Agenda Comercial de Renovações para Oficinas de Extintores • Dados 100% Isolados por Empresa (RLS)
+          </span>
+        </div>
+        <div class="flex flex-wrap items-center gap-4">
+          <a href="./proposta-piloto.html" class="text-slate-300 hover:text-white font-semibold underline">
+            Proposta de Piloto (R$ 49 / R$ 79)
+          </a>
+          <a
+            href="./index.html?demo=1"
+            class="px-3 py-1 rounded-lg bg-red-600 hover:bg-red-500 text-white font-bold transition-colors"
+          >
+            Testar Demonstração Fictícia Agora →
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cabeçalho e Promessa Comercial -->
+    <header class="max-w-6xl mx-auto px-4 pt-10 pb-8 text-center space-y-5">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-900 border border-slate-800 text-xs text-red-400 font-semibold">
+        <span>Para pequenas e médias empresas de inspeção, manutenção e recarga de extintores</span>
+      </div>
+      <h1 class="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white max-w-4xl mx-auto leading-tight">
+        Transforme sua carteira de manutenção de extintores em uma agenda organizada de renovações, sem abandonar seu sistema atual.
+      </h1>
+      <p class="text-slate-300 text-sm sm:text-lg max-w-3xl mx-auto leading-relaxed">
+        Você importa sua planilha atual (<code class="font-mono text-red-300">.CSV</code> ou <code class="font-mono text-red-300">.XLSX</code>), visualiza os clientes por janela de acompanhamento (Atrasados, 30, 60, 90 dias e Dados Incompletos) e gera propostas comerciais em PDF com os preços da sua oficina.
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+        <a
+          href="./index.html?demo=1"
+          class="px-6 py-3.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-extrabold text-sm sm:text-base shadow-lg shadow-red-950/60 transition-all"
+        >
+          Abrir Demonstração Navegável (Dados Fictícios) →
+        </a>
+        <a
+          href="./proposta-piloto.html"
+          class="px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-100 font-bold text-sm sm:text-base transition-all"
+        >
+          Ver Proposta de Piloto de 30 Dias (R$ 49 e R$ 79)
+        </a>
+      </div>
+    </header>
+
+    <!-- Seção do Vídeo Demonstrativo de 2min 15s -->
+    <section class="max-w-5xl w-full mx-auto px-4 py-6">
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
+        <div class="px-5 py-3.5 bg-slate-900 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
+          <div class="flex items-center gap-2.5">
+            <span class="w-3 h-3 rounded-full bg-red-500 animate-pulse"></span>
+            <h2 class="text-sm sm:text-base font-bold text-white">
+              Vídeo Demonstrativo (2min 15s): 1. Importar Planilha → 2. Visualizar Vencimentos → 3. Gerar Proposta PDF
+            </h2>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <button
+              type="button"
+              onclick="seekToChapter(0)"
+              class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium cursor-pointer"
+            >
+              00:00 1. Importar Planilha
+            </button>
+            <button
+              type="button"
+              onclick="seekToChapter(45)"
+              class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium cursor-pointer"
+            >
+              00:45 2. Radar de Vencimentos
+            </button>
+            <button
+              type="button"
+              onclick="seekToChapter(90)"
+              class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium cursor-pointer"
+            >
+              01:30 3. Proposta PDF
+            </button>
+          </div>
+        </div>
+
+        <!-- Canvas do Vídeo Demonstrativo 1280x720 -->
+        <div class="relative bg-slate-950 aspect-video w-full">
+          <canvas
+            id="demoVideoCanvas"
+            width="1280"
+            height="720"
+            class="w-full h-full block cursor-pointer"
+            onclick="togglePlay()"
+          ></canvas>
+        </div>
+
+        <!-- Controles do Player -->
+        <div class="p-4 bg-slate-900 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="flex items-center gap-3 w-full sm:w-auto">
+            <button
+              id="playPauseBtn"
+              type="button"
+              onclick="togglePlay()"
+              class="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-500 text-white text-xs font-bold cursor-pointer shrink-0"
+            >
+              Pausar Vídeo
+            </button>
+            <button
+              type="button"
+              onclick="seekToChapter(0)"
+              class="px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold cursor-pointer shrink-0"
+            >
+              Reiniciar
+            </button>
+            <span id="timeCounter" class="font-mono text-xs text-slate-300 shrink-0">
+              00:00 / 02:15
+            </span>
+          </div>
+
+          <input
+            id="videoScrubber"
+            type="range"
+            min="0"
+            max="135"
+            step="0.2"
+            value="0"
+            oninput="onScrub(this.value)"
+            aria-label="Linha do tempo do vídeo demonstrativo"
+            class="w-full accent-red-600 cursor-pointer"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Os 3 Passos Explicados + O Que Funciona vs. Escopo do MVP -->
+    <main class="max-w-6xl mx-auto px-4 py-10 space-y-12">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-2">
+          <span class="text-xs font-mono font-bold text-red-400">PASSO 1 (00:00 – 00:45)</span>
+          <h3 class="text-lg font-bold text-white">Importação Assistida de Planilhas</h3>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            Aceita arquivos <code class="font-mono">.CSV</code> e <code class="font-mono">.XLSX</code>. Permite associar as colunas da sua planilha atual, bloqueia linhas duplicadas e <strong>nunca inventa datas ausentes</strong>: registros sem data ou sem tipo de extintor recebem o alerta <em>"Necessita conferência"</em>.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-2">
+          <span class="text-xs font-mono font-bold text-amber-400">PASSO 2 (00:45 – 01:30)</span>
+          <h3 class="text-lg font-bold text-white">Radar Comercial 30 / 60 / 90 Dias</h3>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            Organiza sua carteira de condomínios, lojas, escolas e empresas nas faixas: <strong>A Conferir Agora (Atrasados)</strong>, <strong>Próximos 30, 60 e 90 dias</strong> e <strong>Dados Incompletos</strong>. Funciona no computador e no celular.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-2">
+          <span class="text-xs font-mono font-bold text-emerald-400">PASSO 3 (01:30 – 02:15)</span>
+          <h3 class="text-lg font-bold text-white">Funil Comercial e Proposta em PDF</h3>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            Acompanhe cada oportunidade em 7 etapas simples (*Pendente de conferência* até *Aceito/Perdido*) e gere propostas comerciais limpas em PDF informando os preços reais praticados pela sua oficina.
+          </p>
+        </div>
+      </div>
+
+      <!-- Transparência Obrigatória: O que funciona hoje vs. O que não faz parte do MVP -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="p-6 rounded-2xl bg-slate-900/90 border border-emerald-800/60 space-y-4">
+          <h3 class="text-base font-bold text-emerald-400">
+            ✓ O Que Está Funcionando e Homologado no MVP
+          </h3>
+          <ul class="space-y-2 text-xs sm:text-sm text-slate-200 list-disc pl-5">
+            <li>Ambiente individual por oficina com isolamento estrito no banco de dados (Row Level Security — RLS) e confirmação de e-mail ativa por padrão;</li>
+            <li>Assistente de importação de planilhas CSV e Excel (.XLSX) com prévia editável e detecção de duplicatas;</li>
+            <li>Sinalização automática de registros incompletos como <em>"Necessita conferência"</em> (sem inventar vencimentos);</li>
+            <li>Painel principal e Radar de Renovações (Atrasados, 30, 60, 90 dias e Incompletos);</li>
+            <li>Funil comercial de 7 etapas com histórico de movimentações;</li>
+            <li>Montador de propostas comerciais com preços editáveis pela oficina e download imediato em PDF;</li>
+            <li>Exportação completa dos dados da própria oficina em JSON a qualquer momento.</li>
+          </ul>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-4">
+          <h3 class="text-base font-bold text-amber-400">
+            ⚠ Escopo Transparente: O Que Não Faz Parte desta Versão
+          </h3>
+          <ul class="space-y-2 text-xs sm:text-sm text-slate-300 list-disc pl-5">
+            <li><strong>Não é um ERP fiscal:</strong> não emite NF-e, NFS-e ou boletos bancários;</li>
+            <li><strong>Não emite laudos técnicos ou certificados INMETRO:</strong> os alertas são exclusivamente para organização comercial;</li>
+            <li><strong>Não afirma que todo extintor exige recarga anual obrigatória:</strong> os requisitos de inspeção e manutenção variam conforme o equipamento, normas técnicas (ABNT NBR 12962 / Portaria INMETRO nº 58/2022) e condições de uso;</li>
+            <li><strong>Não realiza disparos automáticos:</strong> você baixa o PDF da proposta e envia pelos canais da sua oficina quando desejar;</li>
+            <li><strong>Proteção de dados reais:</strong> não coletamos planilhas reais da sua oficina antes da verificação completa de segurança, privacidade e aceite das condições do piloto.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- CTA Final -->
+      <div class="p-8 rounded-2xl bg-gradient-to-r from-red-950/70 to-slate-900 border border-red-800/50 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="space-y-2">
+          <span class="text-xs font-mono uppercase text-red-300 font-bold">
+            DEMONSTRAÇÃO 100% FICTÍCIA E SEGURA
+          </span>
+          <h3 class="text-xl font-extrabold text-white">
+            Experimente agora no computador ou celular
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-300 max-w-xl">
+            A demonstração pública utiliza exclusivamente dados fictícios em um ambiente separado, sem necessidade de enviar planilhas reais da sua empresa.
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-3 shrink-0">
+          <a
+            href="./index.html?demo=1"
+            class="px-5 py-3 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-sm transition-colors"
+          >
+            Testar Demonstração Agora →
+          </a>
+          <a
+            href="./proposta-piloto.html"
+            class="px-5 py-3 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-700 text-white font-bold text-sm transition-colors"
+          >
+            Conhecer o Piloto de 30 Dias
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <footer class="mt-auto border-t border-slate-800 bg-slate-950 px-4 py-6 text-xs text-slate-500 text-center">
+      RenovaExt MVP • Isolamento Multi-Tenant (RLS) • Sem promessa de recuperação garantida de receita • Sem emissão de laudos técnicos.
+    </footer>
+
+    <!-- Motor de Renderização do Vídeo Demonstrativo de 2min 15s (135s) -->
+    <script>
+      const canvas = document.getElementById('demoVideoCanvas');
+      const ctx = canvas.getContext('2d');
+      const scrubber = document.getElementById('videoScrubber');
+      const timeCounter = document.getElementById('timeCounter');
+      const playPauseBtn = document.getElementById('playPauseBtn');
+
+      const TOTAL_DURATION = 135; // 2 minutos e 15 segundos
+      let currentTime = 0;
+      let isPlaying = true;
+      let lastTimestamp = performance.now();
+
+      function formatTime(sec) {
+        const s = Math.max(0, Math.min(TOTAL_DURATION, Math.floor(sec)));
+        const m = Math.floor(s / 60);
+        const r = s % 60;
+        return `${String(m).padStart(2, '0')}:${String(r).padStart(2, '0')}`;
+      }
+
+      function togglePlay() {
+        isPlaying = !isPlaying;
+        playPauseBtn.textContent = isPlaying ? 'Pausar Vídeo' : 'Reproduzir Vídeo';
+        lastTimestamp = performance.now();
+      }
+
+      function seekToChapter(sec) {
+        currentTime = sec;
+        scrubber.value = sec;
+        renderFrame(currentTime);
+      }
+
+      function onScrub(val) {
+        currentTime = parseFloat(val) || 0;
+        renderFrame(currentTime);
+      }
+
+      function drawRoundedRect(x, y, w, h, r, fill, stroke) {
+        ctx.beginPath();
+        ctx.roundRect(x, y, w, h, r);
+        if (fill) {
+          ctx.fillStyle = fill;
+          ctx.fill();
+        }
+        if (stroke) {
+          ctx.strokeStyle = stroke;
+          ctx.lineWidth = 2;
+          ctx.stroke();
+        }
+      }
+
+      function renderFrame(t) {
+        ctx.clearRect(0, 0, 1280, 720);
+
+        // Fundo Principal
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(0, 0, 1280, 720);
+
+        // Top Header da Aplicação Simulada
+        ctx.fillStyle = '#020617';
+        ctx.fillRect(0, 0, 1280, 56);
+        drawRoundedRect(24, 14, 240, 28, 6, '#f59e0b', null);
+        ctx.fillStyle = '#020617';
+        ctx.font = 'bold 13px "JetBrains Mono", monospace';
+        ctx.fillText('AMBIENTE DEMO (DADOS FICTÍCIOS)', 34, 33);
+
+        ctx.fillStyle = '#f8fafc';
+        ctx.font = 'bold 18px Inter, sans-serif';
+        ctx.fillText('RenovaExt MVP — Oficina ProtegeFogo Extintores (Fictícia)', 285, 34);
+
+        // Indicador da Etapa Atual (1, 2 ou 3)
+        let activeTab = 1;
+        let subtitle = '';
+        if (t < 45) {
+          activeTab = 2;
+          if (t < 15) {
+            subtitle =
+              'ETAPA 1 (00:00 - 00:45): A oficina seleciona sua planilha atual (.CSV ou .XLSX) sem precisar reescrever cadastros do zero.';
+          } else if (t < 30) {
+            subtitle =
+              'O Assistente de Importação associa as colunas e bloqueia linhas duplicadas automaticamente antes de salvar.';
+          } else {
+            subtitle =
+              'REGRA TÉCNICA: Quando uma linha não tem data ou tipo de extintor, o sistema NÃO inventa datas — marca como "Necessita conferência".';
+          }
+        } else if (t < 90) {
+          activeTab = 1;
+          if (t < 60) {
+            subtitle =
+              'ETAPA 2 (00:45 - 01:30): No Painel e Radar de Vencimentos, a oficina vê imediatamente quem precisa ser contatado agora.';
+          } else if (t < 75) {
+            subtitle =
+              'Filtros por janela comercial: A Conferir Agora (Atrasados), Próximos 30 dias, 60 dias, 90 dias e Dados Incompletos.';
+          } else {
+            subtitle =
+              'Os alertas organizam o contato comercial da oficina e nunca são apresentados como laudos técnicos ou certificados.';
+          }
+        } else {
+          activeTab = 3;
+          if (t < 105) {
+            subtitle =
+              'ETAPA 3 (01:30 - 02:15): Ao abrir um cliente, a oficina registra o avanço nas 7 etapas do Funil Comercial.';
+          } else if (t < 120) {
+            subtitle =
+              'No Montador de Proposta, a oficina informa seus próprios preços unitários (o sistema nunca inventa preços de serviços).';
+          } else {
+            subtitle =
+              'Com 1 clique em "Salvar e Baixar PDF", o orçamento profissional A4 é gerado pronto para envio pelo WhatsApp ou e-mail.';
+          }
+        }
+
+        // Abas das 3 Telas
+        const tabs = [
+          { id: 1, label: 'Tela 1: Painel & Radar de Vencimentos', x: 24 },
+          { id: 2, label: 'Tela 2: Importação CSV/XLSX & Carteira', x: 430 },
+          { id: 3, label: 'Tela 3: Funil & Proposta Comercial PDF', x: 845 },
+        ];
+        tabs.forEach((tab) => {
+          const isCurrent = tab.id === activeTab;
+          drawRoundedRect(
+            tab.x,
+            72,
+            395,
+            44,
+            10,
+            isCurrent ? '#dc2626' : '#1e293b',
+            isCurrent ? '#ef4444' : '#334155'
+          );
+          ctx.fillStyle = '#ffffff';
+          ctx.font = 'bold 15px Inter, sans-serif';
+          ctx.fillText(tab.label, tab.x + 22, 100);
+        });
+
+        // Conteúdo Dinâmico da Etapa
+        if (t < 45) {
+          // CENA 1: IMPORTAÇÃO DE PLANILHA CSV/XLSX
+          drawRoundedRect(24, 134, 1232, 470, 16, '#ffffff', '#cbd5e1');
+          ctx.fillStyle = '#0f172a';
+          ctx.font = 'bold 22px Inter, sans-serif';
+          ctx.fillText(
+            'Assistente de Importação de Planilhas (.CSV e .XLSX) — Prévia Validada',
+            52,
+            178
+          );
+          ctx.fillStyle = '#475569';
+          ctx.font = '15px Inter, sans-serif';
+          ctx.fillText(
+            'Arquivo carregado: planilha-carteira-oficina-ficticia.xlsx • 6 registros analisados • 1 duplicata bloqueada',
+            52,
+            206
+          );
+
+          const rows = [
+            {
+              c: 'Condomínio Edifício Atlântico Sul (Fictício)',
+              eq: '18x PQS ABC 4kg + 6x Água 10L',
+              dt: 'Próx. acomp.: +14 dias',
+              st: 'PRONTO PARA IMPORTAR',
+              bg: '#ecfdf5',
+              fg: '#047857',
+            },
+            {
+              c: 'Condomínio Edifício Atlântico Sul [Linha Duplicada]',
+              eq: '18x PQS ABC 4kg + 6x Água 10L',
+              dt: 'Mesma chave identificada',
+              st: 'DUPLICATA BLOQUEADA',
+              bg: '#fef2f2',
+              fg: '#b91c1c',
+            },
+            {
+              c: 'Metalúrgica Precisão Industrial (Fictício)',
+              eq: '12x PQS BC 6kg + 6x CO2 6kg',
+              dt: 'Atrasado há 11 dias',
+              st: 'PRONTO PARA IMPORTAR',
+              bg: '#ecfdf5',
+              fg: '#047857',
+            },
+            {
+              c: 'Padaria Pão Dourado (Fictício)',
+              eq: '4x PQS ABC 4kg + 2x CO2 6kg',
+              dt: 'Data inválida ("32/13/2026") -> NULL',
+              st: 'NECESSITA CONFERÊNCIA',
+              bg: '#faf5ff',
+              fg: '#6b21a8',
+            },
+            {
+              c: 'Clínica Médica Santa Clara (Fictício)',
+              eq: '8 cilindros (Tipo não informado)',
+              dt: 'Sem data na planilha -> NULL',
+              st: 'NECESSITA CONFERÊNCIA',
+              bg: '#faf5ff',
+              fg: '#6b21a8',
+            },
+          ];
+
+          rows.forEach((r, idx) => {
+            const y = 230 + idx * 66;
+            drawRoundedRect(52, y, 1176, 54, 10, '#f8fafc', '#e2e8f0');
+            ctx.fillStyle = '#0f172a';
+            ctx.font = 'bold 15px Inter, sans-serif';
+            ctx.fillText(r.c, 72, y + 24);
+            ctx.fillStyle = '#475569';
+            ctx.font = '14px Inter, sans-serif';
+            ctx.fillText(`${r.eq}  •  ${r.dt}`, 72, y + 44);
+
+            drawRoundedRect(950, y + 12, 255, 30, 8, r.bg, r.fg);
+            ctx.fillStyle = r.fg;
+            ctx.font = 'bold 13px "JetBrains Mono", monospace';
+            ctx.fillText(r.st, 968, y + 32);
+          });
+        } else if (t < 90) {
+          // CENA 2: RADAR DE VENCIMENTOS E PAINEL
+          drawRoundedRect(24, 134, 1232, 470, 16, '#ffffff', '#cbd5e1');
+
+          const kpis = [
+            { title: 'A Conferir Agora', val: '1 cliente', sub: 'Atrasado (-11 dias)', c: '#dc2626', bg: '#fef2f2' },
+            { title: 'Próximos 30 Dias', val: '1 cliente', sub: 'Janela D-30 (+14 dias)', c: '#d97706', bg: '#fffbeb' },
+            { title: 'Próximos 60 / 90d', val: '2 clientes', sub: 'Janelas D-60 e D-90', c: '#2563eb', bg: '#eff6ff' },
+            { title: 'Necessita Conferência', val: '2 clientes', sub: 'Sem data inventada', c: '#7e22ce', bg: '#faf5ff' },
+          ];
+          kpis.forEach((k, i) => {
+            const x = 52 + i * 298;
+            drawRoundedRect(x, 158, 280, 100, 12, k.bg, k.c);
+            ctx.fillStyle = k.c;
+            ctx.font = 'bold 14px Inter, sans-serif';
+            ctx.fillText(k.title, x + 18, 184);
+            ctx.font = 'bold 28px Inter, sans-serif';
+            ctx.fillText(k.val, x + 18, 220);
+            ctx.font = '13px Inter, sans-serif';
+            ctx.fillText(k.sub, x + 18, 244);
+          });
+
+          ctx.fillStyle = '#0f172a';
+          ctx.font = 'bold 19px Inter, sans-serif';
+          ctx.fillText(
+            'Radar de Acompanhamento Comercial (Priorização Clara de Quem Contatar)',
+            52,
+            296
+          );
+
+          const cards = [
+            {
+              badge: 'ATRASADO HÁ 11 DIAS',
+              bColor: '#dc2626',
+              name: 'Metalúrgica Precisão Industrial (Fictício) — Guarulhos/SP',
+              info: 'Contato: Juliana Costa (Compras) • 12x PQS BC 6kg + 6x CO2 6kg • Funil: Pronto para contato',
+            },
+            {
+              badge: 'VENCE EM 14 DIAS (30D)',
+              bColor: '#d97706',
+              name: 'Condomínio Edifício Atlântico Sul (Fictício) — São Paulo/SP',
+              info: 'Contato: Sr. Roberto Mendes (Síndico) • 18x PQS ABC 4kg + 6x Água 10L • Funil: Contatado',
+            },
+            {
+              badge: 'NECESSITA CONFERÊNCIA',
+              bColor: '#7e22ce',
+              name: 'Clínica Médica Santa Clara (Fictício) — Belo Horizonte/MG',
+              info: '8 cilindros sem data de próximo acompanhamento na planilha antiga — revisar antes de cotar',
+            },
+          ];
+
+          cards.forEach((card, i) => {
+            const y = 316 + i * 86;
+            drawRoundedRect(52, y, 1176, 74, 10, '#f8fafc', '#cbd5e1');
+            drawRoundedRect(70, y + 14, 210, 24, 6, card.bColor, null);
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 12px "JetBrains Mono", monospace';
+            ctx.fillText(card.badge, 82, y + 30);
+
+            ctx.fillStyle = '#0f172a';
+            ctx.font = 'bold 16px Inter, sans-serif';
+            ctx.fillText(card.name, 296, y + 31);
+
+            ctx.fillStyle = '#475569';
+            ctx.font = '14px Inter, sans-serif';
+            ctx.fillText(card.info, 70, y + 58);
+
+            drawRoundedRect(1030, y + 18, 180, 38, 8, '#dc2626', null);
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 13px Inter, sans-serif';
+            ctx.fillText('Cotar / Proposta →', 1052, y + 42);
+          });
+        } else {
+          // CENA 3: FUNIL COMERCIAL DE 7 ETAPAS + PROPOSTA PDF COM PREÇOS DA OFICINA
+          drawRoundedRect(24, 134, 1232, 470, 16, '#ffffff', '#cbd5e1');
+
+          ctx.fillStyle = '#0f172a';
+          ctx.font = 'bold 20px Inter, sans-serif';
+          ctx.fillText(
+            'Cliente: Condomínio Edifício Atlântico Sul (Fictício) — Proposta PROP-2026-001',
+            52,
+            174
+          );
+
+          // Barra das 7 Etapas do Funil
+          const stages = [
+            '1. Conferência',
+            '2. Pronto Contato',
+            '3. Contatado',
+            '4. Proposta Prep.',
+            '5. Proposta Env.',
+            '6. Aceito',
+            '7. Perdido',
+          ];
+          stages.forEach((st, i) => {
+            const active = i === 4;
+            const x = 52 + i * 168;
+            drawRoundedRect(
+              x,
+              192,
+              160,
+              36,
+              8,
+              active ? '#059669' : '#f1f5f9',
+              active ? '#047857' : '#cbd5e1'
+            );
+            ctx.fillStyle = active ? '#ffffff' : '#334155';
+            ctx.font = 'bold 13px Inter, sans-serif';
+            ctx.fillText(st, x + 16, 215);
+          });
+
+          // Tabela de Preços Editáveis + Preview do PDF
+          drawRoundedRect(52, 248, 700, 330, 12, '#f8fafc', '#cbd5e1');
+          ctx.fillStyle = '#0f172a';
+          ctx.font = 'bold 16px Inter, sans-serif';
+          ctx.fillText('Itens e Serviços Cotados (Preços informados pela oficina):', 74, 280);
+
+          drawRoundedRect(74, 300, 656, 72, 8, '#ffffff', '#e2e8f0');
+          ctx.fillStyle = '#0f172a';
+          ctx.font = 'bold 15px Inter, sans-serif';
+          ctx.fillText('Item 1: 18x Extintor PQS ABC 4kg — Manutenção 2º Nível / Recarga', 90, 326);
+          ctx.fillStyle = '#047857';
+          ctx.font = 'bold 15px "JetBrains Mono", monospace';
+          ctx.fillText('Preço Unit. Editado: R$ 65,00   |   Subtotal: R$ 1.170,00', 90, 354);
+
+          drawRoundedRect(74, 386, 656, 72, 8, '#ffffff', '#e2e8f0');
+          ctx.fillStyle = '#0f172a';
+          ctx.font = 'bold 15px Inter, sans-serif';
+          ctx.fillText('Item 2: 6x Extintor Água Pressurizada 10L — Manutenção 2º Nível', 90, 412);
+          ctx.fillStyle = '#047857';
+          ctx.font = 'bold 15px "JetBrains Mono", monospace';
+          ctx.fillText('Preço Unit. Editado: R$ 55,00   |   Subtotal: R$ 330,00', 90, 440);
+
+          drawRoundedRect(74, 480, 656, 76, 10, '#0f172a', null);
+          ctx.fillStyle = '#ffffff';
+          ctx.font = 'bold 20px Inter, sans-serif';
+          ctx.fillText('TOTAL DA PROPOSTA: R$ 1.500,00 (Validade: 15 dias)', 94, 525);
+
+          // Folha A4 PDF Gerada à Direita
+          drawRoundedRect(780, 248, 448, 330, 12, '#fff1f2', '#f43f5e');
+          drawRoundedRect(804, 268, 400, 44, 6, '#b91c1c', null);
+          ctx.fillStyle = '#ffffff';
+          ctx.font = 'bold 14px Inter, sans-serif';
+          ctx.fillText('PDF GERADO: PROPOSTA COMERCIAL A4', 822, 295);
+
+          ctx.fillStyle = '#0f172a';
+          ctx.font = 'bold 14px Inter, sans-serif';
+          ctx.fillText('Oficina ProtegeFogo Extintores (Demo)', 804, 338);
+          ctx.font = '13px Inter, sans-serif';
+          ctx.fillText('Cliente: Condomínio Edifício Atlântico Sul', 804, 362);
+          ctx.fillText('• 18x PQS ABC 4kg ........... R$ 1.170,00', 804, 392);
+          ctx.fillText('• 6x Água Pressurizada 10L ... R$ 330,00', 804, 414);
+          ctx.font = 'bold 16px Inter, sans-serif';
+          ctx.fillText('Valor Total: R$ 1.500,00', 804, 448);
+
+          drawRoundedRect(804, 475, 400, 46, 8, '#dc2626', null);
+          ctx.fillStyle = '#ffffff';
+          ctx.font = 'bold 15px Inter, sans-serif';
+          ctx.fillText('✓ PDF Pronto para Download e Envio', 865, 504);
+
+          ctx.fillStyle = '#64748b';
+          ctx.font = '11px Inter, sans-serif';
+          ctx.fillText('Nota: Orçamento comercial. Não substitui laudo técnico.', 804, 548);
+        }
+
+        // Barra Inferior de Legenda Sincronizada
+        drawRoundedRect(24, 622, 1232, 76, 12, '#020617', '#334155');
+        ctx.fillStyle = '#f8fafc';
+        ctx.font = 'bold 17px Inter, sans-serif';
+        ctx.fillText(subtitle, 48, 666);
+
+        timeCounter.textContent = `${formatTime(t)} / ${formatTime(TOTAL_DURATION)}`;
+      }
+
+      function animate(now) {
+        if (isPlaying) {
+          const dt = (now - lastTimestamp) / 1000;
+          lastTimestamp = now;
+          currentTime += dt;
+          if (currentTime > TOTAL_DURATION) {
+            currentTime = 0;
+          }
+          scrubber.value = currentTime;
+          renderFrame(currentTime);
+        } else {
+          lastTimestamp = now;
+        }
+        requestAnimationFrame(animate);
+      }
+
+      renderFrame(0);
+      requestAnimationFrame(animate);
+    </script>
+  </body>
+</html>
