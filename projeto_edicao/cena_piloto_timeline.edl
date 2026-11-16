@@ -1,0 +1,18 @@
+TITLE: RENOVAEXT_CENA_PILOTO_17S
+FCM: NON-DROP FRAME
+
+001  CLIP05   V     C        00:00:00:00 00:00:08:18 00:00:00:00 00:00:08:18
+* FROM CLIP: media/projeto_edicao/video_raw/clip_05_radar_e_filtros.mp4
+* COMMENT: Radar comercial de vencimentos com clique em aba 30 dias
+
+002  CLIP08   V     D 012    00:00:00:00 00:00:08:18 00:00:08:06 00:00:16:24
+* FROM CLIP: media/projeto_edicao/video_raw/clip_08_preenchimento_precos.mp4
+* COMMENT: Digitacao verdadeira de precos unitarios e calculo da proposta
+
+003  VOICE_A  A     C        00:00:00:00 00:00:16:20 00:00:00:00 00:00:16:20
+* FROM CLIP: public/amostras_voz/amostra_A_masculina_faber.mp3
+* COMMENT: Locucao tratada - EBU R128 (-16 LUFS)
+
+004  TRILHA   A2    C        00:00:00:00 00:00:16:24 00:00:00:00 00:00:16:24
+* FROM CLIP: media/projeto_edicao/audio_music/trilha_harmonica_ambiente.mp3
+* COMMENT: Trilha harmonica suave em -26 dB

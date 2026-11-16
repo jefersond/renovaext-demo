@@ -1,17 +1,24 @@
 /**
  * RenovaExt MVP — Motor Público de Registro de Solicitações Comerciais (Demonstração / Piloto 30 Dias)
  * Conecta os formulários públicos (/comercial.html e /proposta-piloto.html) diretamente à RPC
- * public.submit_commercial_lead no Supabase Staging, armazenando leads em tabela 100% separada
- * dos dados operacionais das oficinas (public.commercial_leads, protegida por RLS + REVOKE SELECT).
+ * public.submit_commercial_lead no Supabase Staging.
+ *
+ * REGRAS DE SEGURANÇA E PRIVACIDADE (LGPD):
+ * - Nenhum dado pessoal (nome, e-mail, telefone ou oficina) é gravado em localStorage/sessionStorage
+ *   ou impresso em logs públicos do navegador.
+ * - O armazenamento em banco ocorre em public.commercial_leads (com RLS + REVOKE SELECT para anon
+ *   e authenticated) e sincroniza continuamente via trigger SQL para public.commercial_crm_pipeline.
  */
 (function () {
   const SUPABASE_URL = 'https://xmuzcnjcwkhgojnaosha.supabase.co';
   const SUPABASE_ANON_KEY =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhtdXpjbmpjd2toZ29qbmFvc2hhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ1MjIxMTAsImV4cCI6MjExMDA5ODExMH0.CDK7TXV2pdKsO8V2VV0wkQnapC_9k5CgS5CpqLoepOk';
 
-  const LOCAL_LEADS_KEY = 'renovaext_commercial_leads_isolated_v1';
+  // Armazena APENAS timestamps numéricos de cooldown anti-spam (zero dados pessoais no navegador)
+  const COOLDOWN_KEY = 'renovaext_lead_cooldown_ts_v2';
+  const LEGACY_PII_KEY = 'renovaext_commercial_leads_isolated_v1';
   const pageOpenedAt = Date.now();
-  let lastReceipt = null;
+  let lastReceiptInMemory = null;
 
   const PORTFOLIO_LABELS = {
     ate_50_clientes: 'Até 50 clientes ativos',
@@ -21,24 +28,39 @@
     mais_de_500_clientes: 'Mais de 500 clientes ativos',
   };
 
-  function getLocalLeads() {
+  // Remover qualquer chave legada que pudesse conter dados em localStorage
+  try {
+    if (window.localStorage) {
+      window.localStorage.removeItem(LEGACY_PII_KEY);
+    }
+  } catch {
+    // Ignorar se localStorage estiver bloqueado
+  }
+
+  function isClientCooldownActive() {
     try {
-      const raw = window.localStorage.getItem(LOCAL_LEADS_KEY);
-      if (!raw) return [];
-      const parsed = JSON.parse(raw);
-      return Array.isArray(parsed) ? parsed : [];
+      const raw = window.localStorage.getItem(COOLDOWN_KEY);
+      if (!raw) return false;
+      const tsList = JSON.parse(raw);
+      if (!Array.isArray(tsList)) return false;
+      const recent = tsList.filter((t) => typeof t === 'number' && Date.now() - t < 5 * 60 * 1000);
+      return recent.length >= 2;
     } catch {
-      return [];
+      return false;
     }
   }
 
-  function saveLocalLead(receipt) {
+  function recordCooldownTimestamp() {
     try {
-      const list = getLocalLeads();
-      list.unshift(receipt);
-      window.localStorage.setItem(LOCAL_LEADS_KEY, JSON.stringify(list.slice(0, 50)));
+      const raw = window.localStorage.getItem(COOLDOWN_KEY);
+      const tsList = raw ? JSON.parse(raw) : [];
+      const clean = Array.isArray(tsList)
+        ? tsList.filter((t) => typeof t === 'number' && Date.now() - t < 15 * 60 * 1000)
+        : [];
+      clean.push(Date.now());
+      window.localStorage.setItem(COOLDOWN_KEY, JSON.stringify(clean.slice(-5)));
     } catch {
-      // Ignorar se localStorage estiver indisponível
+      // Ignorar falha de storage
     }
   }
 
@@ -82,27 +104,24 @@
   };
 
   window.downloadLeadReceiptJson = function () {
-    if (!lastReceipt) return;
+    if (!lastReceiptInMemory) return;
     const payload = {
       sistema: 'RenovaExt MVP — Comprovante Oficial de Solicitação Comercial',
-      protocolo: lastReceipt.protocolCode,
+      protocolo: lastReceiptInMemory.protocolCode,
       tipoSolicitacao:
-        lastReceipt.intentType === 'solicitar_demonstracao'
+        lastReceiptInMemory.intentType === 'solicitar_demonstracao'
           ? 'Solicitar demonstração'
           : 'Quero participar do piloto (30 dias)',
-      responsavel: lastReceipt.responsibleName,
-      oficina: lastReceipt.workshopName,
-      emailComercial: lastReceipt.email,
-      telefoneOpcional: lastReceipt.phone,
+      oficina: lastReceiptInMemory.workshopName,
       tamanhoAproximadoCarteira:
-        PORTFOLIO_LABELS[lastReceipt.portfolioSize] || lastReceipt.portfolioSize,
+        PORTFOLIO_LABELS[lastReceiptInMemory.portfolioSize] || lastReceiptInMemory.portfolioSize,
       planoInteresse:
-        lastReceipt.planInterest === 'inicial_49'
+        lastReceiptInMemory.planInterest === 'inicial_49'
           ? 'Plano Inicial — R$ 49/mês (até 150 clientes)'
           : 'Plano Profissional — R$ 79/mês (até 500 clientes)',
-      registradoEmUtc: lastReceipt.createdAt,
+      registradoEmUtc: lastReceiptInMemory.createdAt,
       canalRetornoVerificado:
-        'Retorno comercial enviado diretamente para o e-mail comercial e/ou telefone informados neste protocolo em até 1 dia útil.',
+        'Retorno comercial enviado em até 1 dia útil (segunda a sexta-feira) diretamente para o e-mail comercial e/ou telefone informados.',
     };
     const blob = new Blob([JSON.stringify(payload, null, 2)], {
       type: 'application/json;charset=utf-8;',
@@ -110,7 +129,7 @@
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `comprovante-${lastReceipt.protocolCode}.json`;
+    a.download = `comprovante-${lastReceiptInMemory.protocolCode}.json`;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -173,14 +192,9 @@
       showError('É necessário concordar com a Política de Privacidade para enviar a solicitação.');
       return;
     }
-
-    const recentSameEmail = getLocalLeads().filter(
-      (item) =>
-        item.email === email && Date.now() - new Date(item.createdAt).getTime() < 5 * 60 * 1000
-    );
-    if (recentSameEmail.length >= 2) {
+    if (isClientCooldownActive()) {
       showError(
-        'Já recebemos uma solicitação recente para este e-mail. Aguarde alguns minutos antes de enviar novamente.'
+        'Já recebemos uma solicitação recente deste navegador. Aguarde alguns minutos antes de enviar novamente.'
       );
       return;
     }
@@ -206,7 +220,7 @@
           p_portfolio_size: portfolioSize,
           p_plan_interest: planInterest,
           p_notes: notes || null,
-          p_source_page: sourcePage || window.location.pathname,
+          p_source_page: sourcePage || (window.location.pathname + window.location.search).slice(0, 120),
           p_privacy_consent: true,
           p_honeypot: honeypot,
           p_elapsed_ms: elapsedMs,
@@ -222,21 +236,22 @@
         throw new Error(errMsg);
       }
 
-      lastReceipt = {
+      recordCooldownTimestamp();
+
+      // Mantido apenas em variável efêmera de memória da aba atual para exibição/download imediato do protocolo
+      lastReceiptInMemory = {
         id: data.id,
         protocolCode: data.protocolCode,
         intentType: data.intentType || intentType,
-        responsibleName: data.responsibleName || responsibleName,
-        workshopName: data.workshopName || workshopName,
-        email: data.email || email,
-        phone: data.phone || phone || null,
+        workshopName: workshopName,
+        responsibleName: responsibleName,
+        email: email,
+        phone: phone || null,
         portfolioSize: data.portfolioSize || portfolioSize,
         planInterest: data.planInterest || planInterest,
         status: data.status || 'recebido_aguardando_contato',
         createdAt: data.createdAt || new Date().toISOString(),
       };
-
-      saveLocalLead(lastReceipt);
 
       if (formContainer && receiptContainer) {
         formContainer.classList.add('hidden');
@@ -246,24 +261,24 @@
           const el = document.getElementById(id);
           if (el) el.textContent = text;
         };
-        setElText('receiptProtocolCode', lastReceipt.protocolCode);
-        setElText('receiptWorkshopName', lastReceipt.workshopName);
-        setElText('receiptResponsibleName', lastReceipt.responsibleName);
+        setElText('receiptProtocolCode', lastReceiptInMemory.protocolCode);
+        setElText('receiptWorkshopName', lastReceiptInMemory.workshopName);
+        setElText('receiptResponsibleName', lastReceiptInMemory.responsibleName);
         setElText(
           'receiptIntentLabel',
-          lastReceipt.intentType === 'solicitar_demonstracao'
+          lastReceiptInMemory.intentType === 'solicitar_demonstracao'
             ? 'Solicitar demonstração'
             : 'Quero participar do piloto (30 dias)'
         );
-        setElText('receiptEmail', lastReceipt.email);
-        setElText('receiptPhone', lastReceipt.phone || 'Não informado');
+        setElText('receiptEmail', lastReceiptInMemory.email);
+        setElText('receiptPhone', lastReceiptInMemory.phone || 'Não informado');
         setElText(
           'receiptPortfolioSize',
-          PORTFOLIO_LABELS[lastReceipt.portfolioSize] || lastReceipt.portfolioSize
+          PORTFOLIO_LABELS[lastReceiptInMemory.portfolioSize] || lastReceiptInMemory.portfolioSize
         );
         setElText(
           'receiptPlanInterest',
-          lastReceipt.planInterest === 'inicial_49'
+          lastReceiptInMemory.planInterest === 'inicial_49'
             ? 'Plano Inicial — R$ 49/mês (até 150 clientes)'
             : 'Plano Profissional — R$ 79/mês (até 500 clientes)'
         );
