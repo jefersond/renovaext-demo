@@ -221,6 +221,74 @@
             </table>
           </div>
         </div>
+
+        <!-- SEÇÃO: ESCUTA DE CLIENTES & SUGESTÕES DE MELHORIA -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden mt-8">
+          <div class="px-5 py-4 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded bg-sky-600 text-white font-mono text-xs font-bold">
+                  ESCUTA DE CLIENTES & SUGESTÕES DE MELHORIA
+                </span>
+                <span id="feedbackCountBadge" class="text-xs text-slate-400 font-mono">0 sugestões</span>
+              </div>
+              <h3 class="text-base font-extrabold text-white mt-1">
+                O que as empresas de extintores gostariam que o sistema fizesse
+              </h3>
+              <p class="text-xs text-slate-400">
+                Coletadas via formulário discreto na landing page. Tabela isolada <code class="font-mono">public.product_feedback_suggestions</code> (não polui o funil de vendas sem consentimento).
+              </p>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs text-slate-400">Governança manual (sem IA paga)</span>
+            </div>
+          </div>
+
+          <!-- Cards de Resumo de Feedback -->
+          <div class="p-5 border-b border-slate-800 bg-slate-950/60 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- Por Dificuldade -->
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-4">
+              <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Principais Dificuldades</h4>
+              <div id="feedbackDifficultyList" class="space-y-1 text-xs">
+                <span class="text-slate-500">Nenhum dado ainda</span>
+              </div>
+            </div>
+            <!-- Por Categoria de Visitante -->
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-4">
+              <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Origem das Sugestões</h4>
+              <div id="feedbackCategoryList" class="space-y-1 text-xs">
+                <span class="text-slate-500">Nenhum dado ainda</span>
+              </div>
+            </div>
+            <!-- Grupos Temáticos / Assuntos Semelhantes -->
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-4">
+              <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Assuntos Semelhantes (Agrupados)</h4>
+              <div id="feedbackGroupsList" class="space-y-1 text-xs">
+                <span class="text-slate-500">Nenhum grupo ainda</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tabela de Sugestões -->
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr class="bg-slate-950 text-slate-300 border-b border-slate-800">
+                  <th class="p-3">Data / Protocolo</th>
+                  <th class="p-3">Origem & Contato</th>
+                  <th class="p-3">Dificuldade Relatada</th>
+                  <th class="p-3">Desejo de Funcionalidade</th>
+                  <th class="p-3">Grupo Temático</th>
+                  <th class="p-3">Prioridade (1-5)</th>
+                  <th class="p-3">Status & Ação</th>
+                </tr>
+              </thead>
+              <tbody id="feedbackTableBody" class="divide-y divide-slate-800">
+                <tr><td colspan="7" class="p-6 text-center text-slate-500">Carregando sugestões...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </section>
     </main>
 
@@ -327,6 +395,7 @@
         );
 
         renderLeadsTable(payload.leads || []);
+        await loadFeedbackData();
       }
 
       function renderLeadsTable(leads) {
@@ -510,6 +579,234 @@
         a.download = `renovaext-crm-tempo-real-${new Date().toISOString().slice(0, 10)}.json`;
         a.click();
         URL.revokeObjectURL(url);
+      }
+
+      async function loadFeedbackData() {
+        if (!founderAccessToken) return;
+        try {
+          const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/get_product_feedback_dashboard`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              apikey: SUPABASE_ANON_KEY,
+              Authorization: `Bearer ${founderAccessToken}`,
+            },
+            body: JSON.stringify({}),
+          });
+          if (!res.ok) return;
+          const data = await res.json();
+          renderFeedbackDashboard(data);
+        } catch (err) {
+          console.error('Erro ao carregar dados de feedback:', err);
+        }
+      }
+
+      const DIFFICULTY_LABELS = {
+        organizar_planilhas: 'Organizar planilhas e cadastros',
+        acompanhar_vencimentos: 'Acompanhar vencimentos',
+        preparar_propostas: 'Preparar propostas',
+        acompanhar_negociacoes: 'Acompanhar negociações',
+        outra: 'Outra dificuldade',
+      };
+
+      const CATEGORY_BADGES = {
+        empresa_piloto: '<span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-700 font-bold">Empresa Piloto</span>',
+        lead_interessado: '<span class="px-2 py-0.5 rounded bg-sky-950 text-sky-300 border border-sky-700 font-bold">Lead Interessado</span>',
+        visitante_anonimo: '<span class="px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700">Visitante Anônimo</span>',
+      };
+
+      const FEEDBACK_STATUS_LABELS = {
+        recebida: 'Recebida',
+        em_avaliacao: 'Em avaliação',
+        planejada: 'Planejada',
+        implementada: 'Implementada',
+        arquivada: 'Arquivada',
+      };
+
+      function renderFeedbackDashboard(data) {
+        document.getElementById('feedbackCountBadge').textContent = `${data.total || 0} sugestões registradas`;
+
+        // 1. Dificuldades
+        const diffList = document.getElementById('feedbackDifficultyList');
+        diffList.innerHTML = '';
+        if (data.byDifficulty && data.byDifficulty.length) {
+          data.byDifficulty.forEach(d => {
+            const row = document.createElement('div');
+            row.className = 'flex justify-between items-center py-0.5';
+            row.innerHTML = `<span class="text-slate-300">${DIFFICULTY_LABELS[d.primary_difficulty] || d.primary_difficulty}</span><strong class="text-emerald-400 font-mono">${d.count}</strong>`;
+            diffList.appendChild(row);
+          });
+        } else {
+          diffList.innerHTML = '<span class="text-slate-500">Nenhum dado registrado</span>';
+        }
+
+        // 2. Categorias
+        const catList = document.getElementById('feedbackCategoryList');
+        catList.innerHTML = '';
+        if (data.byCategory && data.byCategory.length) {
+          data.byCategory.forEach(c => {
+            const row = document.createElement('div');
+            row.className = 'flex justify-between items-center py-0.5';
+            const catName = c.visitor_category === 'empresa_piloto' ? 'Oficinas em Piloto' : (c.visitor_category === 'lead_interessado' ? 'Leads do CRM' : 'Visitantes Anônimos');
+            row.innerHTML = `<span class="text-slate-300">${catName}</span><strong class="text-sky-400 font-mono">${c.count}</strong>`;
+            catList.appendChild(row);
+          });
+        } else {
+          catList.innerHTML = '<span class="text-slate-500">Nenhum dado registrado</span>';
+        }
+
+        // 3. Grupos Temáticos
+        const grpList = document.getElementById('feedbackGroupsList');
+        grpList.innerHTML = '';
+        if (data.bySimilarityGroup && data.bySimilarityGroup.length) {
+          data.bySimilarityGroup.forEach(g => {
+            const row = document.createElement('div');
+            row.className = 'border-b border-slate-800/80 pb-1 mb-1 last:border-0';
+            row.innerHTML = `<div class="flex justify-between text-slate-200 font-semibold"><span>${g.similarity_group}</span><span class="text-amber-400 font-mono font-bold">${g.total_sugestoes} solicitação(ões)</span></div><div class="text-[10px] text-slate-400">${g.empresas_distintas} empresa(s) distinta(s) • Média: ${Number(g.media_prioridade || 0).toFixed(1)}/5</div>`;
+            grpList.appendChild(row);
+          });
+        } else {
+          grpList.innerHTML = '<span class="text-slate-500">Nenhum grupo atribuído ainda</span>';
+        }
+
+        // 4. Tabela de Sugestões
+        const tbody = document.getElementById('feedbackTableBody');
+        tbody.innerHTML = '';
+        if (!data.recent || !data.recent.length) {
+          tbody.innerHTML = '<tr><td colspan="7" class="p-6 text-center text-slate-500">Nenhuma sugestão enviada até o momento.</td></tr>';
+          return;
+        }
+
+        data.recent.forEach(item => {
+          const tr = document.createElement('tr');
+          tr.className = 'hover:bg-slate-800/50 transition-colors';
+
+          // Coluna 1: Data e Protocolo
+          const tdProt = document.createElement('td');
+          tdProt.className = 'p-3 align-top font-mono';
+          const dt = new Date(item.created_at).toLocaleString('pt-BR');
+          tdProt.innerHTML = `<div class="font-bold text-sky-400">${item.protocol_number}</div><div class="text-[10px] text-slate-400 font-sans">${dt}</div>`;
+          tr.appendChild(tdProt);
+
+          // Coluna 2: Origem & Contato
+          const tdOrig = document.createElement('td');
+          tdOrig.className = 'p-3 align-top';
+          const badge = CATEGORY_BADGES[item.visitor_category] || item.visitor_category;
+          let contactInfo = '<div class="text-[11px] text-slate-500 italic mt-1">Anônimo (sem contato)</div>';
+          if (item.wants_contact && item.contact_email) {
+            contactInfo = `<div class="mt-1"><a href="mailto:${item.contact_email}" class="text-emerald-400 hover:underline font-mono text-xs">✉ ${item.contact_email}</a>${item.contact_name ? `<div class="text-[11px] text-slate-300">${item.contact_name}</div>` : ''}</div>`;
+          }
+          tdOrig.innerHTML = `<div>${badge}</div>${contactInfo}`;
+          tr.appendChild(tdOrig);
+
+          // Coluna 3: Dificuldade Relatada
+          const tdDiff = document.createElement('td');
+          tdDiff.className = 'p-3 align-top';
+          const diffText = DIFFICULTY_LABELS[item.primary_difficulty] || item.primary_difficulty;
+          const otherText = item.difficulty_other_detail ? `<div class="text-[11px] text-slate-400 italic">Detalhe: ${item.difficulty_other_detail}</div>` : '';
+          tdDiff.innerHTML = `<span class="font-medium text-slate-200">${diffText}</span>${otherText}`;
+          tr.appendChild(tdDiff);
+
+          // Coluna 4: Desejo de Funcionalidade
+          const tdWish = document.createElement('td');
+          tdWish.className = 'p-3 align-top max-w-xs';
+          tdWish.innerHTML = `<div class="text-slate-100 bg-slate-950/60 p-2 rounded-lg border border-slate-800 text-xs">"${item.feature_wish}"</div>${item.status_note ? `<div class="text-[11px] text-amber-300 mt-1">Nota: ${item.status_note}</div>` : ''}`;
+          tr.appendChild(tdWish);
+
+          // Coluna 5: Grupo Temático (input inline)
+          const tdGrp = document.createElement('td');
+          tdGrp.className = 'p-3 align-top';
+          const grpInput = document.createElement('input');
+          grpInput.type = 'text';
+          grpInput.value = item.similarity_group || '';
+          grpInput.placeholder = 'Definir grupo...';
+          grpInput.className = 'bg-slate-950 border border-slate-700 rounded px-2 py-1 text-xs text-white w-32 focus:border-sky-500 focus:outline-none';
+          grpInput.addEventListener('change', () => {
+            updateFeedbackGovernance(item.id, { similarityGroup: grpInput.value.trim() });
+          });
+          tdGrp.appendChild(grpInput);
+          tr.appendChild(tdGrp);
+
+          // Coluna 6: Prioridade (1 a 5)
+          const tdPrio = document.createElement('td');
+          tdPrio.className = 'p-3 align-top';
+          const prioSelect = document.createElement('select');
+          prioSelect.className = 'bg-slate-950 border border-slate-700 rounded px-2 py-1 text-xs text-white focus:border-sky-500 focus:outline-none';
+          [0, 1, 2, 3, 4, 5].forEach(val => {
+            const opt = document.createElement('option');
+            opt.value = val;
+            opt.textContent = val === 0 ? 'Sem nota' : `${val} ★`;
+            opt.selected = item.priority_score === val;
+            prioSelect.appendChild(opt);
+          });
+          prioSelect.addEventListener('change', () => {
+            updateFeedbackGovernance(item.id, { priorityScore: parseInt(prioSelect.value, 10) });
+          });
+          tdPrio.appendChild(prioSelect);
+          tr.appendChild(tdPrio);
+
+          // Coluna 7: Status & Ação
+          const tdStatus = document.createElement('td');
+          tdStatus.className = 'p-3 align-top';
+          const statusSelect = document.createElement('select');
+          statusSelect.className = 'bg-slate-950 border border-slate-700 rounded px-2 py-1 text-xs text-white focus:border-sky-500 focus:outline-none';
+          ['recebida', 'em_avaliacao', 'planejada', 'implementada', 'arquivada'].forEach(st => {
+            const opt = document.createElement('option');
+            opt.value = st;
+            opt.textContent = FEEDBACK_STATUS_LABELS[st] || st;
+            opt.selected = item.status === st;
+            statusSelect.appendChild(opt);
+          });
+          statusSelect.addEventListener('change', () => {
+            updateFeedbackGovernance(item.id, { status: statusSelect.value });
+          });
+          tdStatus.appendChild(statusSelect);
+
+          const noteBtn = document.createElement('button');
+          noteBtn.type = 'button';
+          noteBtn.className = 'block text-[11px] text-sky-400 hover:underline mt-1 cursor-pointer';
+          noteBtn.textContent = item.status_note ? 'Editar nota' : '+ Nota';
+          noteBtn.addEventListener('click', () => {
+            const newNote = prompt('Anotação do fundador para esta sugestão:', item.status_note || '');
+            if (newNote !== null) {
+              updateFeedbackGovernance(item.id, { statusNote: newNote.trim() });
+            }
+          });
+          tdStatus.appendChild(noteBtn);
+
+          tr.appendChild(tdStatus);
+
+          tbody.appendChild(tr);
+        });
+      }
+
+      async function updateFeedbackGovernance(feedbackId, updates) {
+        if (!founderAccessToken) return;
+        try {
+          const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/update_product_feedback_governance`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              apikey: SUPABASE_ANON_KEY,
+              Authorization: `Bearer ${founderAccessToken}`,
+            },
+            body: JSON.stringify({
+              p_feedback_id: feedbackId,
+              p_status: updates.status || null,
+              p_similarity_group: updates.similarityGroup || null,
+              p_priority_score: updates.priorityScore !== undefined ? updates.priorityScore : null,
+              p_status_note: updates.statusNote !== undefined ? updates.statusNote : null,
+            }),
+          });
+          if (!res.ok) {
+            const err = await res.json().catch(() => ({}));
+            alert('Erro ao atualizar sugestão: ' + (err.message || res.statusText));
+            return;
+          }
+          await loadFeedbackData();
+        } catch (err) {
+          alert('Erro de conexão ao atualizar sugestão.');
+        }
       }
 
       function founderLogout() {

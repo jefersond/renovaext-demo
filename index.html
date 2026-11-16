@@ -81,6 +81,43 @@
   .dual-cta-banner{grid-template-columns:1fr;gap:18px}
 }
 
+/* Escuta de Clientes & Sugestões */
+.feedback-section{background:#f6f9f9;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding-block:78px}
+.feedback-wrap{display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(28px,5vw,72px);align-items:start}
+.feedback-intro h2{font-size:clamp(1.8rem,3.4vw,2.5rem);margin-bottom:14px;color:var(--ink)}
+.feedback-intro p{font-size:.95rem;line-height:1.6;color:var(--muted);max-width:480px}
+.feedback-points{display:flex;flex-direction:column;gap:9px;margin-top:22px}
+.feedback-point{display:flex;align-items:center;gap:9px;font-size:.84rem;font-weight:650;color:#234a49}
+.point-check{display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:#e2f3ec;color:#0d5148;font-size:.72rem;font-weight:800;flex:none}
+.feedback-form-card{background:#fff;border:1px solid #d8e5e5;border-radius:16px;padding:clamp(20px,3.5vw,36px);box-shadow:0 8px 30px #0c373e0a}
+.feedback-field-group{margin-bottom:20px}
+.feedback-legend{display:block;font-size:.86rem;font-weight:800;color:var(--dark);margin-bottom:10px}
+.feedback-options-list{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.feedback-option{display:flex;align-items:center;gap:7px;padding:8px 10px;background:#f8fafb;border:1px solid #dce8e8;border-radius:8px;font-size:.82rem;font-weight:600;color:#1e293b;cursor:pointer;transition:border-color .15s,background .15s}
+.feedback-option:hover{background:#f0f6f5;border-color:#b8dad3}
+.feedback-option input{accent-color:var(--accent);width:15px;height:15px;margin:0;flex:none}
+.feedback-other-wrap{margin-top:8px}
+.feedback-other-wrap input{width:100%;min-height:38px;border:1px solid #bfcfd0;border-radius:7px;padding:6px 10px;font-size:.85rem;background:#fff}
+.feedback-field-group textarea{display:block;width:100%;min-height:85px;border:1px solid #bfcfd0;border-radius:8px;padding:9px 12px;font-size:.9rem;background:#fff;color:var(--ink);resize:vertical}
+.feedback-field-group textarea:focus,.feedback-other-wrap input:focus,.feedback-contact-inputs input:focus{border-color:var(--accent);outline:2px solid #168c7125}
+.feedback-contact-box{background:#f8fafb;border:1px solid #dce8e8;border-radius:10px;padding:14px}
+.feedback-checkbox-row{display:flex;align-items:flex-start;gap:8px;font-size:.84rem;font-weight:700;color:#1e293b;cursor:pointer}
+.feedback-checkbox-row input{accent-color:var(--accent);width:16px;height:16px;margin-top:2px;flex:none}
+.feedback-contact-fields{margin-top:14px;padding-top:12px;border-top:1px dashed #cfe0de}
+.feedback-contact-inputs{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.feedback-contact-inputs label{display:block}
+.feedback-contact-inputs span{display:block;font-size:.76rem;font-weight:700;color:var(--muted);margin-bottom:4px}
+.feedback-req{color:#a63e44}
+.feedback-opt{font-weight:400;color:#64748b}
+.feedback-contact-inputs input{display:block;width:100%;min-height:39px;border:1px solid #bfcfd0;border-radius:7px;padding:7px 10px;font-size:.85rem;background:#fff}
+.feedback-contact-disclaimer{margin:10px 0 0;font-size:.74rem;color:#475569;line-height:1.4}
+.feedback-action-row{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:22px}
+.feedback-helper-text{font-size:.77rem;color:var(--muted);line-height:1.4;flex:1;min-width:200px}
+.feedback-receipt-panel h3{font-size:1.35rem;margin:0 0 8px;color:var(--dark)}
+.feedback-receipt-panel p{font-size:.88rem;color:#334155;line-height:1.5;margin:0 0 10px}
+@media(max-width:850px){.feedback-wrap{grid-template-columns:1fr;gap:28px}.feedback-options-list{grid-template-columns:1fr}}
+@media(max-width:540px){.feedback-contact-inputs{grid-template-columns:1fr}.feedback-action-row{flex-direction:column;align-items:stretch}.feedback-action-row .button{width:100%}}
+
 </style>
 </head>
 <body>
@@ -90,7 +127,7 @@
     <a class="brand" href="#" aria-label="RenovaExt, início"><img src="./brand/renovaext-icone-quadrado.svg" alt="" width="36" height="36">Renova<span>Ext</span></a>
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
     <nav id="nav" aria-label="Navegação principal">
-      <a href="#como-funciona">Como funciona</a><a href="#demonstracao-guiada">Demonstração visual</a><a href="#planos">Planos</a><a href="#faq">Dúvidas</a>
+      <a href="#como-funciona">Como funciona</a><a href="#demonstracao-guiada">Demonstração visual</a><a href="#planos">Planos</a><a href="#faq">Dúvidas</a><a href="#sugestoes">Sugerir melhoria</a>
       <a class="button header-cta" href="./demo/" target="_blank" rel="noopener">Ver demonstração <span aria-hidden="true">↗</span></a>
     </nav>
   </div>
@@ -385,6 +422,109 @@
     </div>
   </div></section>
 
+  <section class="section feedback-section" id="sugestoes">
+    <div class="wrap feedback-wrap">
+      <div class="feedback-intro">
+        <p class="eyebrow">ESCUTA DE EMPRESAS DE EXTINTORES</p>
+        <h2>O que falta para o RenovaExt ajudar sua empresa?</h2>
+        <p>Estamos ouvindo empresas que trabalham com manutenção e recarga de extintores. Conte o que mais facilitaria sua rotina.</p>
+        <div class="feedback-points">
+          <div class="feedback-point">
+            <span class="point-check">✓</span>
+            <span>Sem cadastro obrigatório</span>
+          </div>
+          <div class="feedback-point">
+            <span class="point-check">✓</span>
+            <span>Sua sugestão não é exposta publicamente</span>
+          </div>
+          <div class="feedback-point">
+            <span class="point-check">✓</span>
+            <span>Análise direta pela equipe técnica</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="feedback-form-card">
+        <form id="feedback-form" method="post" novalidate>
+          <div class="feedback-field-group">
+            <label class="feedback-legend">1. Principal dificuldade atual:</label>
+            <div class="feedback-options-list">
+              <label class="feedback-option">
+                <input type="radio" name="feedback_difficulty" value="organizar_planilhas" checked>
+                <span>Organizar planilhas e cadastros</span>
+              </label>
+              <label class="feedback-option">
+                <input type="radio" name="feedback_difficulty" value="acompanhar_vencimentos">
+                <span>Acompanhar vencimentos</span>
+              </label>
+              <label class="feedback-option">
+                <input type="radio" name="feedback_difficulty" value="preparar_propostas">
+                <span>Preparar propostas</span>
+              </label>
+              <label class="feedback-option">
+                <input type="radio" name="feedback_difficulty" value="acompanhar_negociacoes">
+                <span>Acompanhar negociações</span>
+              </label>
+              <label class="feedback-option">
+                <input type="radio" name="feedback_difficulty" value="outra" id="feedback-difficulty-outra">
+                <span>Outra</span>
+              </label>
+            </div>
+            <div id="feedback-other-wrap" class="feedback-other-wrap" hidden>
+              <input type="text" id="feedback-other-detail" name="feedback_other_detail" placeholder="Especifique brevemente qual é a outra dificuldade..." maxlength="255">
+            </div>
+          </div>
+
+          <div class="feedback-field-group">
+            <label class="feedback-legend" for="feedback-wish">2. O que você gostaria que o sistema também fizesse?</label>
+            <textarea id="feedback-wish" name="feedback_wish" rows="3" placeholder="Ex: Poder organizar os extintores por rota de entrega e coleta, emitir recibo simples na entrega..." required minlength="5" maxlength="2000"></textarea>
+          </div>
+
+          <div class="feedback-field-group feedback-contact-box">
+            <label class="feedback-checkbox-row">
+              <input type="checkbox" id="feedback-wants-contact" name="feedback_wants_contact">
+              <span>Desejo receber retorno sobre esta sugestão quando for avaliada</span>
+            </label>
+            <div id="feedback-contact-fields" class="feedback-contact-fields" hidden>
+              <div class="feedback-contact-inputs">
+                <label>
+                  <span>E-mail para retorno <span class="feedback-req">*</span></span>
+                  <input type="email" id="feedback-email" name="feedback_email" placeholder="seuemail@oficina.com.br" autocomplete="email">
+                </label>
+                <label>
+                  <span>Seu nome ou da oficina <span class="feedback-opt">(opcional)</span></span>
+                  <input type="text" id="feedback-name" name="feedback_name" placeholder="Ex: Carlos / Oficina FogoZero" maxlength="120">
+                </label>
+              </div>
+              <p class="feedback-contact-disclaimer">Usaremos seu e-mail exclusivamente para enviar atualizações sobre esta sugestão específica. Zero spam comercial.</p>
+            </div>
+          </div>
+
+          <!-- Campo invisível Honeypot anti-spam -->
+          <input type="text" name="feedback_bot_hp" class="trap" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+          <div id="feedback-form-error" class="form-error" role="alert" hidden></div>
+
+          <div class="feedback-action-row">
+            <button type="submit" class="button primary" id="feedback-submit-btn">
+              Enviar sugestão <span aria-hidden="true">→</span>
+            </button>
+            <span class="feedback-helper-text">Registrada de forma confidencial. Sem divulgação em murais públicos.</span>
+          </div>
+        </form>
+
+        <div id="feedback-receipt-panel" class="feedback-receipt-panel" hidden>
+          <span class="receipt-mark" aria-hidden="true">✓</span>
+          <h3>Sugestão registrada com sucesso!</h3>
+          <p>Protocolo oficial de escuta: <strong id="feedback-protocol-badge"></strong></p>
+          <div id="feedback-receipt-detail" class="receipt-details"></div>
+          <p>Agradecemos a sua contribuição. O retorno de empresas que vivem a rotina de manutenção de extintores é o que orienta os próximos passos do RenovaExt.</p>
+          <button type="button" class="button outline" id="feedback-reset-btn" style="margin-top:12px">Enviar outra sugestão</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="wrap section legal" id="privacidade">
     <p class="eyebrow">RENOVAEXT • LGPD</p><h2>Privacidade da solicitação comercial</h2>
     <h2>Dados enviados pelo formulário</h2><p>O formulário coleta seu nome, nome da oficina, e-mail comercial, telefone/WhatsApp (se fornecido), faixa de tamanho da carteira, modalidade solicitada (demonstração, piloto ou direitos do titular) e observações opcionais. Em pedidos de demonstração, nenhum plano pago é atribuído como escolha expressa sem sua seleção. Também são registrados o aceite de privacidade e validações no servidor contra envios automatizados (sem armazenar dados pessoais no navegador).</p>
@@ -401,7 +541,7 @@
 </main>
 <footer class="footer"><div class="wrap footer-inner">
   <div><a class="brand" href="#" aria-label="RenovaExt, início"><img src="./brand/renovaext-icone-quadrado.svg" alt="" width="32" height="32">Renova<span>Ext</span></a><p>Gestão comercial para empresas de inspeção, manutenção e recarga de extintores de incêndio.</p></div>
-  <nav aria-label="Links do rodapé"><a href="#privacidade">Privacidade e LGPD</a><a href="./proposta-piloto.html">Condições de uso e do piloto</a><a href="#demonstracao-guiada">Demonstração visual</a><a href="#solicitar" data-intent="demo">Contato comercial</a></nav>
+  <nav aria-label="Links do rodapé"><a href="#privacidade">Privacidade e LGPD</a><a href="./proposta-piloto.html">Condições de uso e do piloto</a><a href="#demonstracao-guiada">Demonstração visual</a><a href="#sugestoes">Sugerir melhoria</a><a href="#solicitar" data-intent="demo">Contato comercial</a></nav>
 </div></footer>
 <script>
 // Configuração pública do Supabase (chave anon pública sujeita a RLS; zero segredos administrativos no frontend).
@@ -709,6 +849,177 @@ form.addEventListener("submit", async event => {
 
 updateIntent();
 submit.disabled = false;
+
+// ==============================================================================
+// Script de Escuta de Clientes & Sugestões de Melhoria (#feedback-form)
+// ==============================================================================
+const feedbackRpcUrl = "https://xmuzcnjcwkhgojnaosha.supabase.co/rest/v1/rpc/submit_product_feedback";
+
+async function submitProductFeedback(payload) {
+  const genericMessage = "Não foi possível enviar sua sugestão agora. Tente novamente em alguns instantes.";
+  let response;
+  try {
+    response = await fetch(feedbackRpcUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        apikey: config.anonKey,
+        Authorization: "Bearer " + config.anonKey,
+      },
+      body: JSON.stringify(payload),
+      signal: AbortSignal.timeout(15000),
+    });
+  } catch {
+    throw new Error(genericMessage);
+  }
+
+  const result = await response.json().catch(() => null);
+  const msg = result?.message || "";
+  if (response.status === 429 || /^SPAM_PROTECTION_/.test(msg)) {
+    throw new Error(msg.split(": ").slice(1).join(": ") || "Aguarde alguns minutos antes de enviar outra sugestão.");
+  }
+  if (/^VALIDATION_ERROR:/.test(msg)) {
+    throw new Error(msg.split(": ").slice(1).join(": ") || "Confira os dados preenchidos e tente novamente.");
+  }
+  if (!response.ok || typeof result?.protocolCode !== "string" || !result.protocolCode.trim()) {
+    throw new Error(genericMessage);
+  }
+  return result;
+}
+
+const feedbackForm = document.querySelector("#feedback-form");
+const feedbackSubmitBtn = document.querySelector("#feedback-submit-btn");
+const feedbackError = document.querySelector("#feedback-form-error");
+const feedbackReceiptPanel = document.querySelector("#feedback-receipt-panel");
+const feedbackProtocolBadge = document.querySelector("#feedback-protocol-badge");
+const feedbackReceiptDetail = document.querySelector("#feedback-receipt-detail");
+const feedbackResetBtn = document.querySelector("#feedback-reset-btn");
+const feedbackWantsContact = document.querySelector("#feedback-wants-contact");
+const feedbackContactFields = document.querySelector("#feedback-contact-fields");
+const feedbackEmailInput = document.querySelector("#feedback-email");
+const feedbackOtherWrap = document.querySelector("#feedback-other-wrap");
+const feedbackOtherDetail = document.querySelector("#feedback-other-detail");
+const feedbackDifficultyRadios = document.querySelectorAll('input[name="feedback_difficulty"]');
+
+let feedbackOpenedAt = Date.now();
+let feedbackSubmitting = false;
+
+if (feedbackWantsContact) {
+  feedbackWantsContact.addEventListener("change", () => {
+    const wants = feedbackWantsContact.checked;
+    feedbackContactFields.hidden = !wants;
+    if (wants) {
+      feedbackEmailInput.setAttribute("required", "required");
+      feedbackEmailInput.focus();
+    } else {
+      feedbackEmailInput.removeAttribute("required");
+      feedbackEmailInput.value = "";
+    }
+  });
+}
+
+feedbackDifficultyRadios.forEach(radio => {
+  radio.addEventListener("change", () => {
+    if (radio.value === "outra" && radio.checked) {
+      feedbackOtherWrap.hidden = false;
+      feedbackOtherDetail.focus();
+    } else {
+      feedbackOtherWrap.hidden = true;
+      feedbackOtherDetail.value = "";
+    }
+  });
+});
+
+if (feedbackResetBtn) {
+  feedbackResetBtn.addEventListener("click", () => {
+    feedbackForm.reset();
+    feedbackContactFields.hidden = true;
+    feedbackOtherWrap.hidden = true;
+    feedbackReceiptPanel.hidden = true;
+    feedbackForm.hidden = false;
+    feedbackError.hidden = true;
+    feedbackOpenedAt = Date.now();
+  });
+}
+
+if (feedbackForm) {
+  feedbackForm.addEventListener("submit", async event => {
+    event.preventDefault();
+    if (feedbackSubmitting) return;
+
+    feedbackError.hidden = true;
+    const formData = new FormData(feedbackForm);
+
+    const difficultyVal = formData.get("feedback_difficulty");
+    const otherDetailVal = (formData.get("feedback_other_detail") || "").trim();
+    const wishVal = (formData.get("feedback_wish") || "").trim();
+    const wantsContactVal = feedbackWantsContact.checked;
+    const emailVal = (formData.get("feedback_email") || "").trim().toLowerCase();
+    const nameVal = (formData.get("feedback_name") || "").trim();
+    const botHpVal = (formData.get("feedback_bot_hp") || "").trim();
+
+    if (wishVal.length < 5) {
+      feedbackError.textContent = "Por favor, descreva em poucas palavras o que você gostaria que o sistema fizesse (mínimo de 5 caracteres).";
+      feedbackError.hidden = false;
+      return;
+    }
+
+    if (wantsContactVal) {
+      if (!emailVal || !emailVal.includes("@") || !emailVal.includes(".")) {
+        feedbackError.textContent = "Informe um e-mail comercial válido para que possamos enviar o retorno sobre sua sugestão.";
+        feedbackError.hidden = false;
+        feedbackEmailInput.focus();
+        return;
+      }
+    }
+
+    feedbackSubmitting = true;
+    feedbackSubmitBtn.disabled = true;
+    const originalBtnText = feedbackSubmitBtn.innerHTML;
+    feedbackSubmitBtn.innerHTML = 'Enviando sugestão… <span aria-hidden="true">⏳</span>';
+
+    try {
+      const elapsedMs = Math.max(900, Math.round(Date.now() - feedbackOpenedAt));
+      const result = await submitProductFeedback({
+        p_primary_difficulty: difficultyVal,
+        p_difficulty_other_detail: difficultyVal === "outra" ? otherDetailVal : null,
+        p_feature_wish: wishVal,
+        p_wants_contact: wantsContactVal,
+        p_contact_email: wantsContactVal ? emailVal : null,
+        p_contact_name: nameVal || null,
+        p_source_page: (window.location.pathname + window.location.search).slice(0, 120) || "/#sugestoes",
+        p_honeypot: botHpVal,
+        p_elapsed_ms: elapsedMs,
+        p_is_test_submission: false
+      });
+
+      feedbackProtocolBadge.textContent = result.protocolCode;
+      
+      const difficultyLabels = {
+        organizar_planilhas: "Organizar planilhas e cadastros",
+        acompanhar_vencimentos: "Acompanhar vencimentos",
+        preparar_propostas: "Preparar propostas",
+        acompanhar_negociacoes: "Acompanhar negociações",
+        outra: "Outra" + (otherDetailVal ? " (" + otherDetailVal + ")" : "")
+      };
+
+      feedbackReceiptDetail.innerHTML =
+        "<div><strong>Dificuldade informada:</strong> " + (difficultyLabels[difficultyVal] || difficultyVal) + "</div>" +
+        "<div><strong>Retorno por e-mail:</strong> " + (wantsContactVal ? ("Sim (" + emailVal + ")") : "Não solicitado (envio anônimo)") + "</div>";
+
+      feedbackForm.hidden = true;
+      feedbackReceiptPanel.hidden = false;
+      feedbackReceiptPanel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    } catch (err) {
+      feedbackError.textContent = err.message;
+      feedbackError.hidden = false;
+    } finally {
+      feedbackSubmitting = false;
+      feedbackSubmitBtn.disabled = false;
+      feedbackSubmitBtn.innerHTML = originalBtnText;
+    }
+  });
+}
 
 </script>
 </body>
