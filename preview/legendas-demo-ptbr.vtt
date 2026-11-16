@@ -1,36 +1,43 @@
 WEBVTT
+Kind: captions
+Language: pt-BR
 
 1
-00:00:00.000 --> 00:00:14.714
-Se sua empresa de extintores trabalha com planilhas para acompanhar clientes e manutenções,
-é fácil perder a visão do que precisa de atenção.
+00:00.000 --> 00:10.360
+Se a sua empresa de manutenção de extintores ainda depende de planilhas para acompanhar os clientes, você sabe que sempre tem renovação se perdendo pelo caminho.
 
 2
-00:00:14.864 --> 00:00:27.482
-O RenovaExt foi criado para organizar a rotina comercial de empresas de extintores de incêndio.
-Veja como funciona na prática.
+00:10.560 --> 00:21.710
+O RenovaExt organiza tudo isso sem você precisar trocar o sistema que já usa. Você traz a sua planilha atual de clientes e extintores direto para cá.
 
 3
-00:00:27.632 --> 00:00:41.787
-Primeiro, você importa a planilha que já utiliza (.CSV ou .XLSX).
-O sistema organiza os registros, bloqueia duplicatas e sinaliza o que precisa ser conferido.
+00:21.910 --> 00:31.429
+O assistente reconhece o nome do condomínio, a quantidade e o tipo de extintor. Você só confere as colunas em poucos segundos.
 
 4
-00:00:41.937 --> 00:00:59.571
-No painel, você visualiza a carteira e o radar separa vencimentos atrasados
-e acompanhamentos para os próximos 30, 60 ou 90 dias.
+00:31.629 --> 00:42.469
+Registros sem data ou com erro de digitação são marcados para conferência técnica. O sistema nunca inventa prazos nem cria cadastros duplicados.
 
 5
-00:00:59.721 --> 00:01:13.127
-Ao abrir uma oportunidade, você acompanha a etapa no funil comercial
-e prepara a proposta com os preços praticados pela sua empresa.
+00:42.670 --> 00:55.429
+No painel, o Radar divide sua carteira por urgência: quem já venceu e quem vence em 30, 60 ou 90 dias. Sua equipe abre a tela e já sabe para quem ligar hoje.
 
 6
-00:01:13.277 --> 00:01:27.119
-Em poucos passos, você gera o orçamento em PDF pronto para baixar —
-tudo isso sem precisar abandonar seu sistema atual.
+00:55.630 --> 01:04.049
+Ao abrir o cliente, você vê o contato do síndico, o telefone e todos os extintores cadastrados daquele condomínio.
 
 7
-00:01:27.269 --> 00:01:40.015
-Quer conhecer na prática? Explore a demonstração com dados fictícios
-ou solicite um piloto de 30 dias para sua empresa de extintores.
+01:04.250 --> 01:12.429
+Você atualiza a etapa da negociação, anota o retorno da conversa no WhatsApp e não deixa nenhum orçamento esquecido.
+
+8
+01:12.629 --> 01:22.459
+Para cotar, é só digitar os valores que a sua oficina pratica. O RenovaExt calcula o subtotal e o total da proposta na hora.
+
+9
+01:22.659 --> 01:33.429
+Com um clique, sua proposta em PDF fica pronta, com número oficial, seus dados e nota técnica das normas vigentes, pronta para enviar ao síndico.
+
+10
+01:33.629 --> 01:40.509
+Teste agora mesmo a demonstração interativa ou solicite o seu piloto comercial de 30 dias.
