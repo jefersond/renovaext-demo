@@ -185,3 +185,57 @@
 - [x] 5. Sincronização e push das branches `main` e `preview/nova-landing-chatgpt` no GitHub (`jefersond/renovaext-demo`) com suporte ao build `npm run build` e saída `dist` na Cloudflare Pages.
 - [x] 6. Elaboração e estruturação da campanha Meta Ads em status PAUSADA/RASCUNHO com orçamento total cravado em R$ 10,00 (período de 48h para atender ao piso da Meta em BRL sem aumento de verba) em `docs/comercial/16-campanha-meta-ads-validacao-inicial.md`.
 - [x] 7. Mapeamento DNS exato para `renovaext.com.br`, `www` e `demo` na Cloudflare, com preservação total de registros MX/SPF/DKIM para e-mails corporativos futuros.
+
+---
+
+## Fase 14: Decisão Final do Fundador — Substituição de Vídeo por Demonstração Visual Guiada e Versão Final Candidata
+- [x] 1. Descontinuação definitiva da produção de vídeo; remoção de players, capítulos e links de vídeo no header, body e footer.
+- [x] 2. Implementação da seção oficial "Demonstração Visual Guiada • 3 Etapas Reais" (`#demonstracao-guiada`) com capturas em alta resolução do MVP com dados fictícios e 9 cartões explicativos objetivos (3 por etapa).
+- [x] 3. Implementação da Caixa Dupla de Ação (`.dual-cta-banner`): Ação 1 direta para Demo Gratuita Imediata (`./demo/`) e Ação 2 para Solicitação de Piloto Comercial de 30 Dias (`#solicitar`).
+- [x] 4. Garantia de legibilidade e responsividade em dispositivos móveis (390px) sem necessidade de pinça/zoom manual.
+- [x] 5. Remoção de blocos órfãos e scripts legados de abas; validação estrita da sintaxe JavaScript inline.
+- [x] 6. Validação visual e funcional via subagente de browser no Cloudflare Pages local (`http://localhost:8788/`) em Desktop e Mobile.
+- [x] 7. Build limpo (`npm run build` -> `dist/`), auditoria de vazamento de credenciais (`verify_public_bundle_security.mjs`) e sincronização completa com `main` e `preview/nova-landing-chatgpt` no GitHub.
+
+---
+
+## Fase 15: Escuta de Clientes e Canal de Sugestões de Melhoria (Feedback do Produto)
+- [x] 1. Definir POP técnico em `architecture/pop-05-escuta-de-clientes-e-feedback.md` (Camada 1).
+- [x] 2. Criar migrações SQL (`20261116000009_product_feedback_and_feature_requests.sql`, `20261116000010` e `20261116000011`):
+  - Tabela isolada `public.product_feedback_suggestions` com RLS estrito (sem dados públicos).
+  - RPC segura `public.submit_product_feedback` com anti-spam (honeypot, elapsed_ms, rate limit), sanitização e geração de protocolo `FDB-...`.
+  - Classificação contextual de origem (`visitante_anonimo`, `lead_interessado`, `empresa_piloto`).
+  - RPCs analíticas e de governança restritas a `is_authenticated_founder_admin()` e `service_role`.
+- [x] 3. Implementar seção discreta e elegante em `index.html`:
+  - Título: *"O que falta para o RenovaExt ajudar sua empresa?"*
+  - Explicação: *"Estamos ouvindo empresas que trabalham com manutenção e recarga de extintores. Conte o que mais facilitaria sua rotina."*
+  - Opções da dificuldade principal (planilhas, vencimentos, propostas, negociações, outra).
+  - Campo de texto para desejo de funcionalidade.
+  - Checkbox para contato opcional + campo de e-mail condicional.
+  - Confirmação real com protocolo `FDB-...` somente após persistência com sucesso.
+- [x] 4. Criar ferramenta administrativa CLI para o fundador `tools/founder_feedback_cli.mjs` (consultar, agrupar por tema, atualizar status e priorizar).
+- [x] 5. Integrar módulo de escuta de clientes no painel do fundador `public/painel-fundador-crm.html`.
+- [x] 6. Criar e executar script determinístico de teste E2E `tools/test_product_feedback_e2e.mjs` (100% dos 7 testes aprovados).
+- [x] 7. Build limpo (`npm run build` -> `dist/`), verificação de segurança (`verify_public_bundle_security.mjs`), validação visual no browser e sincronização completa no GitHub (commits `4569f0a` e `6bd8c35`).
+
+---
+
+## Fase 16: Fechamento Definitivo do Site e Verificação de Prontidão Operacional (100% Concluído)
+- [x] 1. Bloqueio absoluto de novas funcionalidades (congelamento de escopo aprovado pelo fundador).
+- [x] 2. Auditoria e atualização da Política de Privacidade em `index.html` e `dist/index.html`: inclusão de cláusula explícita sobre o isolamento do feedback de produto (`public.product_feedback_suggestions`), ausência de PII em envios anônimos e restrição estrita de consentimento de contato (proibição de marketing ou propaganda).
+- [x] 3. Criação e execução do script determinístico de auditoria final `tools/verify_final_publication_readiness.mjs` (10/10 testes aprovados):
+  - Formulário comercial -> Supabase -> CRM pipeline (protocolo `SOL-...`);
+  - Bloqueio de spam no servidor (rate limit de 10 min por e-mail, telefone e oficina);
+  - Formulário de sugestões -> tabela isolada `product_feedback_suggestions` (protocolo `FDB-...`);
+  - Isolamento estrito do CRM: 0 sugestões vazadas para leads ou CRM;
+  - Sugestões anônimas com zero PII e sem contato;
+  - Indicadores de clientes reais auditados em ZERO (`realLeadsTotal: 0`);
+  - Limpeza de dados de teste concluída;
+  - Política de privacidade auditada;
+  - Campanha Meta Ads auditada (R$ 10,00 cravados / 48h, status RASCUNHO/PAUSADA);
+  - Rotas públicas HTTPS do GitHub Pages com HTTP 200 OK.
+- [x] 4. Diagnóstico de autoridade DNS e status do Cloudflare Pages:
+  - Domínio `renovaext.com.br` ativo e verificado via RDAP no Registro.br sob titularidade do fundador (expiração: 2027-11-16);
+  - Servidores autoritativos atuais: `d.sec.dns.br` e `f.sec.dns.br` (padrão Registro.br);
+  - Status `renovaext.pages.dev`: projeto aguarda associação Git no painel Cloudflare para ativação sem risco de interrupção.
+- [x] 5. Sincronização completa de código e builds para `main` e `preview/nova-landing-chatgpt` no GitHub (commit `3dfa6c7`), mantendo versão funcional pública imediatamente disponível em `https://jefersond.github.io/renovaext-demo/`.

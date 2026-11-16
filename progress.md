@@ -261,3 +261,91 @@
   - Anúncio único em 1080×1080 com copy comercial transparente e sem promessas irrealistas;
   - Mensuração respeitando a privacidade: clique nunca é lead; lead é unicamente formulário confirmado no Supabase;
   - Campanha mantida estritamente em **RASCUNHO / PAUSADA** (zero gastos disparados).
+
+---
+
+## 2026-11-16 — Substituição Definitiva de Vídeo por Demonstração Visual Guiada e Versão Final Candidata
+
+### 1. Descontinuação de Vídeo e Implementação da Demonstração Visual Guiada
+- Removidas integralmente as seções obsoletas de vídeo, links de navegação para vídeo e códigos CSS/JS legados de abas.
+- Criada a seção `#demonstracao-guiada` estruturada em 3 etapas operacionais com capturas reais do MVP (dados fictícios) e 9 cartões de destaque com badges numéricos e ícones:
+  - **Etapa 01 • Importação de Planilhas:** Mapeamento flexível de colunas, prevenção de duplicatas na carteira e zero invenção de datas (pendência automática);
+  - **Etapa 02 • Radar Comercial de Vencimentos:** Filtros em 1 clique (Atrasados, 30d, 60d, 90d e Incompletos), indicadores rápidos de volume da carteira e aviso claro de que o radar não substitui inspeção técnica;
+  - **Etapa 03 • Proposta Comercial em PDF & Funil:** Gestão de oportunidades em 7 etapas, tabela de preços unitários 100% editável pela oficina e download instantâneo de proposta em PDF pronto para WhatsApp/e-mail.
+
+### 2. Implementação do Banner de Ação Dupla (`.dual-cta-banner`)
+- **Card 1 (Demonstração Gratuita Imediata):** Direciona para `./demo/` sem exigir cadastro ou dados bancários, com dados fictícios da Oficina ProtegeFogo e bloqueio de dados reais;
+- **Card 2 (Piloto Comercial de 30 Dias):** Direciona com scroll suave para o formulário `#solicitar` com promessa transparente de retorno comercial em até 1 dia útil e planos sem fidelidade.
+
+### 3. Autocorreção e Higienização Técnica
+- Removido listener de teclado órfão que gerava aviso `Unexpected token '}'` no console do navegador;
+- Validação estrita de responsividade mobile (390px): os cartões e as capturas de tela se empilham perfeitamente, garantindo leitura instantânea sem pinça ou zoom manual;
+- Compilação do projeto com `npm run build` gerando `dist/` limpo e verificado com `node tools/verify_public_bundle_security.mjs` (zero vazamento de credenciais ou chaves administrativas);
+- Sincronização completa via Git push com as branches `main` e `preview/nova-landing-chatgpt` no repositório remoto `jefersond/renovaext-demo.git`.
+
+---
+
+## 2026-11-16 — Escuta de Clientes, Sugestões de Melhoria e Governança do Produto (Fase 15)
+
+### 1. Separação Estrutural de Dados e Migrações SQL
+- **Tabela Isolada (`public.product_feedback_suggestions`):** Criada através da migração `20261116000009_product_feedback_and_feature_requests.sql` com RLS estrito e zero permissão de leitura pública ou anônima.
+- **RPC Pública Segura (`submit_product_feedback`):** Implementada com proteções anti-bot (honeypot invisível), medição de tempo decorrido (`>= 600ms`), validação de tamanho mínimo de texto, rate limiting server-side contra duplicações em 5 minutos e geração de protocolo oficial `FDB-YYYYMMDD-XXXXXX`.
+- **Autocorreções Registradas (Loop de Reparo V.L.A.E.G.):**
+  - **Validação de E-mail com Múltiplos Pontos:** A versão inicial de validação comparava `position('.' in v_email)` que pegava o primeiro ponto antes do arroba (`teste.feedback@...`). Corrigido na migração `20261116000010` para extrair a parte do domínio (`substring(v_email from position('@' in v_email) + 1)`) antes de validar a presença de ponto.
+  - **Autorização de Funções Administrativas:** Na migração 09 a checagem usava `current_user = 'service_role'`. Na migração `20261116000011`, foi alinhada para verificar `auth.jwt() ->> 'role' = 'service_role'` ou `is_authenticated_founder_admin()`, viabilizando o acesso administrativo pelo painel web e CLI.
+
+### 2. Seção Discreta na Landing Page (`#sugestoes`)
+- Integrada entre `#solicitar` e `#privacidade`, garantindo zero atrito com a chamada principal de piloto/demo:
+  - Título: *"O que falta para o RenovaExt ajudar sua empresa?"*;
+  - Explicação: *"Estamos ouvindo empresas que trabalham com manutenção e recarga de extintores. Conte o que mais facilitaria sua rotina."*;
+  - Opções da dificuldade principal: *Organizar planilhas e cadastros*, *Acompanhar vencimentos*, *Preparar propostas*, *Acompanhar negociações* e *Outra* (com campo de especificação opcional);
+  - Campo de texto para desejo de funcionalidade (mínimo 5 caracteres);
+  - Checkbox para contato opcional: se marcado, exibe suavemente os campos de e-mail e nome; se desmarcado, o envio é 100% anônimo;
+  - Recibo oficial: exibe confirmação e protocolo `FDB-...` somente após retorno de sucesso do servidor.
+
+### 3. Ferramenta CLI de Governança para o Fundador (`tools/founder_feedback_cli.mjs`)
+- Criado utilitário administrativo no terminal:
+  - Exibe resumo executivo: contagem total, quebra por dificuldade, origem dos visitantes e agrupamentos de assuntos semelhantes;
+  - Comandos para atualizar status (`--status <PROT> <STATUS>`), definir grupo temático (`--grupo <PROT> <GRUPO>`), prioridade (`--prioridade <PROT> <1-5>`) e anotação (`--nota <PROT> "texto"`).
+
+### 4. Integração no Painel Web do Fundador (`public/painel-fundador-crm.html`)
+- Inserido módulo completo "Escuta de Clientes & Sugestões de Melhoria" com cards analíticos e tabela interativa de governança para o fundador alterar status, grupo de similaridade e prioridade diretamente na interface web autenticada.
+
+### 5. Validação E2E e Evidências Visuais
+- Teste determinístico `tools/test_product_feedback_e2e.mjs` executado com aprovação de 100% dos 7 cenários;
+- Validação no navegador via subagente de browser gerando protocolo real `FDB-20261116-F46F0C`;
+- Evidências salvas: `evidencia_feedback_recibo_desktop.png` e capturas no diretório de artefatos.
+
+---
+
+## 2026-11-16 — Fechamento Definitivo do Site e Verificação de Prontidão Operacional (Fase 16)
+
+### 1. Auditoria e Hardening da Política de Privacidade
+- Adicionada cláusula explícita em `index.html` e `dist/index.html` esclarecendo que:
+  - Sugestões são armazenadas em tabela isolada `public.product_feedback_suggestions` sob RLS;
+  - Envios anônimos não coletam PII e nunca entram no CRM comercial;
+  - O consentimento para receber retorno sobre uma sugestão é estritamente pontual para o andamento do item sugerido, sendo proibido o uso para marketing ou propaganda geral.
+
+### 2. Execução Determinística de Auditoria Final (`tools/verify_final_publication_readiness.mjs`)
+- Criado e executado script com 10/10 verificações aprovadas com sucesso:
+  1. Envio de lead comercial -> Supabase -> CRM pipeline (protocolo `SOL-20261116-92D9F6`);
+  2. Proteção contra spam e duplicações (rate limit de 10 min por e-mail/telefone/oficina);
+  3. Envio de sugestão -> tabela isolada (protocolo `FDB-20261116-7C407C`);
+  4. Isolamento estrito do CRM: 0 sugestões vazadas para leads ou CRM;
+  5. Envio de sugestão anônima verificado (zero PII, `contact_email = NULL`, `wants_contact = false`);
+  6. Indicadores de clientes reais auditados estritamente em ZERO (`realLeadsTotal: 0`);
+  7. Limpeza de registros de teste concluída no banco de dados;
+  8. Política de privacidade auditada no arquivo público;
+  9. Documentação da campanha Meta Ads auditada (R$ 10,00 cravados / 48h, status RASCUNHO/PAUSADA);
+  10. Rotas HTTPS públicas do GitHub Pages respondendo HTTP 200 OK (`/` e `/demo/`).
+
+### 3. Diagnóstico de DNS e Cloudflare Pages
+- **Domínio `renovaext.com.br`:** Ativo no Registro.br sob titularidade de Jeferson Dias Zanotelli (CPF verificado via RDAP), válido até 2027-11-16. Servidores autoritativos atuais: `d.sec.dns.br` e `f.sec.dns.br` (Registro.br padrão).
+- **Cloudflare Pages (`renovaext.pages.dev`):** Aguarda criação/associação do projeto no painel da Cloudflare pelo fundador para ativar a build automática a partir do repositório GitHub `jefersond/renovaext-demo`.
+- **Publicação Atual em Produção:** 100% funcional e acessível em `https://jefersond.github.io/renovaext-demo/` e `https://jefersond.github.io/renovaext-demo/demo/`.
+
+### 4. Build de Produção e Sincronização de Repositório
+- `npm run build` executado gerando `dist/` limpo em 7.48s;
+- `node tools/verify_public_bundle_security.mjs` confirmou 0 vazamentos de chaves ou segredos em 54 arquivos analisados;
+- Repositório remoto no GitHub sincronizado em `main` e `preview/nova-landing-chatgpt` (commit `3dfa6c7`).
+

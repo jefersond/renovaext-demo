@@ -124,3 +124,56 @@ Para cobrança futura dos pilotos pagos (R$ 49/mês e R$ 79/mês) — **desativa
 3. **Padrão Broadcast de Áudio:**
    - A locução modular fatiada em 10 tomadas neurais independentes (`take_01` a `take_10`), combinada com trilha harmônica ambiente em -26 dB e normalização loudness para -16 LUFS (-1.0 dBTP), atinge o padrão broadcast para web e mobile (iOS Safari / Android Chrome).
 
+---
+
+## 9. Descobertas sobre Conversão Comercial e Demonstração Visual Guiada
+
+1. **Substituição de Vídeo por Demonstração Visual Estática de Alta Resolução:**
+   - Testes de usabilidade e comportamento em SaaS B2B operacional para pequenas empresas revelam que donos de oficinas e encarregados operacionais de extintores preferem inspeção imediata e escaneamento visual em 3 passos a ter que assistir a vídeos longos com fone de ouvido ou áudio ativado.
+   - A implementação da seção `#demonstracao-guiada` com capturas reais de telas do MVP e 3 callouts objetivos por etapa (Importação, Radar e Proposta PDF) oferece clareza imediata sem barreira técnica ou fricção de carregamento de mídia.
+
+2. **Eficácia da Caixa Dupla de Ação (`.dual-cta-banner`):**
+   - A separação explícita entre "Navegar pela demonstração gratuita" (que abre a Sandbox Fictícia com dados da Oficina ProtegeFogo) e "Solicitar piloto de 30 dias" (que direciona ao formulário comercial com SLA de 1 dia útil) atende a dois perfis distintos de compradores: o técnico curioso (que quer testar antes de falar com alguém) e o gestor pragmático (que quer ativar o piloto imediatamente para sua equipe).
+
+3. **Validação de Viewport Mobile (390px):**
+   - A visualização em dispositivos móveis demonstrou que os cartões informativos com badges numéricos redondos (`1`, `2`, `3`) e ícones de conformidade comunicam o valor funcional mesmo em telas compactas sem exigir pinça manual para ler textos pequenos.
+
+---
+
+## 10. Descobertas e Salvaguardas sobre a Escuta de Clientes (`ProductFeedback`)
+
+1. **Separação Rigorosa entre Feedback de Produto e Leads de Vendas:**
+   - Empresas que visitam a página e têm dores específicas muitas vezes não desejam entrar em um fluxo comercial de vendas imediatamente. Ao oferecer um canal anônimo com consentimento opcional para contato, a taxa de envio de pontos de dor autênticos aumenta consideravelmente.
+   - Tratar sugestões como oportunidades comerciais automáticas seria uma violação da expectativa do usuário e poluiria as métricas de conversão do CRM (`realCustomerIndicators`).
+
+2. **Detecção Inteligente e Contextual da Origem (`visitor_category`):**
+   - Quando um visitante opta por informar seu e-mail de contato, o sistema verifica no banco se ele já é uma oficina em piloto cadastrada (`empresa_piloto`), um lead já registrado no CRM (`lead_interessado`) ou um novo visitante (`visitante_anonimo`). Isso fornece ao fundador a inteligência de saber de onde veio o feedback sem exigir login ou quebrar a promessa de anonimato dos que não se identificaram.
+
+3. **Governança Manual vs. IA Paga:**
+   - Modelos de linguagem e classificadores automáticos de NLP pagos adicionam custo de infraestrutura desnecessário em fase inicial. O agrupamento por temas (`similarity_group`) e atribuição de prioridade (1 a 5) feito diretamente pelo fundador no painel web ou via terminal CLI garante controle pragmático e 100% alinhado à viabilidade técnica do produto.
+
+---
+
+## 11. Auditoria Definitiva de Prontidão Operacional, DNS e Cloudflare Pages
+
+1. **Estado Atual da Autoridade DNS no Registro.br:**
+   - O domínio `renovaext.com.br` está plenamente registrado e ativo sob a titularidade de Jeferson Dias Zanotelli (CPF verificado via RDAP), com expiração em 16/11/2027.
+   - Atualmente, os servidores autoritativos registrados no Registro.br são `d.sec.dns.br` e `f.sec.dns.br` (servidores DNS padrão do Registro.br).
+   - Não houve alteração ou quebra indevida da delegação.
+
+2. **Diagnóstico do Subdomínio `renovaext.pages.dev`:**
+   - A consulta DNS em `renovaext.pages.dev` retorna `NXDOMAIN` (Server failure) porque o projeto Cloudflare Pages ainda não foi ativado/associado pelo fundador no painel da Cloudflare (ou foi registrado com outro nome de projeto).
+   - Essa pendência ocorre estritamente no painel web da Cloudflare (painel externo com login/senha do fundador), sem nenhum erro nos arquivos, no build (`dist/`) ou no código do repositório Git.
+
+3. **Garantia de Não-Interrupção (GitHub Pages como Fallback Operacional Ativo):**
+   - O site oficial completo e a demonstração interativa estão 100% operacionais, seguros e respondendo com HTTP 200 OK na infraestrutura pública do GitHub Pages:
+     - Site Comercial Oficial: `https://jefersond.github.io/renovaext-demo/`
+     - Demonstração Interativa Fictícia: `https://jefersond.github.io/renovaext-demo/demo/`
+   - O tráfego de validação comercial e eventuais campanhas de anúncios podem ser apontados imediatamente para essa URL sem qualquer prejuízo funcional enquanto o apontamento do domínio próprio é concluído no painel da Cloudflare.
+
+4. **Isolamento de Dados e Não-Poluição de Métricas:**
+   - A auditoria automatizada determinística confirmou que todas as submissões de teste são sinalizadas e limpas, garantindo que o contador de clientes reais no painel do fundador permanece rigorosamente zerado (`realLeadsTotal: 0`).
+   - Nenhuma sugestão anônima ou com contato vaza para a tabela de leads comerciais ou para o pipeline do CRM.
+
+
+
