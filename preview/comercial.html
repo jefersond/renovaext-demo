@@ -1,930 +1,838 @@
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>RenovaExt — Apresentação Comercial e Demonstração (2 min)</title>
-    <meta
-      name="description"
-      content="Transforme sua carteira de manutenção de extintores em uma agenda organizada de renovações, sem abandonar seu sistema atual. Assista à demonstração de 2 minutos."
-    />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      body {
-        font-family: 'Inter', sans-serif;
-      }
-      .font-mono {
-        font-family: 'JetBrains Mono', monospace;
-      }
-    </style>
-  </head>
-  <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col">
-    <!-- Barra Superior -->
-    <div class="bg-slate-900 border-b border-slate-800 px-4 py-2.5 text-xs text-slate-300">
-      <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3">
-        <div class="flex items-center gap-2">
-          <span class="px-2 py-0.5 rounded bg-red-600 text-white font-mono font-bold">
-            RENOVAEXT MVP
-          </span>
-          <span>
-            Agenda Comercial de Renovações para Oficinas de Extintores • Dados 100% Isolados por Empresa (RLS)
-          </span>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f9f9">
+  <meta name="description" content="Organize a carteira da sua empresa de manutenção de extintores, acompanhe vencimentos e prepare propostas comerciais com o RenovaExt.">
+  <title>RenovaExt | Gestão de renovações para empresas de extintores</title>
+  <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MCA0MCI+PHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiByeD0iMTEiIGZpbGw9IiMwYjM3M2QiLz48cGF0aCBkPSJNMTIgMjBhOCA4IDAgMCAxIDEzLjctNS43TDI4IDE3bTAtNXY1aC01bTUgM2E4IDggMCAwIDEtMTMuNyA1LjdMMTIgMjNtMCA1di01aDUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzliZWZjZCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjIuMyIvPjwvc3ZnPg0K" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>:root{--paper:#f5f9f9;--white:#fff;--ink:#132d33;--muted:#4c636a;--accent:#116b59;--line:#dce8e8;--dark:#0c373e;--mint:#b0f2d7;--display:Manrope,Inter,system-ui,sans-serif;--body:Inter,system-ui,sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:var(--white);font-family:var(--body);line-height:1.62}a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}button{cursor:pointer}img{display:block;max-width:100%;height:auto}p,h1,h2,h3{margin-top:0}h1,h2,h3{font-family:var(--display);line-height:1.12;letter-spacing:-.038em}p{color:var(--muted)}[hidden]{display:none!important}section[id]{scroll-margin-top:95px}.wrap{width:min(1200px,calc(100% - 104px));margin-inline:auto}.skip{position:fixed;left:1rem;top:1rem;transform:translateY(-200%);padding:.75rem;background:#fff;z-index:10}.skip:focus{transform:none}:focus-visible{outline:3px solid #168c71;outline-offset:4px}
+.header{position:sticky;top:0;z-index:4;background:#fff;border-bottom:1px solid #e5eded}.header-inner{display:flex;align-items:center;justify-content:space-between;min-height:76px;gap:24px}.brand{display:inline-flex;align-items:center;gap:0;font-family:var(--display);font-size:1.42rem;font-weight:800;letter-spacing:-.065em;white-space:nowrap}.brand img{margin-right:10px}.brand span{color:var(--accent)}.header nav{display:flex;align-items:center;gap:clamp(16px,2vw,32px);font-size:.88rem;font-weight:600}.header nav>a:not(.button):hover,.footer nav a:hover{color:var(--accent);text-decoration:underline;text-underline-offset:4px}.menu-toggle{display:none}
+.button{min-height:49px;display:inline-flex;align-items:center;justify-content:center;gap:11px;border:1px solid transparent;border-radius:9px;padding:11px 17px;font-weight:700;font-size:.87rem;line-height:1.3;transition:background .18s,border-color .18s,color .18s;white-space:normal}.button span{font-size:1rem;line-height:1}.primary{background:#0d5148;color:white}.primary:hover{background:#093e37}.outline,.header-cta{background:#fff;border-color:#c5d9d9;color:var(--dark)}.outline:hover,.header-cta:hover{background:#e6f4ef;border-color:#9fc8be}.header-cta{min-height:40px;margin-left:4px}.button:disabled{opacity:.65;cursor:wait}
+.hero{background:radial-gradient(ellipse at 82% 49%,#dceded 0,transparent 53%),var(--paper);overflow:hidden}.hero-inner{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:clamp(32px,5vw,79px);min-height:637px;padding-block:72px 85px}.hero-copy{padding-top:4px}.eyebrow{font-family:var(--body);font-size:.71rem;letter-spacing:.14em;font-weight:800;color:var(--accent);margin-bottom:17px}.hero-kicker{display:inline-flex;align-items:center;gap:8px;background:#e4f1ed;border:1px solid #d1e5de;border-radius:30px;padding:5px 10px;margin-bottom:23px}.hero-kicker span,.demo-label i{height:7px;width:7px;border-radius:50%;background:#31a483;display:inline-block;flex:none}.hero h1{font-size:clamp(2.65rem,4.07vw,3.88rem);letter-spacing:-.063em;font-weight:800;margin:0 0 25px}.hero h1 em{font-style:normal;color:var(--accent)}.hero-description{font-size:1.05rem;line-height:1.7;max-width:490px;margin-bottom:27px}.actions{display:flex;flex-wrap:wrap;gap:11px}.micro{color:var(--muted);font-size:.78rem}.hero-note{display:flex;align-items:center;gap:8px;margin:16px 0 0}.hero-note span,.strip-inner i{color:var(--accent);font-weight:800;font-style:normal}
+.hero-visual{position:relative;min-width:0;padding-bottom:16px}.dashboard{background:#fff;border:1px solid #d4e3e4;border-radius:19px;box-shadow:0 28px 65px #163e451c,0 6px 22px #153d440e;overflow:hidden}.dash-bar{display:flex;justify-content:space-between;align-items:center;gap:8px;background:#0c363d;color:white;padding:13px 17px}.dash-brand{display:flex;align-items:center;gap:5px;font-family:var(--display);font-weight:800;font-size:.85rem}.demo-label{display:flex;align-items:center;gap:6px;color:#4a6968;font-weight:600;font-size:.69rem;white-space:nowrap;margin:0}.dash-bar .demo-label{color:#c8e5df;background:#ffffff13;border:1px solid #b9e9dd30;border-radius:15px;padding:3px 8px}.dash-content{padding:23px 18px 25px}.dash-intro{display:flex;justify-content:space-between;align-items:center;gap:8px}.dash-intro h2{font-size:1.24rem;margin:0 0 4px}.dash-intro p{font-size:.73rem;margin:0}.dash-tag{font-weight:700;font-size:.71rem;border:1px solid #dce8e5;background:#f5faf8;border-radius:6px;padding:5px 9px;color:#115e50}.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:16px 0}.metrics>div{border:1px solid #e1ecea;border-radius:8px;background:#f6faf9;padding:10px 11px}.metrics small{display:block;color:var(--muted);font-size:.68rem;font-weight:600;line-height:1.35}.metrics strong{display:block;font:800 1.51rem/1.2 var(--display);margin-top:5px}.red{color:#a63e44}.dash-list{border:1px solid #e1e9e9;border-radius:9px;overflow:hidden}.dash-list-heading{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:9px 11px;font-size:.77rem}.dash-list-heading span{color:var(--muted);font-size:.63rem;background:#f5f8f8;border:1px solid #e4ebeb;border-radius:5px;padding:3px 5px}.dash-row{display:grid;grid-template-columns:1.3fr .8fr .71fr;align-items:center;gap:5px;border-top:1px solid #ebf0ef;padding:7px 11px;font-size:.72rem}.dash-row>span:first-child{display:flex;align-items:center;gap:6px;font-weight:650}.dash-labels{background:#f7f9fa;color:#536971;font-size:.59rem;font-weight:700}.initial{display:grid;place-items:center;width:22px;height:22px;border-radius:5px;font-size:.55rem;font-style:normal;font-weight:800;flex:none}.blue{background:#e9f2fd;color:#29568d}.green{background:#e1f4e9;color:#286348}.purple{background:#f0ebf9;color:#635488}.tag{display:inline-block;font-style:normal;padding:2px 7px;border-radius:15px;font-size:.62rem;font-weight:700;line-height:1.5}.late{background:#fbe9e9;color:#973239}.soon{background:#e6f3ef;color:#235e55}.review-tag{background:#f3e8ff;color:#6b21a8}.proposal-float{position:absolute;bottom:-12px;right:-15px;display:flex;gap:10px;align-items:center;padding:12px 13px;border-radius:12px;border:1px solid #dceae6;background:#fff;box-shadow:0 12px 35px #0d363522}.proposal-float strong,.proposal-float small{display:block;line-height:1.4}.proposal-float strong{font-size:.78rem}.proposal-float small{font-size:.67rem;color:var(--muted)}.document-icon,.float-check{display:grid;place-items:center;color:#146351;background:#e1f4ec;border-radius:7px;width:32px;height:32px;font-weight:800}.float-check{width:19px;height:19px;border-radius:50%;font-size:.72rem;margin-left:4px}
+.value-strip{background:#fff;border-block:1px solid var(--line)}.strip-inner{display:grid;grid-template-columns:repeat(4,1fr);min-height:68px;align-items:center;gap:13px;font-size:.82rem;font-weight:700;color:#375057}.strip-inner span{display:flex;align-items:center;justify-content:center;gap:8px}.strip-inner i{background:#e6f3ee;border-radius:50%;width:18px;height:18px;display:grid;place-items:center;font-size:.67rem}
+.section{padding-block:94px}.section h2,.contact h2{font-size:clamp(2rem,4vw,3.13rem);font-weight:800;margin-bottom:17px}.section h3,.contact h3{font-size:1.25rem;margin-bottom:10px;letter-spacing:-.027em}.section p:last-child{margin-bottom:0}.problem{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,9vw,133px);align-items:center}.problem h2{margin:0}.problem p:not(.eyebrow){font-size:1rem}.section-intro{max-width:680px;margin-bottom:35px}.process,.pricing{background:#f4f8f8;border-block:1px solid #e7efef}.steps,.benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}.steps article{background:white;border:1px solid var(--line);border-radius:13px;padding:27px}.step-number{font-family:var(--display);font-size:.88rem;display:grid;place-items:center;width:39px;height:39px;border-radius:8px;background:#e4f1ed;color:var(--accent);font-weight:800;margin-bottom:27px}.steps p,.benefits p{font-size:.9rem}
+.video-section{background:var(--white);border-bottom:1px solid var(--line)}.video-frame{background:var(--dark);border:1px solid #1d4d55;border-radius:18px;overflow:hidden;box-shadow:0 24px 55px #0c373e24}.video-topbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:14px 20px;background:#08282d;border-bottom:1px solid #19444b;color:#fff}.video-title{display:flex;align-items:center;gap:10px;font-size:.86rem;font-weight:700}.video-dot{width:9px;height:9px;border-radius:50%;background:#31a483;flex:none}.video-chapters{display:flex;flex-wrap:wrap;gap:6px}.video-chapters button{border:1px solid #255860;background:#103940;color:#d6ece8;border-radius:7px;padding:6px 10px;font-size:.75rem;font-weight:600}.video-chapters button:hover{background:#164c54;color:#fff}.video-canvas-wrap{background:#071f24;aspect-ratio:16/9;width:100%;position:relative}.video-canvas-wrap canvas{width:100%;height:100%;display:block;cursor:pointer}.video-controls{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;padding:12px 20px;background:#08282d;border-top:1px solid #19444b;color:#d6ece8}.video-buttons{display:flex;align-items:center;gap:8px}.video-buttons button{border:1px solid #285d66;background:#116b59;color:#fff;border-radius:7px;padding:7px 13px;font-size:.78rem;font-weight:700}.video-buttons button.secondary-ctrl{background:#103940}.video-time{font-family:monospace;font-size:.8rem;color:#b0f2d7}.video-scrubber{flex:1;min-width:180px;accent-color:#31a483;cursor:pointer}
+.feature-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(28px,7vw,92px);align-items:center}.tabs{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:25px}.tabs button{border:1px solid transparent;border-radius:6px;background:#f0f6f5;color:#3b5c5b;padding:8px 12px;font-size:.85rem;font-weight:700}.tabs button[aria-selected=true]{background:#dceee7;border-color:#bdded2;color:#12463d}[role=tabpanel]{min-height:106px}.text-link{display:inline-block;font-size:.88rem;color:var(--accent);font-weight:750;text-decoration:underline;text-underline-offset:4px}.text-link:hover{color:#083e36}.feature-preview{background:#f1f7f6;border:1px solid var(--line);border-radius:15px;padding:22px}.feature-preview .demo-label{margin-bottom:15px}.feature-preview h3{margin-bottom:12px}.mini-row{display:flex;align-items:center;justify-content:space-between;gap:8px;background:white;font-size:.84rem;padding:10px 13px;border:1px solid var(--line);border-radius:7px;margin-top:7px}.real-shot{margin-top:14px;border:1px solid #c9dddd;border-radius:10px;overflow:hidden;background:#fff;box-shadow:0 8px 24px #0c373e12}.real-shot img{width:100%;display:block}.benefits{margin-top:49px;padding-top:24px;border-top:1px solid var(--line)}.benefits article+article{padding-left:20px;border-left:1px solid var(--line)}.benefits h3{font-size:1.04rem}
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:860px}.plan{border:1px solid var(--line);border-radius:14px;background:white;padding:27px 30px}.plan.featured{border-color:#8ec7b9;background:#edf8f3}.price{display:flex;align-items:baseline;gap:7px;margin:13px 0 8px}.price strong{font:800 clamp(2.4rem,5vw,3.6rem)/1 var(--display);color:var(--ink);letter-spacing:-.07em}.price span{font-size:.83rem}.plan .button{margin-top:7px}.plan-note{margin-top:20px;font-size:.88rem}.plan-limit-box{margin-top:18px;max-width:860px;background:#fff;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:14px 18px;font-size:.84rem;color:var(--ink)}
+.faq{display:grid;grid-template-columns:1fr 1.5fr;gap:44px}details{border-bottom:1px solid var(--line)}details:first-child{border-top:1px solid var(--line)}summary{display:flex;align-items:center;justify-content:space-between;gap:12px;list-style:none;cursor:pointer;font-weight:700;padding:17px 0}summary::-webkit-details-marker{display:none}summary::after{content:"+";color:var(--accent);font-size:1.2rem}details[open] summary::after{content:"−"}details p{font-size:.91rem;margin-bottom:15px!important}
+.contact{background:#0b343b;color:white;padding-block:83px}.contact-inner{display:grid;grid-template-columns:.83fr 1.17fr;gap:clamp(30px,8vw,110px);align-items:start}.contact-copy{padding-top:28px}.contact-copy .eyebrow,.contact-copy a{color:var(--mint)}.contact-copy p:not(.eyebrow){color:#d4e6e5;max-width:380px}.contact-copy a{font-weight:700;text-decoration:underline;text-underline-offset:4px}.form-card{background:white;border-radius:15px;padding:clamp(18px,3.5vw,34px);color:var(--ink);min-width:0}.form-card h3{font-size:1.55rem;margin-bottom:19px}.intent{border:0;margin:0 0 16px;padding:0}.intent legend,.fields label{font-size:.8rem;font-weight:700}.intent label{display:inline-flex;gap:5px;align-items:center;font-size:.81rem;margin:7px 12px 0 0;cursor:pointer}.intent input,.consent input{accent-color:var(--accent);width:16px;height:16px;margin:0}.fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}.fields label{min-width:0;display:block}.fields label.full-width{grid-column:1/-1}.fields input,.fields select,.fields textarea{display:block;width:100%;min-height:43px;border:1px solid #bfcfd0;border-radius:7px;background:#fff;color:var(--ink);margin-top:5px;padding:7px 9px;font-size:16px}.fields textarea{min-height:76px;resize:vertical}.optional{font-size:.73rem;font-weight:400;color:var(--muted)}.plan-hint{margin-top:10px;padding:10px 12px;border-radius:8px;background:#f0f7f5;border:1px solid #c6e0d9;font-size:.79rem;color:#12463d}.plan-hint.warn{background:#fff8eb;border-color:#f0d290;color:#78490a}.consent{display:flex;align-items:flex-start;gap:8px;margin:17px 0;color:var(--muted);font-size:.8rem}.consent input{margin-top:3px;flex:none}.consent a{color:var(--accent);text-decoration:underline}.trap{position:absolute;inline-size:1px;block-size:1px;overflow:hidden;clip-path:inset(50%)}.form-card .micro{margin:10px 0 0}.form-error{font-size:.85rem;font-weight:650;margin:12px 0 0;color:#973239;background:#fbe9e9;border:1px solid #f1c4c7;padding:10px 12px;border-radius:8px}.receipt-mark{display:grid;place-items:center;background:#e2f3ec;color:#146351;border-radius:50%;width:44px;height:44px;margin-bottom:17px;font-weight:800}.receipt-details{background:#f5f9f9;border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:14px 0;font-size:.82rem;color:var(--ink)}
+.footer{border-top:1px solid var(--line);background:#f7fafa;padding-block:32px}.footer-inner{display:flex;justify-content:space-between;gap:22px;align-items:center}.footer p{margin:7px 0 0;font-size:.78rem}.footer nav{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:.78rem;font-weight:650}.legal{max-width:800px}.legal h1{font-size:clamp(2.05rem,5vw,3.3rem)}.legal h2{font-size:1.45rem;margin-top:28px}.lgpd-box{margin-top:18px;padding:18px 20px;border:1px solid var(--line);border-radius:12px;background:var(--paper)}
+@media(max-width:1050px){.wrap{width:calc(100% - 68px)}.hero-inner{gap:26px;min-height:565px}.hero h1{font-size:clamp(2.7rem,4.8vw,3.4rem)}.section{padding-block:74px}}
+@media(max-width:800px){.wrap{width:calc(100% - 48px)}.header-inner{min-height:64px}.menu-toggle{display:block;border:1px solid var(--line);border-radius:7px;background:white;padding:6px 11px;color:var(--ink);font-weight:700}.header nav{display:none;position:absolute;top:100%;left:0;right:0;align-items:stretch;background:white;border-bottom:1px solid var(--line);flex-direction:column;gap:0;padding:8px 24px 15px}.header nav[data-open]{display:flex}.header nav>a{padding:9px 0}.header nav .header-cta{margin:4px 0 0;align-self:flex-start;padding:7px 11px}.hero-inner{grid-template-columns:1fr;gap:35px;padding-block:43px 47px}.hero h1{max-width:640px;font-size:clamp(2.55rem,7vw,3.6rem)}.hero-visual{max-width:610px;width:100%;margin:0 auto}.proposal-float{right:5px}.section{padding-block:62px}.problem,.feature-grid,.faq,.contact-inner{grid-template-columns:1fr;gap:25px}.steps{gap:11px}.steps article{padding:17px}.step-number{margin-bottom:17px}.contact{padding-block:52px}.contact-copy{padding-top:0}.footer-inner{align-items:flex-start;flex-direction:column}}
+@media(max-width:540px){.wrap{width:calc(100% - 32px)}.hero h1{font-size:clamp(2.15rem,9vw,3rem);margin-bottom:17px}.hero-kicker{margin-bottom:16px}.hero-description{font-size:.94rem;margin-bottom:20px}.actions .button{font-size:.79rem;padding:8px 10px;min-height:44px}.actions{gap:7px}.dash-content{padding:15px 10px 21px}.dash-bar{padding:9px 11px}.dash-row,.dash-list-heading{padding-inline:6px}.metrics>div{padding:7px 5px}.metrics small{font-size:.62rem}.dash-row{font-size:.65rem}.dash-labels{font-size:.55rem}.dash-row>span:first-child{gap:4px}.initial{width:17px;height:17px;font-size:.48rem}.tag{padding-inline:5px}.proposal-float{padding:8px;bottom:-10px}.strip-inner{grid-template-columns:repeat(2,1fr);padding-block:13px;gap:9px 6px;font-size:.68rem}.strip-inner span{justify-content:flex-start}.steps,.benefits,.plans{grid-template-columns:1fr}.benefits{gap:0;margin-top:27px}.benefits article,.benefits article+article{padding:13px 0;border-left:0;border-bottom:1px solid var(--line)}.benefits article:last-child{border-bottom:0}.fields{grid-template-columns:1fr}.section{padding-block:49px}.feature-preview{padding:15px}.mini-row{padding-inline:8px}.plan{padding:21px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
+  </style>
+</head>
+<body>
+<a class="skip" href="#conteudo">Ir para o conteúdo</a>
+<header class="header">
+  <div class="wrap header-inner">
+    <a class="brand" href="#" aria-label="RenovaExt, início"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MCA0MCI+PHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiByeD0iMTEiIGZpbGw9IiMwYjM3M2QiLz48cGF0aCBkPSJNMTIgMjBhOCA4IDAgMCAxIDEzLjctNS43TDI4IDE3bTAtNXY1aC01bTUgM2E4IDggMCAwIDEtMTMuNyA1LjdMMTIgMjNtMCA1di01aDUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzliZWZjZCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjIuMyIvPjwvc3ZnPg0K" alt="" width="36" height="36">Renova<span>Ext</span></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav id="nav" aria-label="Navegação principal">
+      <a href="#como-funciona">Como funciona</a><a href="#video-demonstrativo">Vídeo (2 min)</a><a href="#recursos">Recursos</a><a href="#planos">Planos</a><a href="#faq">Dúvidas</a>
+      <a class="button header-cta" href="./index.html?demo=1" target="_blank" rel="noopener">Ver demonstração <span aria-hidden="true">↗</span></a>
+    </nav>
+  </div>
+</header>
+<main id="conteudo">
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <div class="hero-copy">
+        <p class="eyebrow hero-kicker"><span></span> PARA EMPRESAS DE EXTINTORES</p>
+        <h1>Sua carteira de clientes organizada. <em>Suas próximas renovações à vista.</em></h1>
+        <p class="hero-description">Importe suas planilhas, acompanhe os vencimentos registrados e prepare propostas comerciais em poucos passos — sem abandonar seu sistema atual.</p>
+        <div class="actions">
+          <a class="button primary" href="./index.html?demo=1" target="_blank" rel="noopener">Conhecer a demonstração <span aria-hidden="true">↗</span></a>
+          <a class="button outline" href="#solicitar" data-intent="demo">Solicitar demonstração</a>
+          <a class="button outline" href="#solicitar" data-intent="piloto">Quero participar do piloto <span aria-hidden="true">→</span></a>
         </div>
-        <div class="flex flex-wrap items-center gap-3">
-          <button
-            type="button"
-            onclick="selectLeadIntentAndScroll('solicitar_demonstracao')"
-            class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-bold transition-colors cursor-pointer"
-          >
-            Solicitar demonstração
-          </button>
-          <button
-            type="button"
-            onclick="selectLeadIntentAndScroll('quero_participar_piloto')"
-            class="px-3 py-1 rounded-lg bg-emerald-700 hover:bg-emerald-600 text-white font-bold transition-colors cursor-pointer"
-          >
-            Quero participar do piloto
-          </button>
-          <a href="./proposta-piloto.html" class="text-slate-300 hover:text-white font-semibold underline">
-            Proposta de Piloto (R$ 49 / R$ 79)
-          </a>
-          <a
-            href="./index.html?demo=1"
-            class="px-3 py-1 rounded-lg bg-red-600 hover:bg-red-500 text-white font-bold transition-colors"
-          >
-            Testar Demonstração Fictícia →
-          </a>
+        <p class="micro hero-note"><span aria-hidden="true">✓</span> Demo aberta com dados fictícios • Upload de planilhas reais bloqueado na demo</p>
+      </div>
+      <div class="hero-visual">
+        <div class="dashboard">
+          <div class="dash-bar"><div class="dash-brand"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MCA0MCI+PHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiByeD0iMTEiIGZpbGw9IiMwYjM3M2QiLz48cGF0aCBkPSJNMTIgMjBhOCA4IDAgMCAxIDEzLjctNS43TDI4IDE3bTAtNXY1aC01bTUgM2E4IDggMCAwIDEtMTMuNyA1LjdMMTIgMjNtMCA1di01aDUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzliZWZjZCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjIuMyIvPjwvc3ZnPg0K" alt="" width="22" height="22"> RenovaExt</div><span class="demo-label"><i></i> Dados fictícios da demo</span></div>
+          <div class="dash-content">
+            <div class="dash-intro"><div><h2>Visão da carteira</h2><p>Oficina ProtegeFogo (Demonstração Fictícia)</p></div><span class="dash-tag">↗ Radar</span></div>
+            <div class="metrics">
+              <div><small>Clientes na demo</small><strong>5</strong></div>
+              <div><small>Próximos 30 dias</small><strong>1</strong></div>
+              <div><small>A conferir / Vencidos</small><strong class="red">1</strong></div>
+            </div>
+            <div class="dash-list">
+              <div class="dash-list-heading"><strong>Radar de vencimentos (dados fictícios)</strong><span>Em aberto</span></div>
+              <div class="dash-row dash-labels"><span>CLIENTE FICTÍCIO</span><span>JANELA</span><span>STATUS</span></div>
+              <div class="dash-row"><span><i class="initial blue">MP</i> Metalúrgica Precisão</span><span>−11 dias</span><span><i class="tag late">Atrasado</i></span></div>
+              <div class="dash-row"><span><i class="initial green">AS</i> Cond. Atlântico Sul</span><span>+14 dias</span><span><i class="tag soon">Próx. 30d</i></span></div>
+              <div class="dash-row"><span><i class="initial purple">PD</i> Padaria Pão Dourado</span><span>Sem data</span><span><i class="tag review-tag">Conferência</i></span></div>
+            </div>
+          </div>
+        </div>
+        <div class="proposal-float"><span class="document-icon" aria-hidden="true">▤</span><div><strong>Proposta PROP-2026-001</strong><small>Pronta para baixar em PDF</small></div><span class="float-check" aria-hidden="true">✓</span></div>
+      </div>
+    </div>
+  </section>
+  <div class="value-strip"><div class="wrap strip-inner"><span><i aria-hidden="true">✓</i> Importação CSV e XLSX</span><span><i aria-hidden="true">✓</i> Radar de vencimentos</span><span><i aria-hidden="true">✓</i> Propostas em PDF</span><span><i aria-hidden="true">✓</i> Piloto de 30 dias</span></div></div>
+
+  <section class="section wrap problem" id="problema">
+    <div><p class="eyebrow">O DIA A DIA DA OFICINA</p><h2>Quando a carteira fica espalhada, priorizar dá trabalho.</h2></div>
+    <div><p>Um arquivo guarda os clientes, outro tem as datas e a última conversa ficou no WhatsApp. Para descobrir quem precisa de contato, a equipe precisa juntar essas informações de novo.</p>
+    <p>Com o RenovaExt, a carteira, os vencimentos cadastrados e o andamento das propostas ficam no mesmo lugar. Sua equipe consegue decidir por onde começar.</p></div>
+  </section>
+
+  <section class="section process" id="como-funciona"><div class="wrap">
+    <div class="section-intro"><p class="eyebrow">COMO FUNCIONA</p><h2>Da planilha à proposta em três passos.</h2></div>
+    <div class="steps">
+      <article><span class="step-number">01</span><h3>Importe sua planilha</h3><p>Use seu arquivo CSV ou XLSX, associe as colunas e revise as linhas que precisam de conferência.</p></article>
+      <article><span class="step-number">02</span><h3>Visualize a carteira e os vencimentos</h3><p>Use o radar para filtrar os vencimentos registrados e identificar os clientes que precisam de contato.</p></article>
+      <article><span class="step-number">03</span><h3>Prepare propostas e acompanhe oportunidades</h3><p>Monte o orçamento com seus valores, baixe o PDF e registre o andamento da negociação.</p></article>
+    </div>
+  </div></section>
+
+  <!-- Seção Elegante do Vídeo Demonstrativo de 2min 15s (Dados Fictícios) -->
+  <section class="section video-section" id="video-demonstrativo">
+    <div class="wrap">
+      <div class="section-intro">
+        <p class="eyebrow">DEMONSTRAÇÃO EM VÍDEO • 2 MIN 15 S</p>
+        <h2>Veja a jornada completa da oficina em dois minutos.</h2>
+        <p>Apresentação guiada das três telas reais do sistema (importar planilha → visualizar vencimentos → gerar proposta PDF) utilizando exclusivamente dados fictícios de demonstração.</p>
+      </div>
+      <div class="video-frame">
+        <div class="video-topbar">
+          <div class="video-title">
+            <span class="video-dot" aria-hidden="true"></span>
+            <span>Apresentação Visual do MVP (2min 15s) • Carteira 100% Fictícia</span>
+          </div>
+          <div class="video-chapters" role="group" aria-label="Capítulos do vídeo demonstrativo">
+            <button type="button" onclick="seekToChapter(0)">00:00 1. Importar planilha</button>
+            <button type="button" onclick="seekToChapter(45)">00:45 2. Radar de vencimentos</button>
+            <button type="button" onclick="seekToChapter(90)">01:30 3. Proposta em PDF</button>
+          </div>
+        </div>
+        <div class="video-canvas-wrap">
+          <canvas id="demoVideoCanvas" width="1280" height="720" onclick="toggleVideoPlay()" aria-label="Reprodutor visual das 3 telas do RenovaExt com dados fictícios"></canvas>
+        </div>
+        <div class="video-controls">
+          <div class="video-buttons">
+            <button id="playPauseBtn" type="button" onclick="toggleVideoPlay()">Pausar vídeo</button>
+            <button type="button" class="secondary-ctrl" onclick="seekToChapter(0)">Reiniciar</button>
+            <span id="timeCounter" class="video-time">00:00 / 02:15</span>
+          </div>
+          <input id="videoScrubber" class="video-scrubber" type="range" min="0" max="135" step="0.2" value="0" oninput="onVideoScrub(this.value)" aria-label="Linha do tempo do vídeo demonstrativo">
         </div>
       </div>
     </div>
+  </section>
 
-    <!-- Cabeçalho e Promessa Comercial -->
-    <header class="max-w-6xl mx-auto px-4 pt-10 pb-8 text-center space-y-5">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-900 border border-slate-800 text-xs text-red-400 font-semibold">
-        <span>Para pequenas e médias empresas de inspeção, manutenção e recarga de extintores</span>
-      </div>
-      <h1 class="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white max-w-4xl mx-auto leading-tight">
-        Transforme sua carteira de manutenção de extintores em uma agenda organizada de renovações, sem abandonar seu sistema atual.
-      </h1>
-      <p class="text-slate-300 text-sm sm:text-lg max-w-3xl mx-auto leading-relaxed">
-        Você importa sua planilha atual (<code class="font-mono text-red-300">.CSV</code> ou <code class="font-mono text-red-300">.XLSX</code>), visualiza os clientes por janela de acompanhamento (Atrasados, 30, 60, 90 dias e Dados Incompletos) e gera propostas comerciais em PDF com os preços da sua oficina.
-      </p>
-      <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
-        <button
-          type="button"
-          onclick="selectLeadIntentAndScroll('solicitar_demonstracao')"
-          class="px-6 py-3.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-extrabold text-sm sm:text-base shadow-lg shadow-red-950/60 transition-all cursor-pointer"
-        >
-          Solicitar demonstração
-        </button>
-        <button
-          type="button"
-          onclick="selectLeadIntentAndScroll('quero_participar_piloto')"
-          class="px-6 py-3.5 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white font-extrabold text-sm sm:text-base shadow-lg shadow-emerald-950/60 transition-all cursor-pointer"
-        >
-          Quero participar do piloto (R$ 49 ou R$ 79)
-        </button>
-        <a
-          href="./index.html?demo=1"
-          class="px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-100 font-bold text-sm sm:text-base transition-all"
-        >
-          Abrir Demonstração Navegável (Dados Fictícios) →
-        </a>
-      </div>
-    </header>
-
-    <!-- Seção do Vídeo Demonstrativo de 2min 15s -->
-    <section class="max-w-5xl w-full mx-auto px-4 py-6">
-      <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
-        <div class="px-5 py-3.5 bg-slate-900 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
-          <div class="flex items-center gap-2.5">
-            <span class="w-3 h-3 rounded-full bg-red-500 animate-pulse"></span>
-            <div>
-              <h2 class="text-sm sm:text-base font-bold text-white">
-                Demonstração Guiada em Vídeo (2min 15s): 1. Importar Planilha → 2. Visualizar Vencimentos → 3. Gerar Proposta PDF
-              </h2>
-              <p class="text-[11px] text-slate-400">
-                Apresentação visual passo a passo das 3 telas e regras reais executadas pelo MVP sobre a carteira fictícia de demonstração.
-              </p>
-            </div>
-          </div>
-          <div class="flex items-center gap-2 text-xs">
-            <button
-              type="button"
-              onclick="seekToChapter(0)"
-              class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium cursor-pointer"
-            >
-              00:00 1. Importar Planilha
-            </button>
-            <button
-              type="button"
-              onclick="seekToChapter(45)"
-              class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium cursor-pointer"
-            >
-              00:45 2. Radar de Vencimentos
-            </button>
-            <button
-              type="button"
-              onclick="seekToChapter(90)"
-              class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium cursor-pointer"
-            >
-              01:30 3. Proposta PDF
-            </button>
-          </div>
+  <section class="section features" id="recursos"><div class="wrap">
+    <div class="section-intro"><p class="eyebrow">POR DENTRO DO RENOVAEXT</p><h2>Saiba quem contatar e em que pé está cada proposta.</h2></div>
+    <div class="feature-grid">
+      <div>
+        <div class="tabs" role="tablist" aria-label="Telas do RenovaExt">
+          <button id="tab-painel" type="button" role="tab" aria-selected="true" aria-controls="painel">Painel</button>
+          <button id="tab-radar" type="button" role="tab" aria-selected="false" aria-controls="radar" tabindex="-1">Importação e Carteira</button>
+          <button id="tab-propostas" type="button" role="tab" aria-selected="false" aria-controls="propostas" tabindex="-1">Propostas em PDF</button>
         </div>
-
-        <!-- Canvas do Vídeo Demonstrativo 1280x720 -->
-        <div class="relative bg-slate-950 aspect-video w-full">
-          <canvas
-            id="demoVideoCanvas"
-            width="1280"
-            height="720"
-            class="w-full h-full block cursor-pointer"
-            onclick="togglePlay()"
-          ></canvas>
+        <div id="painel" role="tabpanel" aria-labelledby="tab-painel" tabindex="0">
+          <h3>Veja a carteira toda de uma vez.</h3><p>Filtre acompanhamentos vencidos, janelas de 30, 60 ou 90 dias e identifique os registros que ainda precisam de conferência técnica sem inventar datas.</p>
         </div>
-
-        <!-- Controles do Player -->
-        <div class="p-4 bg-slate-900 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div class="flex items-center gap-3 w-full sm:w-auto">
-            <button
-              id="playPauseBtn"
-              type="button"
-              onclick="togglePlay()"
-              class="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-500 text-white text-xs font-bold cursor-pointer shrink-0"
-            >
-              Pausar Vídeo
-            </button>
-            <button
-              type="button"
-              onclick="seekToChapter(0)"
-              class="px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold cursor-pointer shrink-0"
-            >
-              Reiniciar
-            </button>
-            <span id="timeCounter" class="font-mono text-xs text-slate-300 shrink-0">
-              00:00 / 02:15
-            </span>
-          </div>
-
-          <input
-            id="videoScrubber"
-            type="range"
-            min="0"
-            max="135"
-            step="0.2"
-            value="0"
-            oninput="onScrub(this.value)"
-            aria-label="Linha do tempo do vídeo demonstrativo"
-            class="w-full accent-red-600 cursor-pointer"
-          />
+        <div id="radar" role="tabpanel" aria-labelledby="tab-radar" tabindex="0" hidden>
+          <h3>Importe sua planilha com prévia e revisão.</h3><p>Associe as colunas do seu arquivo CSV ou XLSX, bloqueie linhas duplicadas e revise cadastros incompletos antes de salvar na carteira.</p>
+        </div>
+        <div id="propostas" role="tabpanel" aria-labelledby="tab-propostas" tabindex="0" hidden>
+          <h3>Leve o orçamento até o cliente.</h3><p>Informe os serviços e os valores praticados pela sua oficina, gere o PDF pronto para envio e acompanhe as 7 etapas do funil comercial.</p>
+        </div>
+        <a class="text-link" href="./index.html?demo=1" target="_blank" rel="noopener">Explorar a demonstração interativa <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="feature-preview">
+        <p class="demo-label"><i></i> Captura real do MVP (dados fictícios da demonstração)</p>
+        <div data-screen="painel">
+          <h3>Tela 1: Painel e Radar de Vencimentos</h3>
+          <div class="mini-row"><span>Metalúrgica Precisão Industrial (Fictício)</span><span class="tag late">Atrasado (−11d)</span></div>
+          <div class="mini-row"><span>Condomínio Ed. Atlântico Sul (Fictício)</span><span class="tag soon">Próximos 30 dias (+14d)</span></div>
+          <div class="mini-row"><span>Padaria Pão Dourado / Clínica Santa Clara (Fictícios)</span><span class="tag review-tag">Necessita conferência</span></div>
+          <div class="real-shot"><img src="./captura-tela1-radar.png" alt="Captura real da Tela 1 do RenovaExt: Painel de Vencimentos e Radar Comercial com dados fictícios" width="900" height="520" loading="lazy"></div>
+        </div>
+        <div data-screen="radar" hidden>
+          <h3>Tela 2: Assistente de Importação CSV/XLSX e Carteira</h3>
+          <div class="mini-row"><span>Mapeamento flexível de colunas</span><span class="tag soon">CSV e XLSX</span></div>
+          <div class="mini-row"><span>Linhas repetidas na mesma planilha</span><span class="tag late">Duplicata bloqueada</span></div>
+          <div class="mini-row"><span>Registro sem data ou sem tipo informado</span><span class="tag review-tag">Marcado p/ conferência</span></div>
+          <div class="real-shot"><img src="./captura-tela2-importacao.png" alt="Captura real da Tela 2 do RenovaExt: Assistente de Importação de Planilhas e Carteira com dados fictícios" width="900" height="520" loading="lazy"></div>
+        </div>
+        <div data-screen="propostas" hidden>
+          <h3>Tela 3: Funil Comercial de 7 Etapas e Proposta PDF</h3>
+          <div class="mini-row"><span>Condomínio Edifício Atlântico Sul (Fictício)</span><span class="tag soon">PROP-2026-001</span></div>
+          <div class="mini-row"><span>18x PQS ABC 4kg + 6x Água 10L (preços da oficina)</span><strong>R$ 1.500,00</strong></div>
+          <div class="mini-row"><span>Orçamento comercial em folha A4</span><span class="tag soon">PDF disponível</span></div>
+          <div class="real-shot"><img src="./captura-tela3-proposta.png" alt="Captura real da Tela 3 do RenovaExt: Oportunidade no Funil e Gerador de Proposta em PDF com dados fictícios" width="900" height="520" loading="lazy"></div>
         </div>
       </div>
-    </section>
+    </div>
+    <div class="benefits">
+      <article><h3>Planeje os contatos da semana</h3><p>Use as janelas de vencimento para organizar a agenda comercial.</p></article>
+      <article><h3>Retome negociações com contexto</h3><p>Veja quais propostas estão em preparo e quais já avançaram.</p></article>
+      <article><h3>Aproveite os cadastros que já tem</h3><p>Comece com os dados da planilha e continue usando o sistema atual.</p></article>
+    </div>
+  </div></section>
 
-    <!-- Os 3 Passos Explicados + O Que Funciona vs. Escopo do MVP -->
-    <main class="max-w-6xl mx-auto px-4 py-10 space-y-12">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-2">
-          <span class="text-xs font-mono font-bold text-red-400">PASSO 1 (00:00 – 00:45)</span>
-          <h3 class="text-lg font-bold text-white">Importação Assistida de Planilhas</h3>
-          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            Aceita arquivos <code class="font-mono">.CSV</code> e <code class="font-mono">.XLSX</code>. Permite associar as colunas da sua planilha atual, bloqueia linhas duplicadas e <strong>nunca inventa datas ausentes</strong>: registros sem data ou sem tipo de extintor recebem o alerta <em>"Necessita conferência"</em>.
-          </p>
-        </div>
+  <section class="section pricing" id="planos"><div class="wrap">
+    <div class="section-intro"><p class="eyebrow">PLANOS DO PILOTO</p><h2>Escolha pelo tamanho da sua carteira.</h2><p>Piloto pago de 30 dias, sem fidelidade, conforme as condições da proposta.</p></div>
+    <div class="plans">
+      <article class="plan"><h3>Inicial</h3><p class="price"><strong>R$ 49</strong><span>/mês</span></p><p>Até <strong>150 clientes</strong> na carteira</p><a href="#solicitar" data-intent="piloto" data-plan="inicial_49" class="button outline">Solicitar Inicial <span aria-hidden="true">→</span></a></article>
+      <article class="plan featured"><h3>Profissional</h3><p class="price"><strong>R$ 79</strong><span>/mês</span></p><p>Até <strong>500 clientes</strong> na carteira</p><a href="#solicitar" data-intent="piloto" data-plan="profissional_79" class="button primary">Solicitar Profissional <span aria-hidden="true">→</span></a></article>
+    </div>
+    <div class="plan-limit-box">
+      <strong>Carteiras acima de 500 clientes:</strong> Os planos Inicial (até 150 clientes) e Profissional (até 500 clientes) cobrem carteiras de até 500 clientes ativos. Para oficinas com mais de 500 clientes, não prometemos cobertura automática dentro desses planos — <a class="text-link" href="#solicitar" data-intent="demo">solicite uma demonstração</a> para avaliarmos a viabilidade técnica antes de qualquer contratação.
+    </div>
+    <p class="plan-note">A solicitação é gratuita. <a class="text-link" href="./proposta-piloto.html" target="_blank" rel="noopener">Ver condições completas do piloto <span aria-hidden="true">↗</span></a></p>
+  </div></section>
 
-        <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-2">
-          <span class="text-xs font-mono font-bold text-amber-400">PASSO 2 (00:45 – 01:30)</span>
-          <h3 class="text-lg font-bold text-white">Radar Comercial 30 / 60 / 90 Dias</h3>
-          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            Organiza sua carteira de condomínios, lojas, escolas e empresas nas faixas: <strong>A Conferir Agora (Atrasados)</strong>, <strong>Próximos 30, 60 e 90 dias</strong> e <strong>Dados Incompletos</strong>. Funciona no computador e no celular.
-          </p>
-        </div>
+  <section class="section wrap faq" id="faq">
+    <div><p class="eyebrow">DÚVIDAS FREQUENTES</p><h2>Antes de começar</h2></div>
+    <div class="questions">
+      <details><summary>Preciso trocar de sistema?</summary><p>Você pode continuar usando seu sistema atual para a operação e usar o RenovaExt para acompanhar a carteira e as renovações comerciais.</p></details>
+      <details><summary>Como funcionam as datas de vencimento?</summary><p>O radar usa as datas registradas na sua carteira. Registros com dados faltantes são sinalizados como "Necessita conferência", sem inventar prazos. A periodicidade e as obrigações técnicas (ABNT NBR 12962 / Portaria INMETRO nº 58/2022) devem ser verificadas pelo responsável técnico.</p></details>
+      <details><summary>O que consigo testar na demonstração?</summary><p>A demo permite explorar uma carteira 100% fictícia e conhecer o painel, o radar e o fluxo de propostas em PDF. Por segurança, o upload de planilhas externas reais fica bloqueado na demonstração pública.</p></details>
+      <details><summary>O que acontece depois de solicitar o piloto?</summary><p>Nossa equipe retorna em dias úteis (geralmente em até 1 dia útil) para apresentar as condições e orientar a ativação da conta isolada por empresa (Row Level Security — RLS). O piloto é pago, dura 30 dias e segue as condições da proposta comercial.</p></details>
+      <details><summary>Preciso enviar minha planilha para pedir uma demo?</summary><p>Não. Para solicitar a demonstração, basta enviar os dados básicos de contato e o tamanho aproximado da carteira. Aguarde a ativação da sua conta isolada e o aceite das condições do piloto antes de importar dados reais de clientes.</p></details>
+    </div>
+  </section>
 
-        <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-2">
-          <span class="text-xs font-mono font-bold text-emerald-400">PASSO 3 (01:30 – 02:15)</span>
-          <h3 class="text-lg font-bold text-white">Funil Comercial e Proposta em PDF</h3>
-          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            Acompanhe cada oportunidade em 7 etapas simples (*Pendente de conferência* até *Aceito/Perdido*) e gere propostas comerciais limpas em PDF informando os preços reais praticados pela sua oficina.
-          </p>
+  <section class="contact" id="solicitar"><div class="wrap contact-inner">
+    <div class="contact-copy"><p class="eyebrow">DEMONSTRAÇÃO E PILOTO</p><h2>Conheça o RenovaExt com sua equipe.</h2><p>Deixe seu contato para combinar uma demonstração guiada ou conversar sobre o piloto de 30 dias. Retorno comercial em dias úteis (geralmente em até 1 dia útil).</p><a href="./index.html?demo=1" target="_blank" rel="noopener">Abrir a demo agora <span aria-hidden="true">↗</span></a></div>
+    <div class="form-card">
+      <form id="lead-form" method="post" novalidate>
+        <h3>Solicite um contato</h3>
+        <fieldset class="intent">
+          <legend>Quero conversar sobre</legend>
+          <label><input type="radio" name="intent" value="solicitar_demonstracao" checked>Solicitar demonstração</label>
+          <label><input type="radio" name="intent" value="quero_participar_piloto">Quero participar do piloto</label>
+          <label><input type="radio" name="intent" value="solicitacao_titular_lgpd">Direitos do titular (LGPD)</label>
+        </fieldset>
+        <div class="fields">
+          <label>Nome do responsável<input name="responsible" autocomplete="name" minlength="2" maxlength="120" required></label>
+          <label>Nome da oficina<input name="workshop" autocomplete="organization" minlength="2" maxlength="150" required></label>
+          <label>E-mail comercial<input name="email" type="email" autocomplete="email" maxlength="160" required></label>
+          <label>Telefone / WhatsApp <span class="optional">(opcional)</span><input name="phone" type="tel" autocomplete="tel" maxlength="35"></label>
+          <label id="portfolio-field">Tamanho aproximado da carteira<select name="portfolio" required>
+            <option value="">Selecione</option>
+            <option value="ate_50_clientes">Até 50 clientes</option>
+            <option value="51_a_150_clientes">De 51 a 150 clientes</option>
+            <option value="151_a_300_clientes">De 151 a 300 clientes</option>
+            <option value="301_a_500_clientes">De 301 a 500 clientes</option>
+            <option value="mais_de_500_clientes">Mais de 500 clientes</option>
+          </select></label>
+          <label id="plan-field" hidden>Plano escolhido para o piloto<select name="plan" disabled>
+            <option value="">Selecione o plano</option>
+            <option value="inicial_49">Inicial • R$ 49/mês (até 150 clientes)</option>
+            <option value="profissional_79">Profissional • R$ 79/mês (até 500 clientes)</option>
+            <option value="avaliacao_acima_500" disabled>Acima de 500 clientes • Avaliação sob consulta</option>
+          </select></label>
+          <label class="full-width">Observações <span class="optional" id="notes-optional-label">(opcional)</span><textarea name="notes" maxlength="1000" placeholder="Conte brevemente como controla os vencimentos hoje ou informe sua dúvida..."></textarea></label>
         </div>
+        <div id="plan-suggestion-hint" class="plan-hint" hidden></div>
+        <div class="trap" aria-hidden="true"><label>Deixe este campo vazio<input name="website" tabindex="-1" autocomplete="off"></label></div>
+        <div class="consent"><input id="consent" name="consent" type="checkbox" required><div><label for="consent">Autorizo o uso dos meus dados para retorno sobre esta solicitação, conforme a seção de</label> <a href="#privacidade">Privacidade</a>.</div></div>
+        <button id="submit" class="button primary" type="submit" disabled>Solicitar demonstração <span aria-hidden="true">→</span></button>
+        <p class="micro">Este formulário não gera cobrança e não coleta planilhas de clientes.</p>
+        <p id="form-error" class="form-error" role="alert" hidden></p>
+        <noscript><p>Ative o JavaScript para enviar sua solicitação pelo formulário.</p></noscript>
+      </form>
+      <div id="receipt" tabindex="-1" hidden>
+        <span class="receipt-mark" aria-hidden="true">✓</span>
+        <h3>Solicitação recebida</h3>
+        <p>Protocolo oficial: <strong id="protocol"></strong></p>
+        <div id="receipt-summary" class="receipt-details"></div>
+        <p>A equipe do RenovaExt entrará em contato pelos dados informados em dias úteis (geralmente em até 1 dia útil).</p>
+        <a class="text-link" href="./index.html?demo=1" target="_blank" rel="noopener">Explorar a demonstração <span aria-hidden="true">↗</span></a>
       </div>
+    </div>
+  </div></section>
 
-      <!-- Transparência Obrigatória: O que funciona hoje vs. O que não faz parte do MVP -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div class="p-6 rounded-2xl bg-slate-900/90 border border-emerald-800/60 space-y-4">
-          <h3 class="text-base font-bold text-emerald-400">
-            ✓ O Que Está Funcionando e Homologado no MVP
-          </h3>
-          <ul class="space-y-2 text-xs sm:text-sm text-slate-200 list-disc pl-5">
-            <li>Ambiente individual por oficina com isolamento estrito no banco de dados (Row Level Security — RLS) e confirmação de e-mail ativa por padrão;</li>
-            <li>Assistente de importação de planilhas CSV e Excel (.XLSX) com prévia editável e detecção de duplicatas;</li>
-            <li>Sinalização automática de registros incompletos como <em>"Necessita conferência"</em> (sem inventar vencimentos);</li>
-            <li>Painel principal e Radar de Renovações (Atrasados, 30, 60, 90 dias e Incompletos);</li>
-            <li>Funil comercial de 7 etapas com histórico de movimentações;</li>
-            <li>Montador de propostas comerciais com preços editáveis pela oficina e download imediato em PDF;</li>
-            <li>Exportação completa dos dados da própria oficina em JSON a qualquer momento.</li>
-          </ul>
-        </div>
+  <section class="wrap section legal" id="privacidade">
+    <p class="eyebrow">RENOVAEXT • LGPD</p><h2>Privacidade da solicitação comercial</h2>
+    <h2>Dados enviados pelo formulário</h2><p>O formulário coleta seu nome, nome da oficina, e-mail comercial, telefone/WhatsApp (se fornecido), faixa de tamanho da carteira, modalidade solicitada (demonstração, piloto ou direitos do titular) e observações opcionais. Em pedidos de demonstração, nenhum plano pago é atribuído como escolha expressa sem sua seleção. Também são registrados o aceite de privacidade e validações no servidor contra envios automatizados (sem armazenar dados pessoais no navegador).</p>
+    <h2>Uso e isolamento das informações</h2><p>O RenovaExt utiliza os dados informados exclusivamente para responder à sua solicitação comercial ou de privacidade. Os registros ficam armazenados em tabela comercial dedicada (<code style="font-family:monospace">public.commercial_leads</code>), separada dos bancos operacionais das oficinas e protegida por políticas de <em>Row Level Security (RLS)</em> no PostgreSQL. O formulário não solicita dados de pagamento nem arquivos com a carteira de clientes da sua empresa.</p>
+    <h2>Canal funcional para solicitações de titulares de dados (LGPD)</h2>
+    <p>A qualquer momento, o titular dos dados pode solicitar confirmação de tratamento, acesso, correção ou exclusão definitiva dos dados enviados neste formulário comercial utilizando o canal oficial abaixo (que gera protocolo imediato de atendimento no banco de dados) ou respondendo diretamente ao contato comercial recebido:</p>
+    <div class="lgpd-box">
+      <strong>Exercer direitos do titular (acesso, correção ou exclusão):</strong>
+      <p style="margin:6px 0 12px;font-size:.88rem">Clique no botão abaixo para abrir o formulário pré-configurado na modalidade <em>"Direitos do titular (LGPD)"</em> e receber seu protocolo de atendimento:</p>
+      <a class="button outline" href="#solicitar" data-intent="lgpd">Abrir solicitação de titular de dados (LGPD) <span aria-hidden="true">→</span></a>
+    </div>
+    <p style="margin-top:20px"><a class="text-link" href="./proposta-piloto.html">Consultar as condições completas do piloto de 30 dias ↗</a></p>
+  </section>
+</main>
+<footer class="footer"><div class="wrap footer-inner">
+  <div><a class="brand" href="#" aria-label="RenovaExt, início"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MCA0MCI+PHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiByeD0iMTEiIGZpbGw9IiMwYjM3M2QiLz48cGF0aCBkPSJNMTIgMjBhOCA4IDAgMCAxIDEzLjctNS43TDI4IDE3bTAtNXY1aC01bTUgM2E4IDggMCAwIDEtMTMuNyA1LjdMMTIgMjNtMCA1di01aDUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzliZWZjZCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjIuMyIvPjwvc3ZnPg0K" alt="" width="32" height="32">Renova<span>Ext</span></a><p>Gestão comercial para empresas de inspeção, manutenção e recarga de extintores.</p></div>
+  <nav aria-label="Links do rodapé"><a href="#privacidade">Privacidade e LGPD</a><a href="./proposta-piloto.html">Condições de uso e do piloto</a><a href="#video-demonstrativo">Vídeo demonstrativo</a><a href="#solicitar" data-intent="demo">Contato comercial</a></nav>
+</div></footer>
+<script>
+// Configuração pública do Supabase (chave anon pública sujeita a RLS; zero segredos administrativos no frontend).
+const config = {
+  url: "https://xmuzcnjcwkhgojnaosha.supabase.co/rest/v1/rpc/submit_commercial_lead",
+  anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhtdXpjbmpjd2toZ29qbmFvc2hhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ1MjIxMTAsImV4cCI6MjExMDA5ODExMH0.CDK7TXV2pdKsO8V2VV0wkQnapC_9k5CgS5CpqLoepOk",
+};
 
-        <div class="p-6 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-4">
-          <h3 class="text-base font-bold text-amber-400">
-            ⚠ Escopo Transparente: O Que Não Faz Parte desta Versão
-          </h3>
-          <ul class="space-y-2 text-xs sm:text-sm text-slate-300 list-disc pl-5">
-            <li><strong>Não é um ERP fiscal:</strong> não emite NF-e, NFS-e ou boletos bancários;</li>
-            <li><strong>Não emite laudos técnicos ou certificados INMETRO:</strong> os alertas são exclusivamente para organização comercial;</li>
-            <li><strong>Não afirma que todo extintor exige recarga anual obrigatória:</strong> os requisitos de inspeção e manutenção variam conforme o equipamento, normas técnicas (ABNT NBR 12962 / Portaria INMETRO nº 58/2022) e condições de uso;</li>
-            <li><strong>Não realiza disparos automáticos:</strong> você baixa o PDF da proposta e envia pelos canais da sua oficina quando desejar;</li>
-            <li><strong>Proteção de dados reais:</strong> não coletamos planilhas reais da sua oficina antes da verificação completa de segurança, privacidade e aceite das condições do piloto.</li>
-          </ul>
-        </div>
-      </div>
+const COOLDOWN_KEY = "renovaext_lead_cooldown_ts_v2";
+try {
+  window.localStorage.removeItem("renovaext_commercial_leads_isolated_v1");
+} catch {}
 
-      <!-- SEÇÃO OFICIAL DE CONVERSÃO: SOLICITAR DEMONSTRAÇÃO OU PARTICIPAR DO PILOTO -->
-      <section
-        id="solicitar"
-        class="p-6 sm:p-8 rounded-2xl bg-slate-900 border-2 border-red-600/80 shadow-2xl space-y-6 scroll-mt-6"
-      >
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-5">
-          <div class="space-y-1">
-            <span class="px-2.5 py-0.5 rounded bg-red-600 text-white font-mono text-xs font-bold">
-              CANAL COMERCIAL OFICIAL VERIFICADO
-            </span>
-            <h2 class="text-xl sm:text-2xl font-extrabold text-white pt-1">
-              Solicitar demonstração ou participar do piloto de 30 dias
-            </h2>
-            <p class="text-xs sm:text-sm text-slate-300 max-w-2xl">
-              Preencha os dados básicos da sua oficina abaixo. O registro fica armazenado em base comercial separada dos dados operacionais das oficinas (protegida por Row Level Security — RLS) e gera imediatamente seu <strong>Protocolo Oficial de Recebimento</strong>.
-            </p>
-          </div>
-          <div class="text-xs text-slate-400 bg-slate-950 border border-slate-800 rounded-xl p-3.5 shrink-0 max-w-xs">
-            <strong class="text-white block mb-1">Suporte e Retorno Realistas:</strong>
-            Retorno comercial assíncrono em português em até <strong>1 dia útil (dias úteis, segunda a sexta-feira)</strong> diretamente para o e-mail comercial e/ou telefone informados.
-          </div>
-        </div>
+async function submitCommercialLead(payload) {
+  const genericMessage = "Não foi possível confirmar o envio agora. Confira os campos e tente novamente.";
+  let response;
+  try {
+    response = await fetch(config.url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        apikey: config.anonKey,
+        Authorization: "Bearer " + config.anonKey,
+      },
+      body: JSON.stringify(payload),
+      signal: AbortSignal.timeout(15000),
+    });
+  } catch {
+    throw new Error(genericMessage);
+  }
 
-        <div
-          id="leadFormError"
-          role="alert"
-          class="hidden p-4 rounded-xl bg-red-950/90 border border-red-500 text-xs sm:text-sm text-red-200 font-semibold"
-        ></div>
+  const result = await response.json().catch(() => null);
+  const msg = result?.message || "";
+  if (
+    response.status === 429 ||
+    /^SPAM_PROTECTION_(RATE_LIMIT|DAILY_LIMIT|IP_RATE_LIMIT|GLOBAL_LIMIT|GLOBAL_BURST|WORKSHOP_RATE_LIMIT|PHONE_RATE_LIMIT|FAST_SUBMIT):/.test(msg)
+  ) {
+    throw new Error(msg.split(": ").slice(1).join(": ") || "Aguarde alguns minutos antes de tentar novamente.");
+  }
+  if (/^(PORTFOLIO_EXCEEDS_|INVALID_|PRIVACY_CONSENT_REQUIRED:)/.test(msg)) {
+    throw new Error(msg.split(": ").slice(1).join(": ") || genericMessage);
+  }
+  if (!response.ok || typeof result?.protocolCode !== "string" || !result.protocolCode.trim()) {
+    throw new Error(genericMessage);
+  }
+  return result;
+}
 
-        <!-- Container de Confirmação com Protocolo -->
-        <div
-          id="leadReceiptContainer"
-          data-testid="public-lead-receipt"
-          class="hidden p-6 rounded-2xl bg-emerald-950/50 border-2 border-emerald-500 space-y-4"
-        >
-          <div class="flex flex-wrap items-center justify-between gap-2">
-            <span
-              id="receiptProtocolCode"
-              class="px-3 py-1 rounded bg-emerald-600 text-white font-mono text-xs sm:text-sm font-bold"
-            >
-              SOL-CONFIRMADO
-            </span>
-            <span class="text-xs text-emerald-300 font-semibold">
-              ✓ Registro confirmado em base comercial isolada
-            </span>
-          </div>
-          <h3 class="text-lg sm:text-xl font-extrabold text-white">
-            Solicitação recebida com sucesso!
-          </h3>
-          <p class="text-xs sm:text-sm text-slate-200 leading-relaxed">
-            Confirmamos o recebimento do cadastro da oficina <strong id="receiptWorkshopName" class="text-white"></strong> (responsável: <strong id="receiptResponsibleName" class="text-white"></strong>).
-          </p>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 p-4 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-300">
-            <div>
-              <span class="text-slate-400">Modalidade:</span>
-              <strong id="receiptIntentLabel" class="text-white block mt-0.5"></strong>
-            </div>
-            <div>
-              <span class="text-slate-400">E-mail comercial para retorno:</span>
-              <strong id="receiptEmail" class="text-white block mt-0.5"></strong>
-            </div>
-            <div>
-              <span class="text-slate-400">Telefone / WhatsApp:</span>
-              <strong id="receiptPhone" class="text-white block mt-0.5"></strong>
-            </div>
-            <div>
-              <span class="text-slate-400">Carteira aproximada:</span>
-              <strong id="receiptPortfolioSize" class="text-white block mt-0.5"></strong>
-            </div>
-            <div class="sm:col-span-2">
-              <span class="text-slate-400">Plano de interesse em teste:</span>
-              <strong id="receiptPlanInterest" class="text-emerald-400 block mt-0.5"></strong>
-            </div>
-          </div>
-          <p class="text-xs text-slate-300 leading-relaxed">
-            <strong>Próximo passo:</strong> Nossa equipe entrará em contato pelos dados informados acima em até 1 dia útil para apresentar a demonstração guiada ou ativar sua conta isolada do piloto de 30 dias. Nenhuma planilha real de clientes é solicitada antes do aceite das condições de uso.
-          </p>
-          <div class="flex flex-wrap gap-3 pt-1">
-            <button
-              type="button"
-              onclick="downloadLeadReceiptJson()"
-              class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold cursor-pointer"
-            >
-              Baixar Comprovante do Protocolo (.JSON)
-            </button>
-            <a
-              href="./index.html?demo=1"
-              class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold"
-            >
-              Explorar Demonstração Fictícia Enquanto Aguarda →
-            </a>
-          </div>
-        </div>
+const nav = document.querySelector("#nav");
+const menu = document.querySelector(".menu-toggle");
+function closeMenu() {
+  nav.removeAttribute("data-open");
+  menu.setAttribute("aria-expanded", "false");
+}
+menu.addEventListener("click", () => {
+  menu.setAttribute("aria-expanded", String(nav.toggleAttribute("data-open")));
+});
+nav.querySelectorAll("a").forEach(link => link.addEventListener("click", closeMenu));
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape" && nav.hasAttribute("data-open")) {
+    closeMenu();
+    menu.focus();
+  }
+});
 
-        <!-- Formulário Funcional e Responsivo -->
-        <div id="leadFormContainer">
-          <form onsubmit="submitPublicLeadForm(event, '/comercial.html')" class="space-y-4">
-            <input type="hidden" id="leadIntentType" value="solicitar_demonstracao" />
+const tabs = Array.from(document.querySelectorAll("[role=tab]"));
+function activateTab(tab) {
+  tabs.forEach(item => {
+    const selected = item === tab;
+    const panel = item.getAttribute("aria-controls");
+    item.setAttribute("aria-selected", String(selected));
+    item.tabIndex = selected ? 0 : -1;
+    document.getElementById(panel).hidden = !selected;
+    document.querySelector('[data-screen="' + panel + '"]').hidden = !selected;
+  });
+}
+tabs.forEach((tab, index) => {
+  tab.addEventListener("click", () => activateTab(tab));
+  tab.addEventListener("keydown", event => {
+    const next = {
+      ArrowLeft: tabs[(index + tabs.length - 1) % tabs.length],
+      ArrowRight: tabs[(index + 1) % tabs.length],
+      Home: tabs[0],
+      End: tabs[tabs.length - 1],
+    }[event.key];
+    if (!next) return;
+    event.preventDefault();
+    activateTab(next);
+    next.focus();
+  });
+});
 
-            <!-- Escolha rápida entre Solicitar Demonstração e Quero Participar do Piloto -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <button
-                type="button"
-                id="btnIntentDemo"
-                onclick="selectLeadIntentAndScroll('solicitar_demonstracao')"
-                class="p-3.5 rounded-xl border-2 border-red-500 bg-red-950/30 text-white text-left transition-all cursor-pointer"
-              >
-                <div class="text-xs font-mono uppercase text-red-300 font-bold">OPÇÃO 1</div>
-                <div class="text-sm font-extrabold mt-0.5">Solicitar demonstração</div>
-                <div class="text-xs text-slate-300 mt-0.5">
-                  Quero ver como funciona a importação e o radar na prática
-                </div>
-              </button>
+const form = document.querySelector("#lead-form");
+const submit = document.querySelector("#submit");
+const error = document.querySelector("#form-error");
+const planField = document.querySelector("#plan-field");
+const portfolioField = document.querySelector("#portfolio-field");
+const planHint = document.querySelector("#plan-suggestion-hint");
+const notesOptionalLabel = document.querySelector("#notes-optional-label");
+const receipt = document.querySelector("#receipt");
+const receiptSummary = document.querySelector("#receipt-summary");
+const { intent, plan, portfolio, notes } = form.elements;
+const pilotIntent = "quero_participar_piloto";
+const lgpdIntent = "solicitacao_titular_lgpd";
+const openedAt = Date.now();
+let submitting = false;
+let submitLabel = "Solicitar demonstração";
 
-              <button
-                type="button"
-                id="btnIntentPiloto"
-                onclick="selectLeadIntentAndScroll('quero_participar_piloto')"
-                class="p-3.5 rounded-xl border border-slate-700 bg-slate-900/70 text-slate-300 text-left transition-all cursor-pointer hover:border-slate-500"
-              >
-                <div class="text-xs font-mono uppercase text-emerald-400 font-bold">OPÇÃO 2</div>
-                <div class="text-sm font-extrabold text-white mt-0.5">Quero participar do piloto</div>
-                <div class="text-xs text-slate-300 mt-0.5">
-                  Quero testar por 30 dias na minha oficina (R$ 49 ou R$ 79/mês)
-                </div>
-              </button>
-            </div>
+function getSuggestedPlanCopy(portfolioVal) {
+  if (portfolioVal === "ate_50_clientes" || portfolioVal === "51_a_150_clientes") {
+    return {
+      code: "inicial_49",
+      text: "Sugestão comercial para esta faixa: Plano Inicial (R$ 49/mês • até 150 clientes).",
+      warn: false,
+    };
+  }
+  if (portfolioVal === "151_a_300_clientes" || portfolioVal === "301_a_500_clientes") {
+    return {
+      code: "profissional_79",
+      text: "Sugestão comercial para esta faixa: Plano Profissional (R$ 79/mês • até 500 clientes).",
+      warn: false,
+    };
+  }
+  if (portfolioVal === "mais_de_500_clientes") {
+    return {
+      code: "sob_avaliacao_acima_500",
+      text: "Atenção: Os planos atuais (R$ 49 até 150 clientes e R$ 79 até 500 clientes) não cobrem carteiras acima de 500 clientes. Sua solicitação será registrada para avaliação técnica específica, sem promessa de cobertura nos planos padrão.",
+      warn: true,
+    };
+  }
+  return null;
+}
 
-            <!-- Honeypot oculto contra spam -->
-            <div class="hidden" aria-hidden="true">
-              <label for="leadHoneypot">Não preencha este campo</label>
-              <input id="leadHoneypot" type="text" tabindex="-1" autocomplete="off" />
-            </div>
+function updateIntent() {
+  const currentIntent = intent.value;
+  const isPilot = currentIntent === pilotIntent;
+  const isLgpd = currentIntent === lgpdIntent;
+  const portfolioVal = portfolio.value;
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label for="leadResponsibleName" class="block text-xs font-bold text-slate-200 mb-1">
-                  1. Nome do responsável *
-                </label>
-                <input
-                  id="leadResponsibleName"
-                  type="text"
-                  required
-                  minlength="2"
-                  placeholder="Ex: Roberto Almeida"
-                  class="w-full rounded-xl bg-slate-950 border border-slate-700 px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-red-500"
-                />
-              </div>
+  portfolioField.hidden = isLgpd;
+  portfolio.required = !isLgpd;
 
-              <div>
-                <label for="leadWorkshopName" class="block text-xs font-bold text-slate-200 mb-1">
-                  2. Nome da oficina *
-                </label>
-                <input
-                  id="leadWorkshopName"
-                  type="text"
-                  required
-                  minlength="2"
-                  placeholder="Ex: Almeida Extintores Ltda"
-                  class="w-full rounded-xl bg-slate-950 border border-slate-700 px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-red-500"
-                />
-              </div>
-            </div>
+  planField.hidden = !isPilot;
+  plan.disabled = !isPilot;
+  plan.required = isPilot;
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label for="leadEmail" class="block text-xs font-bold text-slate-200 mb-1">
-                  3. E-mail comercial *
-                </label>
-                <input
-                  id="leadEmail"
-                  type="email"
-                  required
-                  placeholder="contato@suaoficina.com.br"
-                  class="w-full rounded-xl bg-slate-950 border border-slate-700 px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-red-500"
-                />
-              </div>
+  notes.required = isLgpd;
+  notesOptionalLabel.textContent = isLgpd ? "(descreva seu pedido de acesso, correção ou exclusão *)" : "(opcional)";
 
-              <div>
-                <label for="leadPhone" class="block text-xs font-bold text-slate-200 mb-1">
-                  4. Telefone / WhatsApp (opcional)
-                </label>
-                <input
-                  id="leadPhone"
-                  type="tel"
-                  placeholder="(11) 99999-0000 (opcional)"
-                  class="w-full rounded-xl bg-slate-950 border border-slate-700 px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-red-500"
-                />
-              </div>
-            </div>
+  // Ajustar opções de plano conforme o porte da carteira selecionado
+  const optInicial = plan.querySelector('option[value="inicial_49"]');
+  const optProf = plan.querySelector('option[value="profissional_79"]');
+  const optAcima500 = plan.querySelector('option[value="avaliacao_acima_500"]');
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label for="leadPortfolioSize" class="block text-xs font-bold text-slate-200 mb-1">
-                  5. Tamanho aproximado da carteira *
-                </label>
-                <select
-                  id="leadPortfolioSize"
-                  required
-                  class="w-full rounded-xl bg-slate-950 border border-slate-700 px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-red-500"
-                >
-                  <option value="ate_50_clientes">Até 50 clientes ativos</option>
-                  <option value="51_a_150_clientes" selected>De 51 a 150 clientes ativos</option>
-                  <option value="151_a_300_clientes">De 151 a 300 clientes ativos</option>
-                  <option value="301_a_500_clientes">De 301 a 500 clientes ativos</option>
-                  <option value="mais_de_500_clientes">Mais de 500 clientes ativos</option>
-                </select>
-              </div>
+  if (portfolioVal === "mais_de_500_clientes") {
+    if (optInicial) optInicial.disabled = true;
+    if (optProf) optProf.disabled = true;
+    if (optAcima500) optAcima500.disabled = false;
+    if (isPilot) plan.value = "avaliacao_acima_500";
+  } else if (portfolioVal === "151_a_300_clientes" || portfolioVal === "301_a_500_clientes") {
+    if (optInicial) optInicial.disabled = true;
+    if (optProf) optProf.disabled = false;
+    if (optAcima500) optAcima500.disabled = true;
+    if (isPilot && plan.value === "inicial_49") plan.value = "profissional_79";
+  } else {
+    if (optInicial) optInicial.disabled = false;
+    if (optProf) optProf.disabled = false;
+    if (optAcima500) optAcima500.disabled = true;
+    if (isPilot && plan.value === "avaliacao_acima_500") plan.value = "";
+  }
 
-              <div>
-                <label for="leadPlanInterest" class="block text-xs font-bold text-slate-200 mb-1">
-                  6. Plano de interesse (R$ 49 ou R$ 79) *
-                </label>
-                <select
-                  id="leadPlanInterest"
-                  required
-                  class="w-full rounded-xl bg-slate-950 border border-slate-700 px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-red-500"
-                >
-                  <option value="inicial_49">
-                    R$ 49/mês — Plano Inicial (até 150 clientes na carteira)
-                  </option>
-                  <option value="profissional_79" selected>
-                    R$ 79/mês — Plano Profissional (até 500 clientes na carteira)
-                  </option>
-                </select>
-              </div>
-            </div>
+  const suggestion = !isLgpd ? getSuggestedPlanCopy(portfolioVal) : null;
+  if (suggestion) {
+    planHint.textContent = suggestion.text;
+    planHint.className = suggestion.warn ? "plan-hint warn" : "plan-hint";
+    planHint.hidden = false;
+  } else {
+    planHint.hidden = true;
+  }
 
-            <div>
-              <label for="leadNotes" class="block text-xs font-bold text-slate-200 mb-1">
-                7. Observações (opcional)
-              </label>
-              <textarea
-                id="leadNotes"
-                rows="2"
-                placeholder="Como sua oficina controla os vencimentos hoje (ex: planilha Excel, fichas, sistema fiscal) ou dúvidas específicas..."
-                class="w-full rounded-xl bg-slate-950 border border-slate-700 px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-red-500"
-              ></textarea>
-            </div>
+  if (isLgpd) {
+    submitLabel = "Registrar solicitação LGPD";
+  } else if (isPilot) {
+    submitLabel = portfolioVal === "mais_de_500_clientes" ? "Solicitar avaliação (+500 clientes)" : "Solicitar piloto";
+  } else {
+    submitLabel = "Solicitar demonstração";
+  }
+  if (!submitting) submit.firstChild.textContent = submitLabel + " ";
+}
 
-            <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-300">
-              <label class="flex items-start gap-2.5 cursor-pointer">
-                <input
-                  id="leadPrivacyConsent"
-                  type="checkbox"
-                  required
-                  class="mt-0.5 accent-red-600"
-                />
-                <span>
-                  <strong class="text-white">Política de Privacidade e Separação de Dados (LGPD):</strong>{' '}
-                  Autorizo o registro desta solicitação na tabela comercial separada do RenovaExt para retorno sobre a demonstração ou piloto de 30 dias. Estou ciente de que nenhuma cobrança é gerada neste formulário e de que não devo enviar planilhas reais de clientes antes da ativação da conta isolada por RLS.
-                </span>
-              </label>
-            </div>
+form.querySelectorAll("[name=intent]").forEach(input => input.addEventListener("change", updateIntent));
+portfolio.addEventListener("change", updateIntent);
 
-            <div class="flex flex-wrap items-center justify-between gap-4 pt-1">
-              <span class="text-xs text-slate-400">
-                Protegido contra spam • Nenhuma planilha real é solicitada nesta etapa.
-              </span>
-              <button
-                type="submit"
-                id="leadSubmitBtn"
-                class="px-7 py-3.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-extrabold text-sm sm:text-base shadow-lg shadow-red-950/60 transition-all cursor-pointer"
-              >
-                <span id="leadSubmitBtnText">Confirmar Solicitação de Demonstração →</span>
-              </button>
-            </div>
-          </form>
-        </div>
-      </section>
-    </main>
+document.querySelectorAll("[data-intent]").forEach(link => {
+  link.addEventListener("click", () => {
+    if (submitting) return;
+    if (form.hidden) {
+      form.hidden = false;
+      receipt.hidden = true;
+    }
+    const targetIntent = link.dataset.intent;
+    if (targetIntent === "piloto") {
+      intent.value = pilotIntent;
+    } else if (targetIntent === "lgpd") {
+      intent.value = lgpdIntent;
+    } else {
+      intent.value = "solicitar_demonstracao";
+    }
+    if (link.dataset.plan) {
+      plan.value = link.dataset.plan;
+    }
+    updateIntent();
+  });
+});
 
-    <footer class="mt-auto border-t border-slate-800 bg-slate-950 px-4 py-6 text-xs text-slate-500 text-center">
-      RenovaExt MVP • Isolamento Multi-Tenant por Políticas RLS no PostgreSQL • Sem promessa de recuperação garantida de receita • Sem emissão de laudos técnicos.
-    </footer>
+form.addEventListener("submit", async event => {
+  event.preventDefault();
+  if (submitting) return;
 
-    <script src="./lead-capture-widget.js"></script>
+  error.hidden = true;
+  const fields = new FormData(form);
+  const currentIntent = fields.get("intent");
+  const isPilot = currentIntent === pilotIntent;
+  const isLgpd = currentIntent === lgpdIntent;
+  const responsible = (fields.get("responsible") || "").trim();
+  const workshop = (fields.get("workshop") || "").trim();
+  const emailVal = (fields.get("email") || "").trim().toLowerCase();
+  const phoneVal = (fields.get("phone") || "").trim();
+  const portfolioVal = isLgpd ? "nao_aplicavel_lgpd" : (fields.get("portfolio") || "");
+  const notesVal = (fields.get("notes") || "").trim();
+  const consentChecked = fields.get("consent") === "on";
 
-    <!-- Motor de Renderização do Vídeo Demonstrativo de 2min 15s (135s) -->
-    <script>
-      const canvas = document.getElementById('demoVideoCanvas');
-      const ctx = canvas.getContext('2d');
-      const scrubber = document.getElementById('videoScrubber');
-      const timeCounter = document.getElementById('timeCounter');
-      const playPauseBtn = document.getElementById('playPauseBtn');
+  if (responsible.length < 2 || workshop.length < 2) {
+    error.textContent = "Informe o nome do responsável e o nome da oficina (mínimo de 2 caracteres).";
+    error.hidden = false;
+    form.elements[responsible.length < 2 ? "responsible" : "workshop"].focus();
+    return;
+  }
 
-      const TOTAL_DURATION = 135; // 2 minutos e 15 segundos
-      let currentTime = 0;
-      let isPlaying = true;
-      let lastTimestamp = performance.now();
+  if (!/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(emailVal)) {
+    error.textContent = "Informe um e-mail comercial válido.";
+    error.hidden = false;
+    form.elements.email.focus();
+    return;
+  }
 
-      function formatTime(sec) {
-        const s = Math.max(0, Math.min(TOTAL_DURATION, Math.floor(sec)));
-        const m = Math.floor(s / 60);
-        const r = s % 60;
-        return `${String(m).padStart(2, '0')}:${String(r).padStart(2, '0')}`;
-      }
+  if (!isLgpd && !portfolioVal) {
+    error.textContent = "Selecione o tamanho aproximado da carteira.";
+    error.hidden = false;
+    portfolio.focus();
+    return;
+  }
 
-      function togglePlay() {
-        isPlaying = !isPlaying;
-        playPauseBtn.textContent = isPlaying ? 'Pausar Vídeo' : 'Reproduzir Vídeo';
-        lastTimestamp = performance.now();
-      }
+  // Separação estrita entre escolha efetiva de plano e pedido de demonstração:
+  // Em pedidos de demonstração (ou LGPD), p_plan_interest é SEMPRE "nao_selecionado".
+  let selectedPlanToSend = "nao_selecionado";
+  if (isPilot) {
+    selectedPlanToSend = portfolioVal === "mais_de_500_clientes" ? "avaliacao_acima_500" : (fields.get("plan") || "");
+    if (!selectedPlanToSend) {
+      error.textContent = "Selecione o plano de interesse para o piloto (Inicial R$ 49 ou Profissional R$ 79).";
+      error.hidden = false;
+      plan.focus();
+      return;
+    }
+  }
 
-      function seekToChapter(sec) {
-        currentTime = sec;
-        scrubber.value = sec;
-        renderFrame(currentTime);
-      }
+  if (isLgpd && notesVal.length < 5) {
+    error.textContent = "Descreva nas observações sua solicitação de titular de dados (acesso, correção ou exclusão).";
+    error.hidden = false;
+    notes.focus();
+    return;
+  }
 
-      function onScrub(val) {
-        currentTime = parseFloat(val) || 0;
-        renderFrame(currentTime);
-      }
+  if (!consentChecked) {
+    error.textContent = "Marque a caixa autorizando o uso dos dados conforme a seção de Privacidade.";
+    error.hidden = false;
+    document.getElementById("consent").focus();
+    return;
+  }
 
-      function drawRoundedRect(x, y, w, h, r, fill, stroke) {
-        ctx.beginPath();
-        ctx.roundRect(x, y, w, h, r);
-        if (fill) {
-          ctx.fillStyle = fill;
-          ctx.fill();
-        }
-        if (stroke) {
-          ctx.strokeStyle = stroke;
-          ctx.lineWidth = 2;
-          ctx.stroke();
-        }
-      }
+  submitting = true;
+  submit.disabled = true;
+  submit.firstChild.textContent = "Enviando… ";
+  try {
+    const elapsedMs = Math.max(950, Math.round(Date.now() - openedAt));
+    const result = await submitCommercialLead({
+      p_intent_type: currentIntent,
+      p_responsible_name: responsible,
+      p_workshop_name: workshop,
+      p_email: emailVal,
+      p_phone: phoneVal || null,
+      p_portfolio_size: portfolioVal,
+      p_plan_interest: selectedPlanToSend,
+      p_notes: notesVal || null,
+      p_source_page: "/comercial.html",
+      p_privacy_consent: true,
+      p_honeypot: (fields.get("website") || "").trim(),
+      p_elapsed_ms: elapsedMs,
+      p_is_test_submission: false,
+    });
 
-      function renderFrame(t) {
-        ctx.clearRect(0, 0, 1280, 720);
+    document.querySelector("#protocol").textContent = result.protocolCode;
+    const planLabelMap = {
+      nao_selecionado: "Não selecionado (solicitação de demonstração / contato)",
+      inicial_49: "Plano Inicial • R$ 49/mês (escolha expressa)",
+      profissional_79: "Plano Profissional • R$ 79/mês (escolha expressa)",
+      avaliacao_acima_500: "Carteira acima de 500 clientes • Sujeito a avaliação específica",
+    };
+    const sugLabelMap = {
+      inicial_49: "Inicial (até 150 clientes)",
+      profissional_79: "Profissional (até 500 clientes)",
+      sob_avaliacao_acima_500: "Fora dos planos padrão de até 500 clientes (avaliação técnica)",
+      nao_aplicavel: "Atendimento de Privacidade / LGPD",
+    };
+    receiptSummary.innerHTML =
+      "<div><strong>Plano escolhido pelo usuário:</strong> " + (planLabelMap[result.planInterest] || result.planInterest) + "</div>" +
+      "<div><strong>Classificação/sugestão por porte:</strong> " + (sugLabelMap[result.suggestedPlan] || result.suggestedPlan) + "</div>";
 
-        // Fundo Principal
-        ctx.fillStyle = '#0f172a';
-        ctx.fillRect(0, 0, 1280, 720);
+    form.reset();
+    form.hidden = true;
+    receipt.hidden = false;
+    receipt.focus();
+  } catch (failure) {
+    error.textContent = failure.message;
+    error.hidden = false;
+  } finally {
+    submitting = false;
+    submit.disabled = false;
+    updateIntent();
+  }
+});
 
-        // Top Header da Apresentação Visual Guiada
-        ctx.fillStyle = '#020617';
-        ctx.fillRect(0, 0, 1280, 56);
-        drawRoundedRect(24, 14, 290, 28, 6, '#f59e0b', null);
-        ctx.fillStyle = '#020617';
-        ctx.font = 'bold 12px "JetBrains Mono", monospace';
-        ctx.fillText('APRESENTAÇÃO VISUAL (BASE FICTÍCIA)', 34, 33);
+updateIntent();
+submit.disabled = false;
 
-        ctx.fillStyle = '#f8fafc';
-        ctx.font = 'bold 18px Inter, sans-serif';
-        ctx.fillText('RenovaExt MVP — Fluxo Real das 3 Telas (Oficina ProtegeFogo Fictícia)', 330, 34);
+// Motor do Vídeo Demonstrativo de 2min 15s (135s) com dados fictícios
+const videoCanvas = document.getElementById("demoVideoCanvas");
+const vCtx = videoCanvas ? videoCanvas.getContext("2d") : null;
+const videoScrubber = document.getElementById("videoScrubber");
+const timeCounter = document.getElementById("timeCounter");
+const playPauseBtn = document.getElementById("playPauseBtn");
+const VIDEO_DURATION = 135;
+let videoTime = 0;
+let videoPlaying = true;
+let lastVideoTick = performance.now();
 
-        // Indicador da Etapa Atual (1, 2 ou 3)
-        let activeTab = 1;
-        let subtitle = '';
-        if (t < 45) {
-          activeTab = 2;
-          if (t < 15) {
-            subtitle =
-              'ETAPA 1 (00:00 - 00:45): A oficina seleciona sua planilha atual (.CSV ou .XLSX) sem precisar reescrever cadastros do zero.';
-          } else if (t < 30) {
-            subtitle =
-              'O Assistente de Importação associa as colunas e bloqueia linhas duplicadas automaticamente antes de salvar.';
-          } else {
-            subtitle =
-              'REGRA TÉCNICA: Quando uma linha não tem data ou tipo de extintor, o sistema NÃO inventa datas — marca como "Necessita conferência".';
-          }
-        } else if (t < 90) {
-          activeTab = 1;
-          if (t < 60) {
-            subtitle =
-              'ETAPA 2 (00:45 - 01:30): No Painel e Radar de Vencimentos, a oficina vê imediatamente quem precisa ser contatado agora.';
-          } else if (t < 75) {
-            subtitle =
-              'Filtros por janela comercial: A Conferir Agora (Atrasados), Próximos 30 dias, 60 dias, 90 dias e Dados Incompletos.';
-          } else {
-            subtitle =
-              'Os alertas organizam o contato comercial da oficina e nunca são apresentados como laudos técnicos ou certificados.';
-          }
-        } else {
-          activeTab = 3;
-          if (t < 105) {
-            subtitle =
-              'ETAPA 3 (01:30 - 02:15): Ao abrir um cliente, a oficina registra o avanço nas 7 etapas do Funil Comercial.';
-          } else if (t < 120) {
-            subtitle =
-              'No Montador de Proposta, a oficina informa seus próprios preços unitários (o sistema nunca inventa preços de serviços).';
-          } else {
-            subtitle =
-              'Com 1 clique em "Salvar e Baixar PDF", o orçamento profissional A4 é gerado pronto para envio pelo WhatsApp ou e-mail.';
-          }
-        }
+function fmtVideoTime(sec) {
+  const s = Math.max(0, Math.min(VIDEO_DURATION, Math.floor(sec)));
+  return String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0");
+}
+function toggleVideoPlay() {
+  videoPlaying = !videoPlaying;
+  if (playPauseBtn) playPauseBtn.textContent = videoPlaying ? "Pausar vídeo" : "Reproduzir vídeo";
+  lastVideoTick = performance.now();
+}
+function seekToChapter(sec) {
+  videoTime = sec;
+  if (videoScrubber) videoScrubber.value = sec;
+  renderVideoFrame(videoTime);
+}
+function onVideoScrub(val) {
+  videoTime = parseFloat(val) || 0;
+  renderVideoFrame(videoTime);
+}
+function rRect(x, y, w, h, r, fill, stroke) {
+  if (!vCtx) return;
+  vCtx.beginPath();
+  vCtx.roundRect(x, y, w, h, r);
+  if (fill) { vCtx.fillStyle = fill; vCtx.fill(); }
+  if (stroke) { vCtx.strokeStyle = stroke; vCtx.lineWidth = 2; vCtx.stroke(); }
+}
+function renderVideoFrame(t) {
+  if (!vCtx) return;
+  vCtx.clearRect(0, 0, 1280, 720);
+  vCtx.fillStyle = "#f5f9f9";
+  vCtx.fillRect(0, 0, 1280, 720);
 
-        // Abas das 3 Telas
-        const tabs = [
-          { id: 1, label: 'Tela 1: Painel & Radar de Vencimentos', x: 24 },
-          { id: 2, label: 'Tela 2: Importação CSV/XLSX & Carteira', x: 430 },
-          { id: 3, label: 'Tela 3: Funil & Proposta Comercial PDF', x: 845 },
-        ];
-        tabs.forEach((tab) => {
-          const isCurrent = tab.id === activeTab;
-          drawRoundedRect(
-            tab.x,
-            72,
-            395,
-            44,
-            10,
-            isCurrent ? '#dc2626' : '#1e293b',
-            isCurrent ? '#ef4444' : '#334155'
-          );
-          ctx.fillStyle = '#ffffff';
-          ctx.font = 'bold 15px Inter, sans-serif';
-          ctx.fillText(tab.label, tab.x + 22, 100);
-        });
+  vCtx.fillStyle = "#0c373e";
+  vCtx.fillRect(0, 0, 1280, 58);
+  rRect(24, 14, 300, 30, 8, "#116b59", "#31a483");
+  vCtx.fillStyle = "#ffffff";
+  vCtx.font = "bold 13px Inter, sans-serif";
+  vCtx.fillText("AMBIENTE DEMO • DADOS FICTÍCIOS", 38, 34);
+  vCtx.fillStyle = "#e6f4ef";
+  vCtx.font = "bold 18px Manrope, sans-serif";
+  vCtx.fillText("RenovaExt — Oficina ProtegeFogo Extintores (Demonstração Fictícia)", 342, 35);
 
-        // Conteúdo Dinâmico da Etapa
-        if (t < 45) {
-          // CENA 1: IMPORTAÇÃO DE PLANILHA CSV/XLSX
-          drawRoundedRect(24, 134, 1232, 470, 16, '#ffffff', '#cbd5e1');
-          ctx.fillStyle = '#0f172a';
-          ctx.font = 'bold 22px Inter, sans-serif';
-          ctx.fillText(
-            'Assistente de Importação de Planilhas (.CSV e .XLSX) — Prévia Validada',
-            52,
-            178
-          );
-          ctx.fillStyle = '#475569';
-          ctx.font = '15px Inter, sans-serif';
-          ctx.fillText(
-            'Arquivo carregado: planilha-carteira-oficina-ficticia.xlsx • 6 registros analisados • 1 duplicata bloqueada',
-            52,
-            206
-          );
+  let activeTab = 1;
+  let caption = "";
+  if (t < 45) {
+    activeTab = 2;
+    caption = t < 15
+      ? "PASSO 1 (00:00–00:45): A oficina importa sua planilha (.CSV ou .XLSX) e associa as colunas existentes."
+      : t < 30
+      ? "O assistente detecta e bloqueia linhas duplicadas automaticamente na prévia antes da confirmação."
+      : "Registros sem data de vencimento ou sem tipo de extintor nunca têm datas inventadas: recebem 'Necessita conferência'.";
+  } else if (t < 90) {
+    activeTab = 1;
+    caption = t < 60
+      ? "PASSO 2 (00:45–01:30): O Painel e o Radar organizam os clientes por janela de vencimento registrado."
+      : t < 75
+      ? "Faixas claras: Atrasados (a conferir agora), Próximos 30, 60 e 90 dias, além de Dados Incompletos."
+      : "Os alertas apoiam o contato comercial da equipe (a periodicidade técnica deve ser validada pelo responsável técnico).";
+  } else {
+    activeTab = 3;
+    caption = t < 105
+      ? "PASSO 3 (01:30–02:15): Na ficha do cliente, a equipe atualiza o andamento nas 7 etapas do funil comercial."
+      : t < 120
+      ? "Na proposta comercial, a oficina informa seus próprios preços unitários (o sistema nunca inventa preços)."
+      : "Com um clique, o orçamento em PDF A4 (ex: PROP-2026-001) fica pronto para baixar e enviar ao cliente.";
+  }
 
-          const rows = [
-            {
-              c: 'Condomínio Edifício Atlântico Sul (Fictício)',
-              eq: '18x PQS ABC 4kg + 6x Água 10L',
-              dt: 'Próx. acomp.: +14 dias',
-              st: 'PRONTO PARA IMPORTAR',
-              bg: '#ecfdf5',
-              fg: '#047857',
-            },
-            {
-              c: 'Condomínio Edifício Atlântico Sul [Linha Duplicada]',
-              eq: '18x PQS ABC 4kg + 6x Água 10L',
-              dt: 'Mesma chave identificada',
-              st: 'DUPLICATA BLOQUEADA',
-              bg: '#fef2f2',
-              fg: '#b91c1c',
-            },
-            {
-              c: 'Metalúrgica Precisão Industrial (Fictício)',
-              eq: '12x PQS BC 6kg + 6x CO2 6kg',
-              dt: 'Atrasado há 11 dias',
-              st: 'PRONTO PARA IMPORTAR',
-              bg: '#ecfdf5',
-              fg: '#047857',
-            },
-            {
-              c: 'Padaria Pão Dourado (Fictício)',
-              eq: '4x PQS ABC 4kg + 2x CO2 6kg',
-              dt: 'Data inválida ("32/13/2026") -> NULL',
-              st: 'NECESSITA CONFERÊNCIA',
-              bg: '#faf5ff',
-              fg: '#6b21a8',
-            },
-            {
-              c: 'Clínica Médica Santa Clara (Fictício)',
-              eq: '8 cilindros (Tipo não informado)',
-              dt: 'Sem data na planilha -> NULL',
-              st: 'NECESSITA CONFERÊNCIA',
-              bg: '#faf5ff',
-              fg: '#6b21a8',
-            },
-          ];
+  const vTabs = [
+    { id: 1, label: "Tela 1: Painel e Radar de Vencimentos", x: 24 },
+    { id: 2, label: "Tela 2: Importação CSV/XLSX e Carteira", x: 430 },
+    { id: 3, label: "Tela 3: Funil e Proposta Comercial PDF", x: 845 },
+  ];
+  vTabs.forEach(tb => {
+    const cur = tb.id === activeTab;
+    rRect(tb.x, 74, 395, 42, 9, cur ? "#0d5148" : "#ffffff", cur ? "#0d5148" : "#dce8e8");
+    vCtx.fillStyle = cur ? "#ffffff" : "#132d33";
+    vCtx.font = "bold 15px Manrope, sans-serif";
+    vCtx.fillText(tb.label, tb.x + 20, 100);
+  });
 
-          rows.forEach((r, idx) => {
-            const y = 230 + idx * 66;
-            drawRoundedRect(52, y, 1176, 54, 10, '#f8fafc', '#e2e8f0');
-            ctx.fillStyle = '#0f172a';
-            ctx.font = 'bold 15px Inter, sans-serif';
-            ctx.fillText(r.c, 72, y + 24);
-            ctx.fillStyle = '#475569';
-            ctx.font = '14px Inter, sans-serif';
-            ctx.fillText(`${r.eq}  •  ${r.dt}`, 72, y + 44);
+  rRect(24, 132, 1232, 474, 16, "#ffffff", "#dce8e8");
 
-            drawRoundedRect(950, y + 12, 255, 30, 8, r.bg, r.fg);
-            ctx.fillStyle = r.fg;
-            ctx.font = 'bold 13px "JetBrains Mono", monospace';
-            ctx.fillText(r.st, 968, y + 32);
-          });
-        } else if (t < 90) {
-          // CENA 2: RADAR DE VENCIMENTOS E PAINEL
-          drawRoundedRect(24, 134, 1232, 470, 16, '#ffffff', '#cbd5e1');
+  if (t < 45) {
+    vCtx.fillStyle = "#132d33";
+    vCtx.font = "bold 21px Manrope, sans-serif";
+    vCtx.fillText("Assistente de Importação (.CSV / .XLSX) — Prévia de Dados Fictícios", 52, 174);
+    const sampleRows = [
+      { n: "Condomínio Edifício Atlântico Sul (Fictício)", d: "18x PQS ABC 4kg + 6x Água 10L • Vence em +14 dias", s: "PRONTO PARA IMPORTAR", bg: "#e1f4e9", fg: "#146351" },
+      { n: "Condomínio Edifício Atlântico Sul [Duplicata]", d: "Mesma chave composta detectada na planilha", s: "DUPLICATA BLOQUEADA", bg: "#fbe9e9", fg: "#973239" },
+      { n: "Metalúrgica Precisão Industrial (Fictício)", d: "12x PQS BC 6kg + 6x CO2 6kg • Atrasado há 11 dias", s: "PRONTO PARA IMPORTAR", bg: "#e1f4e9", fg: "#146351" },
+      { n: "Padaria e Confeitaria Pão Dourado (Fictício)", d: "Data inválida ('32/13/2026') → Sem data inventada", s: "NECESSITA CONFERÊNCIA", bg: "#f3e8ff", fg: "#6b21a8" },
+      { n: "Clínica Médica Santa Clara (Fictício)", d: "8 cilindros sem data de próximo acompanhamento", s: "NECESSITA CONFERÊNCIA", bg: "#f3e8ff", fg: "#6b21a8" },
+    ];
+    sampleRows.forEach((r, idx) => {
+      const y = 200 + idx * 74;
+      rRect(52, y, 1176, 60, 10, "#f5f9f9", "#dce8e8");
+      vCtx.fillStyle = "#132d33";
+      vCtx.font = "bold 15px Inter, sans-serif";
+      vCtx.fillText(r.n, 72, y + 25);
+      vCtx.fillStyle = "#4c636a";
+      vCtx.font = "14px Inter, sans-serif";
+      vCtx.fillText(r.d, 72, y + 46);
+      rRect(940, y + 14, 265, 32, 8, r.bg, null);
+      vCtx.fillStyle = r.fg;
+      vCtx.font = "bold 12px Inter, sans-serif";
+      vCtx.fillText(r.s, 960, y + 35);
+    });
+  } else if (t < 90) {
+    const cards = [
+      { t: "A Conferir Agora", v: "1 cliente", s: "Atrasado (−11 dias)", fg: "#973239", bg: "#fbe9e9" },
+      { t: "Próximos 30 Dias", v: "1 cliente", s: "Janela 30d (+14 dias)", fg: "#116b59", bg: "#e6f3ef" },
+      { t: "Próximos 60 / 90 Dias", v: "2 clientes", s: "Janelas 60d e 90d", fg: "#0c373e", bg: "#e9f2fd" },
+      { t: "Dados Incompletos", v: "1 cliente", s: "Necessita conferência", fg: "#6b21a8", bg: "#f3e8ff" },
+    ];
+    cards.forEach((c, i) => {
+      const x = 52 + i * 298;
+      rRect(x, 158, 280, 96, 12, c.bg, null);
+      vCtx.fillStyle = c.fg;
+      vCtx.font = "bold 14px Inter, sans-serif";
+      vCtx.fillText(c.t, x + 18, 184);
+      vCtx.font = "bold 28px Manrope, sans-serif";
+      vCtx.fillText(c.v, x + 18, 218);
+      vCtx.font = "13px Inter, sans-serif";
+      vCtx.fillText(c.s, x + 18, 240);
+    });
+    vCtx.fillStyle = "#132d33";
+    vCtx.font = "bold 19px Manrope, sans-serif";
+    vCtx.fillText("Radar de Vencimentos (Carteira Fictícia de Demonstração)", 52, 294);
+    const items = [
+      { b: "ATRASADO HÁ 11 DIAS", bc: "#973239", n: "Metalúrgica Precisão Industrial (Fictício) — Guarulhos/SP", d: "Contato: Juliana Costa • 12x PQS BC 6kg + 6x CO2 6kg • Etapa: Pronto para contato" },
+      { b: "VENCE EM 14 DIAS (30D)", bc: "#116b59", n: "Condomínio Edifício Atlântico Sul (Fictício) — São Paulo/SP", d: "Contato: Sr. Roberto Mendes • 18x PQS ABC 4kg + 6x Água 10L • Etapa: Contatado" },
+      { b: "NECESSITA CONFERÊNCIA", bc: "#6b21a8", n: "Clínica Médica Santa Clara (Fictício) — Belo Horizonte/MG", d: "8 equipamentos sem data registrada na planilha — revisar antes de cotar" },
+    ];
+    items.forEach((it, i) => {
+      const y = 314 + i * 86;
+      rRect(52, y, 1176, 74, 10, "#f5f9f9", "#dce8e8");
+      rRect(70, y + 14, 200, 24, 6, it.bc, null);
+      vCtx.fillStyle = "#ffffff";
+      vCtx.font = "bold 11px Inter, sans-serif";
+      vCtx.fillText(it.b, 82, y + 30);
+      vCtx.fillStyle = "#132d33";
+      vCtx.font = "bold 16px Manrope, sans-serif";
+      vCtx.fillText(it.n, 286, y + 31);
+      vCtx.fillStyle = "#4c636a";
+      vCtx.font = "14px Inter, sans-serif";
+      vCtx.fillText(it.d, 70, y + 58);
+    });
+  } else {
+    vCtx.fillStyle = "#132d33";
+    vCtx.font = "bold 20px Manrope, sans-serif";
+    vCtx.fillText("Cliente: Condomínio Edifício Atlântico Sul (Fictício) — Proposta PROP-2026-001", 52, 174);
+    rRect(52, 200, 700, 370, 12, "#f5f9f9", "#dce8e8");
+    vCtx.fillStyle = "#132d33";
+    vCtx.font = "bold 16px Manrope, sans-serif";
+    vCtx.fillText("Itens do Orçamento (Valores informados pela própria oficina):", 74, 234);
+    rRect(74, 254, 656, 76, 8, "#ffffff", "#dce8e8");
+    vCtx.fillStyle = "#132d33";
+    vCtx.font = "bold 15px Inter, sans-serif";
+    vCtx.fillText("18x Extintor PQS ABC 4kg — Manutenção 2º Nível / Recarga", 92, 282);
+    vCtx.fillStyle = "#116b59";
+    vCtx.fillText("Valor Unitário: R$ 65,00   |   Subtotal: R$ 1.170,00", 92, 310);
 
-          const kpis = [
-            { title: 'A Conferir Agora', val: '1 cliente', sub: 'Atrasado (-11 dias)', c: '#dc2626', bg: '#fef2f2' },
-            { title: 'Próximos 30 Dias', val: '1 cliente', sub: 'Janela D-30 (+14 dias)', c: '#d97706', bg: '#fffbeb' },
-            { title: 'Próximos 60 / 90d', val: '2 clientes', sub: 'Janelas D-60 e D-90', c: '#2563eb', bg: '#eff6ff' },
-            { title: 'Necessita Conferência', val: '2 clientes', sub: 'Sem data inventada', c: '#7e22ce', bg: '#faf5ff' },
-          ];
-          kpis.forEach((k, i) => {
-            const x = 52 + i * 298;
-            drawRoundedRect(x, 158, 280, 100, 12, k.bg, k.c);
-            ctx.fillStyle = k.c;
-            ctx.font = 'bold 14px Inter, sans-serif';
-            ctx.fillText(k.title, x + 18, 184);
-            ctx.font = 'bold 28px Inter, sans-serif';
-            ctx.fillText(k.val, x + 18, 220);
-            ctx.font = '13px Inter, sans-serif';
-            ctx.fillText(k.sub, x + 18, 244);
-          });
+    rRect(74, 344, 656, 76, 8, "#ffffff", "#dce8e8");
+    vCtx.fillStyle = "#132d33";
+    vCtx.fillText("6x Extintor Água Pressurizada 10L — Manutenção 2º Nível", 92, 372);
+    vCtx.fillStyle = "#116b59";
+    vCtx.fillText("Valor Unitário: R$ 55,00   |   Subtotal: R$ 330,00", 92, 400);
 
-          ctx.fillStyle = '#0f172a';
-          ctx.font = 'bold 19px Inter, sans-serif';
-          ctx.fillText(
-            'Radar de Acompanhamento Comercial (Priorização Clara de Quem Contatar)',
-            52,
-            296
-          );
+    rRect(74, 444, 656, 82, 10, "#0c373e", null);
+    vCtx.fillStyle = "#ffffff";
+    vCtx.font = "bold 20px Manrope, sans-serif";
+    vCtx.fillText("TOTAL DA PROPOSTA: R$ 1.500,00 (Validade: 15 dias)", 96, 492);
 
-          const cards = [
-            {
-              badge: 'ATRASADO HÁ 11 DIAS',
-              bColor: '#dc2626',
-              name: 'Metalúrgica Precisão Industrial (Fictício) — Guarulhos/SP',
-              info: 'Contato: Juliana Costa (Compras) • 12x PQS BC 6kg + 6x CO2 6kg • Funil: Pronto para contato',
-            },
-            {
-              badge: 'VENCE EM 14 DIAS (30D)',
-              bColor: '#d97706',
-              name: 'Condomínio Edifício Atlântico Sul (Fictício) — São Paulo/SP',
-              info: 'Contato: Sr. Roberto Mendes (Síndico) • 18x PQS ABC 4kg + 6x Água 10L • Funil: Contatado',
-            },
-            {
-              badge: 'NECESSITA CONFERÊNCIA',
-              bColor: '#7e22ce',
-              name: 'Clínica Médica Santa Clara (Fictício) — Belo Horizonte/MG',
-              info: '8 cilindros sem data de próximo acompanhamento na planilha antiga — revisar antes de cotar',
-            },
-          ];
+    rRect(780, 200, 448, 370, 12, "#edf8f3", "#8ec7b9");
+    rRect(804, 224, 400, 44, 8, "#0d5148", null);
+    vCtx.fillStyle = "#ffffff";
+    vCtx.font = "bold 14px Manrope, sans-serif";
+    vCtx.fillText("PROPOSTA COMERCIAL EM PDF (FOLHA A4)", 845, 251);
+    vCtx.fillStyle = "#132d33";
+    vCtx.font = "bold 15px Inter, sans-serif";
+    vCtx.fillText("Emitente: Oficina ProtegeFogo (Demo Fictícia)", 804, 305);
+    vCtx.font = "14px Inter, sans-serif";
+    vCtx.fillText("Destinatário: Condomínio Ed. Atlântico Sul", 804, 332);
+    vCtx.fillText("• 18x PQS ABC 4kg ................. R$ 1.170,00", 804, 370);
+    vCtx.fillText("• 6x Água Pressurizada 10L ......... R$ 330,00", 804, 396);
+    vCtx.font = "bold 17px Manrope, sans-serif";
+    vCtx.fillText("Total Geral: R$ 1.500,00", 804, 438);
+    rRect(804, 472, 400, 46, 8, "#0d5148", null);
+    vCtx.fillStyle = "#ffffff";
+    vCtx.font = "bold 15px Inter, sans-serif";
+    vCtx.fillText("✓ PDF Pronto para Baixar e Enviar", 872, 500);
+  }
 
-          cards.forEach((card, i) => {
-            const y = 316 + i * 86;
-            drawRoundedRect(52, y, 1176, 74, 10, '#f8fafc', '#cbd5e1');
-            drawRoundedRect(70, y + 14, 210, 24, 6, card.bColor, null);
-            ctx.fillStyle = '#ffffff';
-            ctx.font = 'bold 12px "JetBrains Mono", monospace';
-            ctx.fillText(card.badge, 82, y + 30);
-
-            ctx.fillStyle = '#0f172a';
-            ctx.font = 'bold 16px Inter, sans-serif';
-            ctx.fillText(card.name, 296, y + 31);
-
-            ctx.fillStyle = '#475569';
-            ctx.font = '14px Inter, sans-serif';
-            ctx.fillText(card.info, 70, y + 58);
-
-            drawRoundedRect(1030, y + 18, 180, 38, 8, '#dc2626', null);
-            ctx.fillStyle = '#ffffff';
-            ctx.font = 'bold 13px Inter, sans-serif';
-            ctx.fillText('Cotar / Proposta →', 1052, y + 42);
-          });
-        } else {
-          // CENA 3: FUNIL COMERCIAL DE 7 ETAPAS + PROPOSTA PDF COM PREÇOS DA OFICINA
-          drawRoundedRect(24, 134, 1232, 470, 16, '#ffffff', '#cbd5e1');
-
-          ctx.fillStyle = '#0f172a';
-          ctx.font = 'bold 20px Inter, sans-serif';
-          ctx.fillText(
-            'Cliente: Condomínio Edifício Atlântico Sul (Fictício) — Proposta PROP-2026-001',
-            52,
-            174
-          );
-
-          // Barra das 7 Etapas do Funil
-          const stages = [
-            '1. Conferência',
-            '2. Pronto Contato',
-            '3. Contatado',
-            '4. Proposta Prep.',
-            '5. Proposta Env.',
-            '6. Aceito',
-            '7. Perdido',
-          ];
-          stages.forEach((st, i) => {
-            const active = i === 4;
-            const x = 52 + i * 168;
-            drawRoundedRect(
-              x,
-              192,
-              160,
-              36,
-              8,
-              active ? '#059669' : '#f1f5f9',
-              active ? '#047857' : '#cbd5e1'
-            );
-            ctx.fillStyle = active ? '#ffffff' : '#334155';
-            ctx.font = 'bold 13px Inter, sans-serif';
-            ctx.fillText(st, x + 16, 215);
-          });
-
-          // Tabela de Preços Editáveis + Preview do PDF
-          drawRoundedRect(52, 248, 700, 330, 12, '#f8fafc', '#cbd5e1');
-          ctx.fillStyle = '#0f172a';
-          ctx.font = 'bold 16px Inter, sans-serif';
-          ctx.fillText('Itens e Serviços Cotados (Preços informados pela oficina):', 74, 280);
-
-          drawRoundedRect(74, 300, 656, 72, 8, '#ffffff', '#e2e8f0');
-          ctx.fillStyle = '#0f172a';
-          ctx.font = 'bold 15px Inter, sans-serif';
-          ctx.fillText('Item 1: 18x Extintor PQS ABC 4kg — Manutenção 2º Nível / Recarga', 90, 326);
-          ctx.fillStyle = '#047857';
-          ctx.font = 'bold 15px "JetBrains Mono", monospace';
-          ctx.fillText('Preço Unit. Editado: R$ 65,00   |   Subtotal: R$ 1.170,00', 90, 354);
-
-          drawRoundedRect(74, 386, 656, 72, 8, '#ffffff', '#e2e8f0');
-          ctx.fillStyle = '#0f172a';
-          ctx.font = 'bold 15px Inter, sans-serif';
-          ctx.fillText('Item 2: 6x Extintor Água Pressurizada 10L — Manutenção 2º Nível', 90, 412);
-          ctx.fillStyle = '#047857';
-          ctx.font = 'bold 15px "JetBrains Mono", monospace';
-          ctx.fillText('Preço Unit. Editado: R$ 55,00   |   Subtotal: R$ 330,00', 90, 440);
-
-          drawRoundedRect(74, 480, 656, 76, 10, '#0f172a', null);
-          ctx.fillStyle = '#ffffff';
-          ctx.font = 'bold 20px Inter, sans-serif';
-          ctx.fillText('TOTAL DA PROPOSTA: R$ 1.500,00 (Validade: 15 dias)', 94, 525);
-
-          // Folha A4 PDF Gerada à Direita
-          drawRoundedRect(780, 248, 448, 330, 12, '#fff1f2', '#f43f5e');
-          drawRoundedRect(804, 268, 400, 44, 6, '#b91c1c', null);
-          ctx.fillStyle = '#ffffff';
-          ctx.font = 'bold 14px Inter, sans-serif';
-          ctx.fillText('PDF GERADO: PROPOSTA COMERCIAL A4', 822, 295);
-
-          ctx.fillStyle = '#0f172a';
-          ctx.font = 'bold 14px Inter, sans-serif';
-          ctx.fillText('Oficina ProtegeFogo Extintores (Demo)', 804, 338);
-          ctx.font = '13px Inter, sans-serif';
-          ctx.fillText('Cliente: Condomínio Edifício Atlântico Sul', 804, 362);
-          ctx.fillText('• 18x PQS ABC 4kg ........... R$ 1.170,00', 804, 392);
-          ctx.fillText('• 6x Água Pressurizada 10L ... R$ 330,00', 804, 414);
-          ctx.font = 'bold 16px Inter, sans-serif';
-          ctx.fillText('Valor Total: R$ 1.500,00', 804, 448);
-
-          drawRoundedRect(804, 475, 400, 46, 8, '#dc2626', null);
-          ctx.fillStyle = '#ffffff';
-          ctx.font = 'bold 15px Inter, sans-serif';
-          ctx.fillText('✓ PDF Pronto para Download e Envio', 865, 504);
-
-          ctx.fillStyle = '#64748b';
-          ctx.font = '11px Inter, sans-serif';
-          ctx.fillText('Nota: Orçamento comercial. Não substitui laudo técnico.', 804, 548);
-        }
-
-        // Barra Inferior de Legenda Sincronizada
-        drawRoundedRect(24, 622, 1232, 76, 12, '#020617', '#334155');
-        ctx.fillStyle = '#f8fafc';
-        ctx.font = 'bold 17px Inter, sans-serif';
-        ctx.fillText(subtitle, 48, 666);
-
-        timeCounter.textContent = `${formatTime(t)} / ${formatTime(TOTAL_DURATION)}`;
-      }
-
-      function animate(now) {
-        if (isPlaying) {
-          const dt = (now - lastTimestamp) / 1000;
-          lastTimestamp = now;
-          currentTime += dt;
-          if (currentTime > TOTAL_DURATION) {
-            currentTime = 0;
-          }
-          scrubber.value = currentTime;
-          renderFrame(currentTime);
-        } else {
-          lastTimestamp = now;
-        }
-        requestAnimationFrame(animate);
-      }
-
-      renderFrame(0);
-      requestAnimationFrame(animate);
-    </script>
-  </body>
+  rRect(24, 622, 1232, 74, 12, "#0c373e", null);
+  vCtx.fillStyle = "#ffffff";
+  vCtx.font = "bold 16px Inter, sans-serif";
+  vCtx.fillText(caption, 48, 665);
+  if (timeCounter) timeCounter.textContent = fmtVideoTime(t) + " / " + fmtVideoTime(VIDEO_DURATION);
+}
+function loopVideo(now) {
+  if (videoPlaying) {
+    const dt = (now - lastVideoTick) / 1000;
+    lastVideoTick = now;
+    videoTime += dt;
+    if (videoTime > VIDEO_DURATION) videoTime = 0;
+    if (videoScrubber) videoScrubber.value = videoTime;
+    renderVideoFrame(videoTime);
+  } else {
+    lastVideoTick = now;
+  }
+  requestAnimationFrame(loopVideo);
+}
+renderVideoFrame(0);
+requestAnimationFrame(loopVideo);
+</script>
+</body>
 </html>
