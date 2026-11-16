@@ -220,7 +220,7 @@
           p_portfolio_size: portfolioSize,
           p_plan_interest: planInterest,
           p_notes: notes || null,
-          p_source_page: sourcePage || window.location.pathname,
+          p_source_page: sourcePage || (window.location.pathname + window.location.search).slice(0, 120),
           p_privacy_consent: true,
           p_honeypot: honeypot,
           p_elapsed_ms: elapsedMs,
