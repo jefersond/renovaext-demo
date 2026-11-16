@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>RenovaExt — Proposta de Piloto Comercial de 30 Dias (R$ 49 e R$ 79)</title>
+    <link rel="icon" type="image/svg+xml" href="./brand/renovaext-icone-quadrado.svg" />
     <meta
       name="description"
       content="Proposta de Piloto de 30 dias do RenovaExt para oficinas de manutenção e recarga de extintores. Condições transparentes de escopo, isolamento por RLS, pagamento, cancelamento e suporte."
@@ -22,34 +23,35 @@
       }
     </style>
   </head>
-  <body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col">
+  <body class="bg-[#f7faf8] text-[#102126] min-h-screen flex flex-col">
     <!-- Barra Superior -->
-    <div class="bg-slate-950 text-slate-300 px-4 py-2.5 text-xs border-b border-slate-800">
+    <div class="bg-[#0c373e] text-slate-200 px-4 py-2.5 text-xs border-b border-teal-900">
       <div class="max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-2">
-        <div>
-          <strong class="text-white">RENOVAEXT MVP</strong> — Proposta de Piloto Comercial de 30 Dias (Sem Fidelidade)
+        <div class="flex items-center gap-2">
+          <img src="./brand/renovaext-icone-quadrado.svg" alt="RenovaExt" class="w-5 h-5 rounded" />
+          <span><strong class="text-white">RENOVAEXT</strong> — Proposta de Piloto Comercial de 30 Dias (Sem Fidelidade)</span>
         </div>
         <div class="flex flex-wrap items-center gap-3">
           <button
             type="button"
             onclick="selectLeadIntentAndScroll('solicitar_demonstracao')"
-            class="px-3 py-1 rounded bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-bold cursor-pointer"
+            class="px-3 py-1 rounded bg-teal-950 hover:bg-teal-900 border border-teal-800 text-white font-bold cursor-pointer"
           >
             Solicitar demonstração
           </button>
           <button
             type="button"
             onclick="selectLeadIntentAndScroll('quero_participar_piloto')"
-            class="px-3 py-1 rounded bg-emerald-700 hover:bg-emerald-600 text-white font-bold cursor-pointer"
+            class="px-3 py-1 rounded bg-[#0d5148] hover:bg-[#116b59] text-white font-bold cursor-pointer"
           >
             Quero participar do piloto
           </button>
-          <a href="./comercial.html" class="text-slate-300 hover:text-white underline font-semibold">
+          <a href="./comercial.html" class="text-teal-100 hover:text-white underline font-semibold">
             ← Voltar ao Vídeo e Apresentação
           </a>
           <a
             href="./index.html?demo=1"
-            class="px-3 py-1 rounded bg-red-600 hover:bg-red-500 text-white font-bold"
+            class="px-3 py-1 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-bold"
           >
             Testar Demonstração Fictícia →
           </a>
@@ -60,27 +62,30 @@
     <main class="max-w-5xl mx-auto px-4 py-10 space-y-10">
       <!-- Cabeçalho da Proposta -->
       <section class="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm space-y-4">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 border border-red-200 text-xs font-bold text-red-700">
-          PROPOSTA DE PILOTO DE 30 DIAS • SEM FIDELIDADE E SEM MULTA
+        <div class="flex flex-wrap items-center justify-between gap-4 pb-2 border-b border-slate-100">
+          <img src="./brand/renovaext-logo-horizontal-claro.svg" alt="RenovaExt — Agenda e Renovações para Empresas de Extintores" class="h-12 sm:h-14 w-auto" />
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 border border-teal-200 text-xs font-bold text-[#0d5148]">
+            PROPOSTA DE PILOTO DE 30 DIAS • SEM FIDELIDADE E SEM MULTA
+          </div>
         </div>
         <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
           Organize sua agenda comercial de renovações de extintores por 30 dias sem trocar seu sistema atual
         </h1>
         <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
-          Esta proposta apresenta as condições transparentes do <strong>Piloto de 30 Dias do RenovaExt</strong> para pequenas e médias empresas de inspeção, manutenção e recarga de extintores que desejam organizar o acompanhamento comercial de condomínios, lojas, escolas e empresas.
+          Esta proposta apresenta as condições transparentes do <strong>Piloto de 30 Dias do RenovaExt</strong> para pequenas e médias empresas de inspeção, manutenção e recarga de extintores de incêndio que desejam organizar o acompanhamento comercial de condomínios, lojas, escolas e empresas.
         </p>
         <div class="flex flex-wrap gap-3 pt-2">
           <button
             type="button"
             onclick="selectLeadIntentAndScroll('quero_participar_piloto')"
-            class="px-5 py-3 rounded-xl bg-red-600 hover:bg-red-500 text-white font-extrabold text-xs sm:text-sm shadow-sm cursor-pointer"
+            class="px-5 py-3 rounded-xl bg-[#0d5148] hover:bg-[#116b59] text-white font-extrabold text-xs sm:text-sm shadow-sm cursor-pointer"
           >
             Quero participar do piloto →
           </button>
           <button
             type="button"
             onclick="selectLeadIntentAndScroll('solicitar_demonstracao')"
-            class="px-5 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm cursor-pointer"
+            class="px-5 py-3 rounded-xl bg-[#0c373e] hover:bg-teal-900 text-white font-bold text-xs sm:text-sm cursor-pointer"
           >
             Solicitar demonstração
           </button>
