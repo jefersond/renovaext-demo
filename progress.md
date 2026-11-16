@@ -230,3 +230,34 @@
   - `http://localhost:8788/` retorna HTTP 200 OK com showcase e formulário;
   - `http://localhost:8788/demo` e `http://localhost:8788/demo/` retornam HTTP 200 OK sem loops, renderizando o painel React fictício completo;
   - Evidências salvas em `docs/homologacao/evidencia-cloudflare-pages-*.png`.
+
+---
+
+## 2026-11-16 — Publicação Comercial, Hardening de Segurança LGPD e Campanha Meta Ads
+
+### 1. Auditoria e Hardening de Segurança LGPD (`20261116000008_lgpd_lead_purge_and_retention.sql`)
+- **Problema Corrigido:** A versão preliminar da função de expurgo não restringia o chamador, abrindo brecha para que requisições anônimas disparassem a exclusão indevida de dados de terceiros.
+- **Implementação Segura:**
+  - `purge_commercial_lead_by_email` agora exige checagem estrita de autorização: `public.is_authenticated_founder_admin()` ou `service_role`. Usuários anônimos são rejeitados com `403 Forbidden`.
+  - As permissões `EXECUTE` foram formalmente revogadas de `PUBLIC` e `anon`, impedindo inclusive a exposição do endpoint na API do PostgREST.
+  - Para conformidade com a LGPD sem quebra de inteligência comercial, as entradas correspondentes no CRM têm os dados pessoais substituídos por `'TITULAR_EXPURGADO_LGPD'` e `email = NULL`, mantendo as contagens históricas agregadas e a rastreabilidade em `public.commercial_lead_privacy_logs` via hash SHA-256.
+  - A rotina de retenção programada (`cleanup_expired_stale_leads`) protege expressamente registros em estágios de piloto ativo ou em ativação.
+
+### 2. Sincronização do Repositório para Cloudflare Pages
+- Sincronizadas e enviadas via `git push origin` as branches `main` e `preview/nova-landing-chatgpt` no GitHub (`jefersond/renovaext-demo`) contendo o pipeline de compilação `npm run build` e diretório de saída `dist`.
+- Corrigida a captura de origem nos scripts de lead ([index.html](file:///c:/Users/jefer/Desktop/Jeferson/Saas%20em%20teste/RenovaExt/index.html) e [public/lead-capture-widget.js](file:///c:/Users/jefer/Desktop/Jeferson/Saas%20em%20teste/RenovaExt/public/lead-capture-widget.js)) para gravar dinamicamente os parâmetros UTM (`window.location.pathname + window.location.search`).
+
+### 3. Teste E2E de Lead com Origem Meta Ads, CRM e Anti-Duplicação
+- Executado o script [tools/test_commercial_meta_ads_lead_e2e.mjs](file:///c:/Users/jefer/Desktop/Jeferson/Saas%20em%20teste/RenovaExt/tools/test_commercial_meta_ads_lead_e2e.mjs) contra o backend Supabase:
+  - Lead de teste com UTMs (`/?utm_source=meta_ads&utm_medium=cpc&utm_campaign=validacao_inicial`) gravado com sucesso com protocolo `SOL-20261116-A6E2CF`;
+  - Tentativa de envio duplicado no mesmo e-mail bloqueada pelo rate limit do servidor com a mensagem: `"SPAM_PROTECTION_RATE_LIMIT: Já recebemos uma solicitação para este e-mail nos últimos 10 minutos."`;
+  - Simulação de timeout/falha de conexão tratada com retorno de erro seguro para o usuário;
+  - RLS confirmado ativo: tentativas anônimas de leitura direta retornam erro `42501` (`permission denied for table commercial_leads`).
+
+### 4. Estruturação da Campanha Meta Ads (Validação Inicial com Teto de R$ 10)
+- Elaborado o guia completo em [docs/comercial/16-campanha-meta-ads-validacao-inicial.md](file:///c:/Users/jefer/Desktop/Jeferson/Saas%20em%20teste/RenovaExt/docs/comercial/16-campanha-meta-ads-validacao-inicial.md):
+  - Orçamento Total (Lifetime) fixado em **R$ 10,00 cravados** com período de 48 horas (D+1 às 08h até D+2 às 23h59), atendendo com precisão ao piso diário de ~US$ 1,00/dia da Meta em reais;
+  - Segmentação estrita para empresas do ramo de extintores e combate a incêndio;
+  - Anúncio único em 1080×1080 com copy comercial transparente e sem promessas irrealistas;
+  - Mensuração respeitando a privacidade: clique nunca é lead; lead é unicamente formulário confirmado no Supabase;
+  - Campanha mantida estritamente em **RASCUNHO / PAUSADA** (zero gastos disparados).

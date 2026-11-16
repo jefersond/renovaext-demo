@@ -174,3 +174,14 @@
 
 
 
+
+---
+
+## Fase 13: Publicação Comercial, Hardening de Segurança LGPD e Campanha Meta Ads (Validação Inicial)
+- [x] 1. Auditoria e hardening da migração `20261116000008_lgpd_lead_purge_and_retention.sql`: bloqueio total de solicitações anônimas de exclusão, permissões restritas a `is_authenticated_founder_admin()` e `service_role`.
+- [x] 2. Preservação da integridade do pipeline do CRM: substituição de dados pessoais por `TITULAR_EXPURGADO_LGPD` em vez de deleção destrutiva, mantendo contagens de conversão auditáveis.
+- [x] 3. Política de retenção de 180 dias com proteção explícita para pilotos ativos e em ativação.
+- [x] 4. Teste ponta a ponta `Meta Ads -> Supabase -> CRM` (`tools/test_commercial_meta_ads_lead_e2e.mjs`): comprovado recebimento de UTMs, rate limiting por e-mail contra duplicatas e fallback de conexão.
+- [x] 5. Sincronização e push das branches `main` e `preview/nova-landing-chatgpt` no GitHub (`jefersond/renovaext-demo`) com suporte ao build `npm run build` e saída `dist` na Cloudflare Pages.
+- [x] 6. Elaboração e estruturação da campanha Meta Ads em status PAUSADA/RASCUNHO com orçamento total cravado em R$ 10,00 (período de 48h para atender ao piso da Meta em BRL sem aumento de verba) em `docs/comercial/16-campanha-meta-ads-validacao-inicial.md`.
+- [x] 7. Mapeamento DNS exato para `renovaext.com.br`, `www` e `demo` na Cloudflare, com preservação total de registros MX/SPF/DKIM para e-mails corporativos futuros.
