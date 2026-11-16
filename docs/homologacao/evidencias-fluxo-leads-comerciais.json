@@ -1,0 +1,57 @@
+{
+  "executedAt": "2026-11-16T18:44:01.892Z",
+  "status": "NOVA_LANDING_PAGE_E_ATRIBUICAO_DE_PLANOS_HOMOLOGADAS",
+  "rpcSignatureValidated": {
+    "functionName": "public.submit_commercial_lead",
+    "parametersVerified": [
+      "p_intent_type (text)",
+      "p_responsible_name (text)",
+      "p_workshop_name (text)",
+      "p_email (text)",
+      "p_phone (text | null)",
+      "p_portfolio_size (text)",
+      "p_plan_interest (text | null)",
+      "p_notes (text | null)",
+      "p_source_page (text)",
+      "p_privacy_consent (boolean)",
+      "p_honeypot (text)",
+      "p_elapsed_ms (integer)",
+      "p_is_test_submission (boolean)"
+    ]
+  },
+  "planAttributionAndPortfolioLimitTests": {
+    "demoRequestWithoutPlanSelection": {
+      "protocolCode": "SOL-20261116-8A0669",
+      "storedPlanInterestInCrm": "nao_selecionado",
+      "storedSuggestedPlanInCrm": "profissional_79",
+      "unselectedPlanNeverMarkedAsChosen": true
+    },
+    "portfolioOver500Clients": {
+      "directStandardPlanBlocked": true,
+      "blockMessage": "PORTFOLIO_EXCEEDS_PLAN_LIMIT: Os planos Inicial (até 150 clientes) e Profissional (até 500 clientes) não cobrem carteiras acima de 500 clientes. Selecione Demonstração ou Avaliação sob medida.",
+      "customEvaluationProtocolCode": "SOL-20261116-C95C54",
+      "storedPlanInterestInCrm": "avaliacao_acima_500",
+      "storedSuggestedPlanInCrm": "sob_avaliacao_acima_500"
+    },
+    "lgpdDataSubjectChannel": {
+      "protocolCode": "SOL-20261116-856212",
+      "storedIntentType": "solicitacao_titular_lgpd",
+      "storedPlanInterestInCrm": "nao_selecionado",
+      "storedSuggestedPlanInCrm": "nao_aplicavel"
+    }
+  },
+  "securityAndSpamTests": {
+    "honeypotBlocked": true,
+    "fastSubmitBlocked": true,
+    "missingPrivacyConsentBlocked": true,
+    "xssAndLinkInjectionBlocked": true,
+    "serverSideEmailRateLimitBlocked": true,
+    "headerSpoofBypassBlockedByServer": true,
+    "piiExposedInPublicRpcResponse": false
+  },
+  "realCustomerIndicatorsCleanVerification": {
+    "realLeadsTotal": 0,
+    "confirmedPaidPilots": 0,
+    "technicalTestRecordsIsolated": true
+  }
+}

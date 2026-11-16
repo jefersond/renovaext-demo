@@ -1,0 +1,101 @@
+{
+  "supabaseProjectRef": "xmuzcnjcwkhgojnaosha",
+  "supabaseUrl": "https://xmuzcnjcwkhgojnaosha.supabase.co",
+  "testedAt": "2026-11-12T22:46:54.080Z",
+  "tenantAlpha": {
+    "companyId": "e668eaec-d59c-4de2-974e-96efd4b90eb0",
+    "userId": "7df8bf81-ef13-48a5-8dc6-caacb7814c56",
+    "email": "alpha.homologacao@renovaext-staging.com.br",
+    "ownClientsCountInDb": 6,
+    "betaClientsLeakedToAlpha": 0
+  },
+  "tenantBeta": {
+    "companyId": "d4557676-1416-4b28-a057-e806f4c62120",
+    "userId": "a8500dd7-fca6-468c-8f29-dfbb9a2ee024",
+    "email": "beta.homologacao@renovaext-staging.com.br",
+    "ownClientsCountInDb": 1,
+    "alphaClientsLeakedToBeta": 0,
+    "directSelectAlphaClientByIdRows": 0,
+    "directSelectAlphaProposalsRows": 0,
+    "crossTenantUpdateAffectedRows": 0,
+    "forgedInsertBlockedByPostgresRls": true,
+    "forgedInsertPostgresErrorCode": "42501",
+    "forgedInsertPostgresErrorMessage": "new row violates row-level security policy for table \"clients\""
+  },
+  "importAndRadarVerification": {
+    "importedClients": 6,
+    "importedEquipments": 6,
+    "flaggedForReview": 2,
+    "skippedDuplicates": 1,
+    "radarCheckResults": [
+      {
+        "clientId": "0dfecfe8-f43a-48d6-bc18-fa85cebb5648",
+        "clientName": "Condomínio Edifício Atlântico Sul (Fictício)",
+        "rawNextDueDate": "26/11/2026",
+        "storedNextDueDate": "2026-11-26",
+        "needsReview": false,
+        "reviewNotes": null,
+        "radarWindow": "D_30",
+        "daysDifference": 14
+      },
+      {
+        "clientId": "fef38b83-3ffe-4d28-8a91-cd2795344631",
+        "clientName": "Metalúrgica Precisão Industrial (Fictício)",
+        "rawNextDueDate": "01/11/2026",
+        "storedNextDueDate": "2026-11-01",
+        "needsReview": false,
+        "reviewNotes": null,
+        "radarWindow": "ATRASADO",
+        "daysDifference": -11
+      },
+      {
+        "clientId": "65e01449-89c1-4d02-86c0-123385146505",
+        "clientName": "Colégio Horizonte Saber (Fictício)",
+        "rawNextDueDate": "26/12/2026",
+        "storedNextDueDate": "2026-12-26",
+        "needsReview": false,
+        "reviewNotes": null,
+        "radarWindow": "D_60",
+        "daysDifference": 44
+      },
+      {
+        "clientId": "2a8f076f-f1de-4a44-9aee-cd2c6bff3aa6",
+        "clientName": "Supermercado Bom Preço Matriz (Fictício)",
+        "rawNextDueDate": "26/01/2027",
+        "storedNextDueDate": "2027-01-26",
+        "needsReview": false,
+        "reviewNotes": null,
+        "radarWindow": "D_90",
+        "daysDifference": 75
+      },
+      {
+        "clientId": "846bda18-632e-4387-9540-25deca9d3c80",
+        "clientName": "Padaria e Confeitaria Pão Dourado (Fictício)",
+        "rawNextDueDate": "32/13/2026",
+        "storedNextDueDate": null,
+        "needsReview": true,
+        "reviewNotes": "Data inválida (\"32/13/2026\") — marcada para conferência",
+        "radarWindow": "INCOMPLETO",
+        "daysDifference": null
+      },
+      {
+        "clientId": "3b86545d-3d21-4214-a1a8-434d86b845ac",
+        "clientName": "Clínica Médica Santa Clara (Fictício)",
+        "rawNextDueDate": "",
+        "storedNextDueDate": null,
+        "needsReview": true,
+        "reviewNotes": "Data de próximo acompanhamento/vencimento ausente — necessita conferência; Tipo do extintor não informado — necessita conferência",
+        "radarWindow": "INCOMPLETO",
+        "daysDifference": null
+      }
+    ]
+  },
+  "proposalVerification": {
+    "proposalId": "f5f9ede5-ca7d-450c-8e5e-1a8b9e8988de",
+    "proposalNumber": "PROP-2026-001",
+    "totalBrl": 1500,
+    "status": "enviada",
+    "pdfSavedPath": "docs/homologacao/proposta-homologacao-real.pdf",
+    "pdfSizeBytes": 5070
+  }
+}

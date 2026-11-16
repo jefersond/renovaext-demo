@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RenovaExt — Proposta de Piloto Comercial de 30 Dias (R$ 49 e R$ 79)</title>
+    <link rel="icon" type="image/svg+xml" href="./brand/renovaext-icone-quadrado.svg" />
+    <meta
+      name="description"
+      content="Proposta de Piloto de 30 dias do RenovaExt para oficinas de manutenção e recarga de extintores. Condições transparentes de escopo, isolamento por RLS, pagamento, cancelamento e suporte."
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      .font-mono {
+        font-family: 'JetBrains Mono', monospace;
+      }
+    </style>
+  </head>
+  <body class="bg-[#f7faf8] text-[#102126] min-h-screen flex flex-col">
+    <!-- Barra Superior -->
+    <div class="bg-[#0c373e] text-slate-200 px-4 py-2.5 text-xs border-b border-teal-900">
+      <div class="max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-2">
+          <img src="./brand/renovaext-icone-quadrado.svg" alt="RenovaExt" class="w-5 h-5 rounded" />
+          <span><strong class="text-white">RENOVAEXT</strong> — Proposta de Piloto Comercial de 30 Dias (Sem Fidelidade)</span>
+        </div>
+        <div class="flex flex-wrap items-center gap-3">
+          <button
+            type="button"
+            onclick="selectLeadIntentAndScroll('solicitar_demonstracao')"
+            class="px-3 py-1 rounded bg-teal-950 hover:bg-teal-900 border border-teal-800 text-white font-bold cursor-pointer"
+          >
+            Solicitar demonstração
+          </button>
+          <button
+            type="button"
+            onclick="selectLeadIntentAndScroll('quero_participar_piloto')"
+            class="px-3 py-1 rounded bg-[#0d5148] hover:bg-[#116b59] text-white font-bold cursor-pointer"
+          >
+            Quero participar do piloto
+          </button>
+          <a href="./comercial.html" class="text-teal-100 hover:text-white underline font-semibold">
+            ← Voltar ao Vídeo e Apresentação
+          </a>
+          <a
+            href="./index.html?demo=1"
+            class="px-3 py-1 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-bold"
+          >
+            Testar Demonstração Fictícia →
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <main class="max-w-5xl mx-auto px-4 py-10 space-y-10">
+      <!-- Cabeçalho da Proposta -->
+      <section class="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-4 pb-2 border-b border-slate-100">
+          <img src="./brand/renovaext-logo-horizontal-claro.svg" alt="RenovaExt — Agenda e Renovações para Empresas de Extintores" class="h-12 sm:h-14 w-auto" />
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 border border-teal-200 text-xs font-bold text-[#0d5148]">
+            PROPOSTA DE PILOTO DE 30 DIAS • SEM FIDELIDADE E SEM MULTA
+          </div>
+        </div>
+        <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
+          Organize sua agenda comercial de renovações de extintores por 30 dias sem trocar seu sistema atual
+        </h1>
+        <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
+          Esta proposta apresenta as condições transparentes do <strong>Piloto de 30 Dias do RenovaExt</strong> para pequenas e médias empresas de inspeção, manutenção e recarga de extintores de incêndio que desejam organizar o acompanhamento comercial de condomínios, lojas, escolas e empresas.
+        </p>
+        <div class="flex flex-wrap gap-3 pt-2">
+          <button
+            type="button"
+            onclick="selectLeadIntentAndScroll('quero_participar_piloto')"
+            class="px-5 py-3 rounded-xl bg-[#0d5148] hover:bg-[#116b59] text-white font-extrabold text-xs sm:text-sm shadow-sm cursor-pointer"
+          >
+            Quero participar do piloto →
+          </button>
+          <button
+            type="button"
+            onclick="selectLeadIntentAndScroll('solicitar_demonstracao')"
+            class="px-5 py-3 rounded-xl bg-[#0c373e] hover:bg-teal-900 text-white font-bold text-xs sm:text-sm cursor-pointer"
+          >
+            Solicitar demonstração
+          </button>
+          <a
+            href="./index.html?demo=1"
+            class="px-5 py-3 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-slate-800 font-bold text-xs sm:text-sm"
+          >
+            Abrir Demonstração Fictícia
+          </a>
+        </div>
+      </section>
+
+      <!-- Planos em Teste: R$ 49/mês e R$ 79/mês -->
+      <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white border-2 border-slate-200 rounded-2xl p-6 sm:p-7 shadow-sm flex flex-col justify-between space-y-6">
+          <div class="space-y-3">
+            <span class="text-xs font-mono uppercase tracking-wider font-bold text-slate-500">
+              FAIXA 1 — OFICINAS PEQUENAS
+            </span>
+            <h2 class="text-xl font-extrabold text-slate-900">Plano Inicial</h2>
+            <div class="flex items-baseline gap-1">
+              <span class="text-4xl font-extrabold text-slate-900">R$ 49</span>
+              <span class="text-sm text-slate-500 font-medium">/mês (Piloto de 30 dias)</span>
+            </div>
+            <p class="text-xs text-slate-600">
+              Indicado para oficinas com carteira de até <strong>150 clientes cadastrados</strong>.
+            </p>
+            <ul class="space-y-2 text-xs sm:text-sm text-slate-700 pt-2">
+              <li>✓ Ambiente individual isolado por políticas RLS no PostgreSQL (<code class="font-mono">company_id</code>);</li>
+              <li>✓ Assistente de importação de planilhas (.CSV e .XLSX);</li>
+              <li>✓ Painel e Radar de Vencimentos (Atrasados, 30, 60, 90 dias e Incompletos);</li>
+              <li>✓ Funil comercial de 7 etapas com histórico;</li>
+              <li>✓ Gerador de propostas comerciais em PDF com preços editáveis;</li>
+              <li>✓ Exportação completa dos dados em JSON a qualquer momento.</li>
+            </ul>
+          </div>
+          <div class="space-y-2">
+            <button
+              type="button"
+              onclick="selectLeadIntentAndScroll('quero_participar_piloto', 'inicial_49')"
+              class="w-full py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-center font-bold text-sm transition-colors cursor-pointer"
+            >
+              Quero participar do piloto — R$ 49/mês →
+            </button>
+            <button
+              type="button"
+              onclick="selectLeadIntentAndScroll('solicitar_demonstracao', 'inicial_49')"
+              class="w-full py-2.5 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-center font-semibold text-xs transition-colors cursor-pointer"
+            >
+              Solicitar demonstração primeiro
+            </button>
+          </div>
+        </div>
+
+        <div class="bg-white border-2 border-red-600 rounded-2xl p-6 sm:p-7 shadow-md flex flex-col justify-between space-y-6 relative">
+          <div class="space-y-3">
+            <span class="text-xs font-mono uppercase tracking-wider font-bold text-red-600">
+              FAIXA 2 — CARTEIRAS MAIORES + ORIENTAÇÃO DE IMPORTAÇÃO
+            </span>
+            <h2 class="text-xl font-extrabold text-slate-900">Plano Profissional</h2>
+            <div class="flex items-baseline gap-1">
+              <span class="text-4xl font-extrabold text-slate-900">R$ 79</span>
+              <span class="text-sm text-slate-500 font-medium">/mês (Piloto de 30 dias)</span>
+            </div>
+            <p class="text-xs text-slate-600">
+              Indicado para oficinas com carteira de até <strong>500 clientes cadastrados</strong>.
+            </p>
+            <ul class="space-y-2 text-xs sm:text-sm text-slate-700 pt-2">
+              <li>✓ Tudo do Plano Inicial para até <strong>500 clientes</strong>;</li>
+              <li>✓ Orientação passo a passo para a configuração inicial da sua conta isolada (RLS);</li>
+              <li>✓ Apoio assíncrono na conferência do mapeamento das colunas da sua primeira planilha;</li>
+              <li>✓ Suporte assíncrono em português em dias úteis (retorno em até 1 dia útil / 24h úteis);</li>
+              <li>✓ Zero fidelidade: cancele quando quiser e exporte 100% da sua carteira.</li>
+            </ul>
+          </div>
+          <div class="space-y-2">
+            <button
+              type="button"
+              onclick="selectLeadIntentAndScroll('quero_participar_piloto', 'profissional_79')"
+              class="w-full py-3 rounded-xl bg-red-600 hover:bg-red-500 text-white text-center font-bold text-sm transition-colors cursor-pointer"
+            >
+              Quero participar do piloto — R$ 79/mês →
+            </button>
+            <button
+              type="button"
+              onclick="selectLeadIntentAndScroll('solicitar_demonstracao', 'profissional_79')"
+              class="w-full py-2.5 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-center font-semibold text-xs transition-colors cursor-pointer"
+            >
+              Solicitar demonstração primeiro
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Protocolo de Segurança, Privacidade, Backups e Condições Antes de Receber Dados Reais -->
+      <section class="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm space-y-4">
+        <h2 class="text-lg font-extrabold text-slate-900">
+          Proteção de Dados: Por que NÃO pedimos sua planilha real antes do aceite?
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+          A carteira de clientes de uma oficina de extintores é um ativo comercial sigiloso. Por isso, seguimos 4 regras estritas antes que qualquer dado real da sua empresa seja inserido no sistema:
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs space-y-1">
+            <strong class="text-slate-900 block">1. Demonstração apenas com dados fictícios (upload externo bloqueado)</strong>
+            <span class="text-slate-600">
+              Na demonstração pública (<code class="font-mono">/?demo=1</code>), você testa todas as telas usando exclusivamente clientes fictícios e o envio de arquivos externos do seu computador fica desativado para evitar upload acidental de dados reais.
+            </span>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs space-y-1">
+            <strong class="text-slate-900 block">2. Isolamento técnico por oficina via Row Level Security (RLS)</strong>
+            <span class="text-slate-600">
+              Ao ativar sua conta com confirmação de e-mail verificada, seus registros ficam isolados no banco de dados PostgreSQL por políticas de <em>Row Level Security (RLS)</em> vinculadas ao identificador da sua oficina (<code class="font-mono">company_id</code>) na sessão autenticada — nenhuma outra oficina visualiza seus dados.
+            </span>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs space-y-1">
+            <strong class="text-slate-900 block">3. Importação pelo próprio titular + Backup JSON</strong>
+            <span class="text-slate-600">
+              Você mesmo importa sua planilha dentro da sua conta autenticada e pode exportar um backup completo em <code class="font-mono">.JSON</code> quando quiser.
+            </span>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs space-y-1">
+            <strong class="text-slate-900 block">4. Exclusão integral sob demanda (LGPD)</strong>
+            <span class="text-slate-600">
+              Caso decida não continuar após os 30 dias, você exporta seus dados e pode solicitar a exclusão integral dos registros da sua oficina.
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Condições de Aceite, Pagamento Autorizado, Cancelamento e Suporte Realista -->
+      <section class="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm space-y-4">
+        <h2 class="text-lg font-extrabold text-slate-900">
+          Condições Claras de Aceite, Cobrança, Cancelamento e Suporte
+        </h2>
+        <div class="divide-y divide-slate-200 text-xs sm:text-sm text-slate-700">
+          <div class="py-3">
+            <strong>1. Aceite Formal antes de qualquer cobrança:</strong> Nenhuma cobrança é gerada automaticamente pelo site. O piloto só inicia após confirmação explícita do responsável pela oficina concordando com o escopo do MVP e com o valor mensal escolhido (R$ 49 ou R$ 79).
+          </div>
+          <div class="py-3">
+            <strong>2. Forma de Pagamento Simples e Sem Recorrência Oculta:</strong> Após o aceite e ativação da conta isolada, o pagamento do ciclo de 30 dias é realizado via <strong>Pix Copia e Cola / QR Code avulso</strong> ou link de pagamento individual com emissão de recibo comercial — sem retenção de cartão de crédito para cobrança surpresa.
+          </div>
+          <div class="py-3">
+            <strong>3. Cancelamento Livre (Sem Fidelidade):</strong> A oficina pode encerrar o piloto a qualquer momento, sem multa ou aviso prévio, mantendo o direito de exportar todos os seus dados cadastrados.
+          </div>
+          <div class="py-3">
+            <strong>4. Escopo Real de Suporte:</strong> Atendimento comercial e suporte assíncrono em português em dias úteis (segunda a sexta-feira, com retorno em até 1 dia útil / 24h úteis) pelos canais oficiais verificados após o registro da solicitação, para dúvidas de uso do sistema e orientação sobre o mapeamento das colunas da planilha. Não inclui plantão 24/7, atendimento presencial ou digitação terceirizada de arquivos.
+          </div>
+          <div class="py-3">
+            <strong>5. Responsabilidade Técnica:</strong> O RenovaExt não calcula recarga anual automática para todos os equipamentos, não emite laudos técnicos ou certificados de conformidade e não promete recuperação garantida de faturamento. As datas e preços são sempre definidos e revisados pela própria oficina.
+          </div>
+        </div>
+      </section>
+
+      <!-- SEÇÃO OFICIAL DE SOLICITAÇÃO: DEMONSTRAÇÃO OU PILOTO DE 30 DIAS -->
+      <section
+        id="solicitar"
+        class="p-6 sm:p-8 rounded-2xl bg-slate-900 text-slate-100 border-2 border-red-600 shadow-xl space-y-6 scroll-mt-6"
+      >
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+          <div class="space-y-1">
+            <span class="px-2.5 py-0.5 rounded bg-red-600 text-white font-mono text-xs font-bold">
+              REGISTRO COMERCIAL OFICIAL VERIFICADO
+            </span>
+            <h2 class="text-xl sm:text-2xl font-extrabold text-white pt-1">
+              Solicitar demonstração ou participar do piloto de 30 dias
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-300 max-w-2xl">
+              Preencha o formulário abaixo para registrar seu interesse. Os dados são gravados em armazenamento seguro separado das contas operacionais das oficinas e geram imediatamente seu <strong>Protocolo Oficial de Recebimento</strong>.
+            </p>
+          </div>
+          <div class="text-xs text-slate-300 bg-slate-950 border border-slate-800 rounded-xl p-3.5 shrink-0 max-w-xs">
+            <strong class="text-white block mb-1">Retorno em até 1 dia útil:</strong>
+            Entraremos em contato diretamente pelo e-mail comercial e/ou telefone informados neste protocolo.
+          </div>
+        </div>
+
+        <div
+          id="leadFormError"
+          role="alert"
+          class="hidden p-4 rounded-xl bg-red-950/90 border border-red-500 text-xs sm:text-sm text-red-200 font-semibold"
+        ></div>
+
+        <!-- Container de Confirmação com Protocolo -->
+        <div
+          id="leadReceiptContainer"
+          data-testid="public-lead-receipt"
+          class="hidden p-6 rounded-2xl bg-emerald-950/50 border-2 border-emerald-500 space-y-4"
+        >
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <span
+              id="receiptProtocolCode"
+              class="px-3 py-1 rounded bg-emerald-600 text-white font-mono text-xs sm:text-sm font-bold"
+            >
+              SOL-CONFIRMADO
+            </span>
+            <span class="text-xs text-emerald-300 font-semibold">
+              ✓ Registro confirmado em base comercial isolada
+            </span>
+          </div>
+          <h3 class="text-lg sm:text-xl font-extrabold text-white">
+            Solicitação recebida com sucesso!
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-200 leading-relaxed">
+            Confirmamos o recebimento do cadastro da oficina <strong id="receiptWorkshopName" class="text-white"></strong> (responsável: <strong id="receiptResponsibleName" class="text-white"></strong>).
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 p-4 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-300">
+            <div>
+              <span class="text-slate-400">Modalidade:</span>
+              <strong id="receiptIntentLabel" class="text-white block mt-0.5"></strong>
+            </div>
+            <div>
+              <span class="text-slate-400">E-mail comercial para retorno:</span>
+              <strong id="receiptEmail" class="text-white block mt-0.5"></strong>
+            </div>
+            <div>
+              <span class="text-slate-400">Telefone / WhatsApp:</span>
+              <strong id="receiptPhone" class="text-white block mt-0.5"></strong>
+            </div>
+            <div>
+              <span class="text-slate-400">Carteira aproximada:</span>
+              <strong id="receiptPortfolioSize" class="text-white block mt-0.5"></strong>
+            </div>
+            <div class="sm:col-span-2">
+              <span class="text-slate-400">Plano de interesse em teste:</span>
+              <strong id="receiptPlanInterest" class="text-emerald-400 block mt-0.5"></strong>
+            </div>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            <strong>Próximo passo:</strong> Nosso retorno ocorre em até 1 dia útil pelos contatos informados acima para apresentar a demonstração ou ativar sua conta isolada no piloto de 30 dias.
+          </p>
+          <div class="flex flex-wrap gap-3 pt-1">
+            <button
+              type="button"
+              onclick="downloadLeadReceiptJson()"
+              class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold cursor-pointer"
+            >
+              Baixar Comprovante do Protocolo (.JSON)
+            </button>
+            <a
+              href="./index.html?demo=1"
+              class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold"
+            >
+              Explorar Demonstração Fictícia →
+            </a>
+          </div>
+        </div>
+
+        <!-- Formulário Funcional e Responsivo -->
+        <div id="leadFormContainer">
+          <form onsubmit="submitPublicLeadForm(event, '/proposta-piloto.html')" class="space-y-4">
+            <input type="hidden" id="leadIntentType" value="quero_participar_piloto" />
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <button
+                type="button"
+                id="btnIntentDemo"
+                onclick="selectLeadIntentAndScroll('solicitar_demonstracao')"
+                class="p-3.5 rounded-xl border border-slate-700 bg-slate-900/70 text-slate-300 text-left transition-all cursor-pointer hover:border-slate-500"
+              >
+                <div class="text-xs font-mono uppercase text-red-300 font-bold">OPÇÃO 1</div>
+                <div class="text-sm font-extrabold text-white mt-0.5">Solicitar demonstração</div>
+                <div class="text-xs text-slate-300 mt-0.5">
+                  Quero agendar uma demonstração prática antes de decidir
+                </div>
+              </button>
+
+              <button
+                type="button"
+                id="btnIntentPiloto"
+                onclick="selectLeadIntentAndScroll('quero_participar_piloto')"
+                class="p-3.5 rounded-xl border-2 border-red-500 bg-red-950/30 text-white text-left transition-all cursor-pointer"
+              >
+                <div class="text-xs font-mono uppercase text-emerald-400 font-bold">OPÇÃO 2</div>
+                <div class="text-sm font-extrabold text-white mt-0.5">Quero participar do piloto</div>
+                <div class="text-xs text-slate-300 mt-0.5">
+                  Quero testar por 30 dias na minha oficina (R$ 49 ou R$ 79/mês)
+                </div>
+              </button>
+            </div>
+
+            <!-- Honeypot oculto contra spam -->
+            <div class="hidden" aria-hidden="true">
+              <label for="leadHoneypot">Não preencha este campo</label>
+              <input id="leadHoneypot" type="text" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="leadResponsibleName" class="block text-xs font-bold text-slate-200 mb-1">
+                  1. Nome do responsável *
+                </label>
+                <input
+                  id="leadResponsibleName"
+                  type="text"
+                  required
+                  minlength="2"
+                  placeholder="Ex: Roberto Almeida"
+                  class="w-full rounded-xl bg-slate-950 border border-slate-700 px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-red-500"
+                />
+              </div>
+
+              <div>
+                <label for="leadWorkshopName" class="block text-xs font-bold text-slate-200 mb-1">
+                  2. Nome da oficina *
+                </label>
+                <input
+                  id="leadWorkshopName"
+                  type="text"
+                  required
+                  minlength="2"
+                  placeholder="Ex: Almeida Extintores Ltda"
+                  class="w-full rounded-xl bg-slate-950 border border-slate-700 px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-red-500"
+                />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="leadEmail" class="block text-xs font-bold text-slate-200 mb-1">
+                  3. E-mail comercial *
+                </label>
+                <input
+                  id="leadEmail"
+                  type="email"
+                  required
+                  placeholder="contato@suaoficina.com.br"
+                  class="w-full rounded-xl bg-slate-950 border border-slate-700 px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-red-500"
+                />
+              </div>
+
+              <div>
+                <label for="leadPhone" class="block text-xs font-bold text-slate-200 mb-1">
+                  4. Telefone / WhatsApp (opcional)
+                </label>
+                <input
+                  id="leadPhone"
+                  type="tel"
+                  placeholder="(11) 99999-0000 (opcional)"
+                  class="w-full rounded-xl bg-slate-950 border border-slate-700 px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-red-500"
+                />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="leadPortfolioSize" class="block text-xs font-bold text-slate-200 mb-1">
+                  5. Tamanho aproximado da carteira *
+                </label>
+                <select
+                  id="leadPortfolioSize"
+                  required
+                  class="w-full rounded-xl bg-slate-950 border border-slate-700 px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-red-500"
+                >
+                  <option value="ate_50_clientes">Até 50 clientes ativos</option>
+                  <option value="51_a_150_clientes" selected>De 51 a 150 clientes ativos</option>
+                  <option value="151_a_300_clientes">De 151 a 300 clientes ativos</option>
+                  <option value="301_a_500_clientes">De 301 a 500 clientes ativos</option>
+                  <option value="mais_de_500_clientes">Mais de 500 clientes ativos</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="leadPlanInterest" class="block text-xs font-bold text-slate-200 mb-1">
+                  6. Plano de interesse (R$ 49 ou R$ 79) *
+                </label>
+                <select
+                  id="leadPlanInterest"
+                  required
+                  class="w-full rounded-xl bg-slate-950 border border-slate-700 px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-red-500"
+                >
+                  <option value="inicial_49">
+                    R$ 49/mês — Plano Inicial (até 150 clientes na carteira)
+                  </option>
+                  <option value="profissional_79" selected>
+                    R$ 79/mês — Plano Profissional (até 500 clientes na carteira)
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label for="leadNotes" class="block text-xs font-bold text-slate-200 mb-1">
+                7. Observações (opcional)
+              </label>
+              <textarea
+                id="leadNotes"
+                rows="2"
+                placeholder="Como sua oficina controla os vencimentos hoje (ex: planilha Excel, fichas, sistema fiscal) ou dúvidas sobre o piloto..."
+                class="w-full rounded-xl bg-slate-950 border border-slate-700 px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-red-500"
+              ></textarea>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-300">
+              <label class="flex items-start gap-2.5 cursor-pointer">
+                <input
+                  id="leadPrivacyConsent"
+                  type="checkbox"
+                  required
+                  class="mt-0.5 accent-red-600"
+                />
+                <span>
+                  <strong class="text-white">Política de Privacidade e Separação de Dados (LGPD):</strong>{' '}
+                  Autorizo o registro desta solicitação na tabela comercial separada do RenovaExt para retorno sobre a demonstração ou piloto de 30 dias. Estou ciente de que nenhuma cobrança é gerada neste formulário e de que não devo enviar planilhas reais de clientes antes da ativação da conta isolada por RLS.
+                </span>
+              </label>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-between gap-4 pt-1">
+              <span class="text-xs text-slate-400">
+                Protegido contra spam • Nenhuma planilha real é solicitada nesta etapa.
+              </span>
+              <button
+                type="submit"
+                id="leadSubmitBtn"
+                class="px-7 py-3.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-extrabold text-sm sm:text-base shadow-lg shadow-red-950/60 transition-all cursor-pointer"
+              >
+                <span id="leadSubmitBtnText">Confirmar Inscrição no Piloto de 30 Dias →</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="mt-auto border-t border-slate-200 bg-white px-4 py-6 text-xs text-slate-500 text-center">
+      RenovaExt MVP • Proposta de Piloto Comercial de 30 Dias • Isolamento Multi-Tenant por Políticas RLS no PostgreSQL.
+    </footer>
+
+    <script src="./lead-capture-widget.js?v=20261115-rc2"></script>
+  </body>
+</html>

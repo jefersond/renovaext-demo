@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE fcpxml>
+<fcpxml version="1.8">
+  <resources>
+    <format id="r1" name="FFVideoFormat1080p30" frameDuration="1/30s" width="1920" height="1080"/>
+  </resources>
+  <library>
+    <event name="RenovaExt Video Demonstrativo Oficial">
+      <project name="RenovaExt Demo 1080p">
+        <sequence format="r1" duration="3021/30s">
+          <spine>
+            <!-- Cena 1: 1. O Problema das Planilhas Espalhadas -->
+            <video name="clip_01_abertura_demo.mp4" offset="0/30s" duration="316/30s" start="0s">
+              <audio lane="-1" offset="0/30s" duration="316/30s" name="take_01_problema.mp3"/>
+            </video>
+            <!-- Cena 2: 2. Importação Sem Trocar de Sistema -->
+            <video name="clip_02_importacao_planilha.mp4" offset="316/30s" duration="340/30s" start="0s">
+              <audio lane="-1" offset="316/30s" duration="340/30s" name="take_02_solucao.mp3"/>
+            </video>
+            <!-- Cena 3: 3. Mapeamento Automático de Colunas -->
+            <video name="clip_03_mapeamento_colunas.mp4" offset="656/30s" duration="291/30s" start="0s">
+              <audio lane="-1" offset="656/30s" duration="291/30s" name="take_03_mapeamento.mp3"/>
+            </video>
+            <!-- Cena 4: 4. Validação e Carteira Organizada -->
+            <video name="clip_04_carteira_clientes.mp4" offset="947/30s" duration="331/30s" start="0s">
+              <audio lane="-1" offset="947/30s" duration="331/30s" name="take_04_carteira.mp3"/>
+            </video>
+            <!-- Cena 5: 5. Radar de Vencimentos 30, 60 e 90 Dias -->
+            <video name="clip_05_radar_e_filtros.mp4" offset="1278/30s" duration="388/30s" start="0s">
+              <audio lane="-1" offset="1278/30s" duration="388/30s" name="take_05_radar.mp3"/>
+            </video>
+            <!-- Cena 6: 6. Ficha Cadastral e Inventário de Extintores -->
+            <video name="clip_06_ficha_cliente.mp4" offset="1666/30s" duration="258/30s" start="0s">
+              <audio lane="-1" offset="1666/30s" duration="258/30s" name="take_06_ficha.mp3"/>
+            </video>
+            <!-- Cena 7: 7. Funil Comercial de 7 Etapas -->
+            <video name="clip_07_criacao_oportunidade.mp4" offset="1924/30s" duration="251/30s" start="0s">
+              <audio lane="-1" offset="1924/30s" duration="251/30s" name="take_07_oportunidade.mp3"/>
+            </video>
+            <!-- Cena 8: 8. Cotação com os Preços da Sua Oficina -->
+            <video name="clip_08_preenchimento_precos.mp4" offset="2175/30s" duration="300/30s" start="0s">
+              <audio lane="-1" offset="2175/30s" duration="300/30s" name="take_08_precos.mp3"/>
+            </video>
+            <!-- Cena 9: 9. Proposta Comercial em PDF com Normas ABNT -->
+            <video name="clip_09_geracao_abertura_pdf.mp4" offset="2475/30s" duration="329/30s" start="0s">
+              <audio lane="-1" offset="2475/30s" duration="329/30s" name="take_09_pdf.mp3"/>
+            </video>
+            <!-- Cena 10: 10. Chamada Final e Piloto de 30 Dias -->
+            <video name="screen_10_encerramento.png" offset="2804/30s" duration="212/30s" start="0s">
+              <audio lane="-1" offset="2804/30s" duration="212/30s" name="take_10_encerramento.mp3"/>
+            </video>
+          </spine>
+        </sequence>
+      </project>
+    </event>
+  </library>
+</fcpxml>

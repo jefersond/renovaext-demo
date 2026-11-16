@@ -1,0 +1,17 @@
+node_modules
+dist
+dist-ssr
+*.local
+.env
+.env.*
+!.env.example
+.tmp
+.vercel
+coverage
+*.log
+.wrangler
+
+# Temporary video frames and model audio artifacts
+media/projeto_edicao/pilot_frames/
+media/projeto_edicao/pilot_rendered_frames/
+media/projeto_edicao/modelos_voz/

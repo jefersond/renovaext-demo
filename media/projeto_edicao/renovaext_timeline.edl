@@ -1,0 +1,43 @@
+TITLE: RENOVAEXT_DEMO_TIMELINE
+FCM: NON-DROP FRAME
+
+001  AX       V     C        00:00:00:00 00:00:10:16 00:00:00:00 00:00:10:16
+* FROM CLIP NAME: clip_01_abertura_demo.mp4
+* COMMENT: 1. O Problema das Planilhas Espalhadas
+
+002  AX       V     C        00:00:00:00 00:00:11:10 00:00:10:16 00:00:21:27
+* FROM CLIP NAME: clip_02_importacao_planilha.mp4
+* COMMENT: 2. Importação Sem Trocar de Sistema
+
+003  AX       V     C        00:00:00:00 00:00:09:21 00:00:21:27 00:00:31:18
+* FROM CLIP NAME: clip_03_mapeamento_colunas.mp4
+* COMMENT: 3. Mapeamento Automático de Colunas
+
+004  AX       V     C        00:00:00:00 00:00:11:01 00:00:31:18 00:00:42:20
+* FROM CLIP NAME: clip_04_carteira_clientes.mp4
+* COMMENT: 4. Validação e Carteira Organizada
+
+005  AX       V     C        00:00:00:00 00:00:12:28 00:00:42:20 00:00:55:18
+* FROM CLIP NAME: clip_05_radar_e_filtros.mp4
+* COMMENT: 5. Radar de Vencimentos 30, 60 e 90 Dias
+
+006  AX       V     C        00:00:00:00 00:00:08:18 00:00:55:18 00:00:64:07
+* FROM CLIP NAME: clip_06_ficha_cliente.mp4
+* COMMENT: 6. Ficha Cadastral e Inventário de Extintores
+
+007  AX       V     C        00:00:00:00 00:00:08:11 00:00:64:07 00:00:72:18
+* FROM CLIP NAME: clip_07_criacao_oportunidade.mp4
+* COMMENT: 7. Funil Comercial de 7 Etapas
+
+008  AX       V     C        00:00:00:00 00:00:10:00 00:00:72:18 00:00:82:19
+* FROM CLIP NAME: clip_08_preenchimento_precos.mp4
+* COMMENT: 8. Cotação com os Preços da Sua Oficina
+
+009  AX       V     C        00:00:00:00 00:00:10:29 00:00:82:19 00:00:93:18
+* FROM CLIP NAME: clip_09_geracao_abertura_pdf.mp4
+* COMMENT: 9. Proposta Comercial em PDF com Normas ABNT
+
+010  AX       V     C        00:00:00:00 00:00:07:02 00:00:93:18 00:00:100:21
+* FROM CLIP NAME: screen_10_encerramento.png
+* COMMENT: 10. Chamada Final e Piloto de 30 Dias
+

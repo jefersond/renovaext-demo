@@ -1,0 +1,37 @@
+{
+  "name": "renovaext-mvp",
+  "private": true,
+  "version": "1.0.0",
+  "description": "RenovaExt — Agenda Comercial de Renovações e Propostas para Empresas de Manutenção de Extintores",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 5173",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --port 4173",
+    "test": "vitest run",
+    "verify:link": "node tools/verify_env_and_schema.mjs",
+    "crm:consultar": "node tools/founder_leads_cli.mjs",
+    "rc:promover": "node tools/promote_release_candidate_to_production.mjs"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.48.1",
+    "jspdf": "^2.5.2",
+    "lucide-react": "^0.475.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "jsdom": "^25.0.1",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
+    "typescript": "~5.6.2",
+    "vite": "^6.0.5",
+    "vitest": "^2.1.8"
+  }
+}

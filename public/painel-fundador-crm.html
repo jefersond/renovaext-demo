@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RenovaExt — Painel Autenticado do Fundador (Interessados e CRM)</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      .font-mono {
+        font-family: 'JetBrains Mono', monospace;
+      }
+    </style>
+  </head>
+  <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col">
+    <!-- Barra Superior -->
+    <div class="bg-slate-900 border-b border-slate-800 px-4 py-2.5 text-xs text-slate-300">
+      <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-2">
+          <span class="px-2 py-0.5 rounded bg-red-600 text-white font-mono font-bold">
+            RENOVAEXT • CONSULTA DO FUNDADOR
+          </span>
+          <span>
+            Autenticação via JWT (Supabase Auth + RLS `founder_admin_users`) • Zero chave administrativa no navegador
+          </span>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="./comercial.html" class="text-slate-300 hover:text-white underline">
+            Página Comercial
+          </a>
+          <a href="./proposta-piloto.html" class="text-slate-300 hover:text-white underline">
+            Proposta de Piloto
+          </a>
+          <button
+            id="logoutBtn"
+            type="button"
+            onclick="founderLogout()"
+            class="hidden px-3 py-1 rounded bg-slate-800 hover:bg-slate-700 text-red-400 font-bold cursor-pointer"
+          >
+            Encerrar Sessão
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 py-8 space-y-6">
+      <!-- TELA DE LOGIN AUTENTICADO DO FUNDADOR -->
+      <section
+        id="founderLoginSection"
+        class="max-w-md mx-auto bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl space-y-5 mt-8"
+      >
+        <div class="space-y-1.5">
+          <span class="px-2.5 py-0.5 rounded bg-red-950 text-red-400 border border-red-800 font-mono text-xs font-bold">
+            ACESSO RESTRITO AO FUNDADOR
+          </span>
+          <h1 class="text-xl font-extrabold text-white pt-1">
+            Consultar Interessados e CRM Comercial
+          </h1>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Entre com a conta autenticada do fundador para consultar solicitações de demonstração, pedidos de piloto (R$ 49 / R$ 79) e atualizar o status de acompanhamento. Contas comuns de oficinas são bloqueadas pelo PostgreSQL (`ACCESS_DENIED_FOUNDER_ONLY`).
+          </p>
+        </div>
+
+        <div
+          id="loginErrorBox"
+          role="alert"
+          class="hidden p-3.5 rounded-xl bg-red-950/90 border border-red-500 text-xs text-red-200 font-semibold"
+        ></div>
+
+        <form onsubmit="handleFounderLogin(event)" class="space-y-4">
+          <div>
+            <label for="founderEmail" class="block text-xs font-bold text-slate-200 mb-1">
+              E-mail do Fundador *
+            </label>
+            <input
+              id="founderEmail"
+              type="email"
+              required
+              placeholder="fundador@..."
+              class="w-full rounded-xl bg-slate-950 border border-slate-700 px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-red-500"
+            />
+          </div>
+
+          <div>
+            <label for="founderPassword" class="block text-xs font-bold text-slate-200 mb-1">
+              Senha *
+            </label>
+            <input
+              id="founderPassword"
+              type="password"
+              required
+              placeholder="••••••••••••"
+              class="w-full rounded-xl bg-slate-950 border border-slate-700 px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-red-500"
+            />
+          </div>
+
+          <button
+            id="founderLoginBtn"
+            type="submit"
+            class="w-full py-3 rounded-xl bg-red-600 hover:bg-red-500 text-white font-extrabold text-sm cursor-pointer transition-colors"
+          >
+            Entrar e Carregar Interessados →
+          </button>
+        </form>
+      </section>
+
+      <!-- PAINEL DO FUNDADOR (EXIBIDO APÓS AUTENTICAÇÃO JWT VERIFICADA NO BANCO) -->
+      <section id="founderDashboardSection" class="hidden space-y-6">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded bg-emerald-600 text-white font-mono text-xs font-bold">
+                SINCRONIZAÇÃO CONTÍNUA ATIVA (TRIGGER SQL)
+              </span>
+              <span id="founderIdentityBadge" class="text-xs text-slate-400 font-mono"></span>
+            </div>
+            <h2 class="text-xl font-extrabold text-white mt-1">
+              Interessados e Pipeline Comercial (Rodada 1 + Formulário Público)
+            </h2>
+            <p class="text-xs text-slate-400">
+              Cada formulário enviado em <code class="font-mono">/comercial.html</code>, <code class="font-mono">/proposta-piloto.html</code> ou <code class="font-mono">/?demo=1</code> sincroniza automaticamente no banco via trigger <code class="font-mono">trg_sync_lead_to_crm_pipeline</code>.
+            </p>
+          </div>
+          <div class="flex flex-wrap items-center gap-3 shrink-0">
+            <label class="inline-flex items-center gap-2 text-xs text-slate-300 bg-slate-950 border border-slate-800 px-3 py-2 rounded-xl cursor-pointer">
+              <input
+                id="toggleIncludeTests"
+                type="checkbox"
+                onchange="loadFounderData()"
+                class="accent-red-600"
+              />
+              <span>Mostrar registros técnicos de teste</span>
+            </label>
+            <button
+              type="button"
+              onclick="loadFounderData()"
+              class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold cursor-pointer"
+            >
+              Atualizar Agora
+            </button>
+            <button
+              type="button"
+              onclick="exportCrmSnapshotJson()"
+              class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold cursor-pointer"
+            >
+              Exportar CRM (.JSON)
+            </button>
+          </div>
+        </div>
+
+        <!-- Indicadores Reais de Clientes (Sem registros fictícios de teste) -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+          <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
+            <div class="text-[11px] text-slate-400 font-semibold">Interessados Reais</div>
+            <div id="kpiRealTotal" class="text-2xl font-extrabold text-white mt-1">0</div>
+            <div class="text-[11px] text-emerald-400 mt-0.5">Clientes reais (sem testes)</div>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-900 border border-amber-800/60">
+            <div class="text-[11px] text-amber-300 font-semibold">Aguardando Contato</div>
+            <div id="kpiRealPending" class="text-2xl font-extrabold text-amber-400 mt-1">0</div>
+            <div class="text-[11px] text-slate-400 mt-0.5">SLA: até 1 dia útil</div>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
+            <div class="text-[11px] text-slate-400 font-semibold">Pedidos de Demo</div>
+            <div id="kpiRealDemos" class="text-2xl font-extrabold text-white mt-1">0</div>
+            <div class="text-[11px] text-slate-400 mt-0.5">Solicitar demonstração</div>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
+            <div class="text-[11px] text-slate-400 font-semibold">Pedidos de Piloto</div>
+            <div id="kpiRealPilots" class="text-2xl font-extrabold text-white mt-1">0</div>
+            <div class="text-[11px] text-slate-400 mt-0.5">R$ 49 ou R$ 79/mês</div>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-900 border border-emerald-800/60">
+            <div class="text-[11px] text-emerald-300 font-semibold">Pilotos Pagos</div>
+            <div id="kpiRealPaid" class="text-2xl font-extrabold text-emerald-400 mt-1">0</div>
+            <div class="text-[11px] text-slate-400 mt-0.5">Meta inicial: 2 pilotos</div>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
+            <div class="text-[11px] text-slate-400 font-semibold">Testes Técnicos</div>
+            <div id="kpiExcludedTests" class="text-2xl font-extrabold text-slate-400 mt-1">0</div>
+            <div class="text-[11px] text-slate-500 mt-0.5">Isolados das métricas reais</div>
+          </div>
+        </div>
+
+        <div
+          id="dashboardFeedback"
+          class="hidden p-3.5 rounded-xl bg-emerald-950/80 border border-emerald-600 text-xs text-emerald-200 font-semibold"
+        ></div>
+
+        <!-- Tabela de Solicitações Recebidas pelo Formulário -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
+          <div class="px-5 py-4 border-b border-slate-800 flex items-center justify-between">
+            <h3 class="text-sm sm:text-base font-extrabold text-white">
+              Solicitações Recebidas pelo Formulário Público (`public.commercial_leads`)
+            </h3>
+            <span class="text-xs text-slate-400">
+              Ordenadas da mais recente para a mais antiga
+            </span>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr class="bg-slate-950 text-slate-300 border-b border-slate-800">
+                  <th class="p-3">Data / Protocolo</th>
+                  <th class="p-3">Oficina & Responsável</th>
+                  <th class="p-3">Contato Direto (1 Clique)</th>
+                  <th class="p-3">Carteira & Plano</th>
+                  <th class="p-3">Observações</th>
+                  <th class="p-3">Status de Acompanhamento</th>
+                </tr>
+              </thead>
+              <tbody id="leadsTableBody" class="divide-y divide-slate-800"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const SUPABASE_URL = 'https://xmuzcnjcwkhgojnaosha.supabase.co';
+      const SUPABASE_ANON_KEY =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhtdXpjbmpjd2toZ29qbmFvc2hhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ1MjIxMTAsImV4cCI6MjExMDA5ODExMH0.CDK7TXV2pdKsO8V2VV0wkQnapC_9k5CgS5CpqLoepOk';
+
+      let founderAccessToken = null;
+      let founderEmailLogged = null;
+      let latestDashboardPayload = null;
+
+      const STATUS_LABELS = {
+        recebido_aguardando_contato: 'Recebido (Aguardando contato — 1d útil)',
+        em_analise: 'Em análise / Contato enviado',
+        demonstracao_agendada: 'Demonstração agendada',
+        demonstracao_realizada: 'Demonstração realizada',
+        proposta_piloto_enviada: 'Proposta de piloto enviada',
+        piloto_em_ativacao: 'Piloto em ativação (Conta RLS)',
+        piloto_pago_confirmado: 'Piloto PAGO confirmado',
+        objecao_registrada: 'Objeção registrada',
+        arquivado: 'Arquivado',
+      };
+
+      const PORTFOLIO_LABELS = {
+        ate_50_clientes: 'Até 50 clientes',
+        '51_a_150_clientes': '51 a 150 clientes',
+        '151_a_300_clientes': '151 a 300 clientes',
+        '301_a_500_clientes': '301 a 500 clientes',
+        mais_de_500_clientes: 'Mais de 500 clientes',
+      };
+
+      async function handleFounderLogin(event) {
+        event.preventDefault();
+        const errBox = document.getElementById('loginErrorBox');
+        const btn = document.getElementById('founderLoginBtn');
+        errBox.classList.add('hidden');
+        btn.disabled = true;
+
+        const email = document.getElementById('founderEmail').value.trim();
+        const password = document.getElementById('founderPassword').value;
+
+        try {
+          const authRes = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              apikey: SUPABASE_ANON_KEY,
+            },
+            body: JSON.stringify({ email, password }),
+          });
+          const authData = await authRes.json();
+          if (!authRes.ok || !authData.access_token) {
+            throw new Error(authData.error_description || authData.msg || 'Credenciais inválidas.');
+          }
+
+          founderAccessToken = authData.access_token;
+          founderEmailLogged = email;
+          await loadFounderData();
+
+          document.getElementById('founderLoginSection').classList.add('hidden');
+          document.getElementById('founderDashboardSection').classList.remove('hidden');
+          document.getElementById('logoutBtn').classList.remove('hidden');
+          document.getElementById('founderIdentityBadge').textContent = `Autenticado: ${founderEmailLogged}`;
+        } catch (err) {
+          founderAccessToken = null;
+          errBox.textContent = err.message || 'Acesso negado.';
+          errBox.classList.remove('hidden');
+        } finally {
+          btn.disabled = false;
+        }
+      }
+
+      async function loadFounderData() {
+        if (!founderAccessToken) return;
+        const includeTests = Boolean(document.getElementById('toggleIncludeTests').checked);
+
+        const rpcRes = await fetch(`${SUPABASE_URL}/rest/v1/rpc/founder_list_commercial_leads`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            apikey: SUPABASE_ANON_KEY,
+            Authorization: `Bearer ${founderAccessToken}`,
+          },
+          body: JSON.stringify({ p_include_tests: includeTests }),
+        });
+
+        const payload = await rpcRes.json();
+        if (!rpcRes.ok) {
+          throw new Error(
+            payload.message || 'Conta autenticada não possui permissão de fundador.'
+          );
+        }
+
+        latestDashboardPayload = payload;
+        const kpi = payload.realCustomerIndicators || {};
+        document.getElementById('kpiRealTotal').textContent = String(kpi.realLeadsTotal || 0);
+        document.getElementById('kpiRealPending').textContent = String(kpi.realPendingContact || 0);
+        document.getElementById('kpiRealDemos').textContent = String(kpi.realDemoRequests || 0);
+        document.getElementById('kpiRealPilots').textContent = String(kpi.realPilotRequests || 0);
+        document.getElementById('kpiRealPaid').textContent = String(kpi.confirmedPaidPilots || 0);
+        document.getElementById('kpiExcludedTests').textContent = String(
+          kpi.excludedTechnicalTestRecords || 0
+        );
+
+        renderLeadsTable(payload.leads || []);
+      }
+
+      function renderLeadsTable(leads) {
+        const tbody = document.getElementById('leadsTableBody');
+        tbody.innerHTML = '';
+
+        if (!leads.length) {
+          const tr = document.createElement('tr');
+          const td = document.createElement('td');
+          td.colSpan = 6;
+          td.className = 'p-6 text-center text-slate-400';
+          td.textContent =
+            'Nenhuma solicitação de cliente real pendente no filtro atual. Marque "Mostrar registros técnicos de teste" acima se quiser inspecionar os testes de homologação.';
+          tr.appendChild(td);
+          tbody.appendChild(tr);
+          return;
+        }
+
+        leads.forEach((lead) => {
+          const tr = document.createElement('tr');
+          tr.className = lead.isTestSubmission ? 'bg-slate-900/40 text-slate-400' : 'bg-slate-900';
+
+          // Coluna 1: Data e Protocolo
+          const tdDate = document.createElement('td');
+          tdDate.className = 'p-3 align-top space-y-1';
+          const dateFmt = new Date(lead.createdAt).toLocaleString('pt-BR');
+          const protoBadge = document.createElement('div');
+          protoBadge.className = 'font-mono font-bold text-emerald-400';
+          protoBadge.textContent = lead.protocolCode;
+          const dateSpan = document.createElement('div');
+          dateSpan.className = 'text-[11px] text-slate-400';
+          dateSpan.textContent = dateFmt;
+          tdDate.appendChild(protoBadge);
+          tdDate.appendChild(dateSpan);
+          if (lead.isTestSubmission) {
+            const testTag = document.createElement('span');
+            testTag.className =
+              'inline-block px-2 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-700 font-mono text-[10px]';
+            testTag.textContent = 'REGISTRO TÉCNICO DE TESTE';
+            tdDate.appendChild(testTag);
+          }
+
+          // Coluna 2: Oficina e Responsável
+          const tdWorkshop = document.createElement('td');
+          tdWorkshop.className = 'p-3 align-top';
+          const wTitle = document.createElement('div');
+          wTitle.className = 'font-bold text-white text-sm';
+          wTitle.textContent = lead.workshopName;
+          const rSub = document.createElement('div');
+          rSub.className = 'text-xs text-slate-300';
+          rSub.textContent = `Responsável: ${lead.responsibleName}`;
+          const intentSub = document.createElement('div');
+          intentSub.className = 'text-[11px] text-red-400 font-semibold mt-0.5';
+          intentSub.textContent =
+            lead.intentType === 'solicitar_demonstracao'
+              ? 'Pedido: Solicitar demonstração'
+              : 'Pedido: Participar do Piloto (30d)';
+          tdWorkshop.appendChild(wTitle);
+          tdWorkshop.appendChild(rSub);
+          tdWorkshop.appendChild(intentSub);
+
+          // Coluna 3: Contato Direto
+          const tdContact = document.createElement('td');
+          tdContact.className = 'p-3 align-top space-y-1';
+          const mailLink = document.createElement('a');
+          mailLink.href = `mailto:${lead.email}?subject=${encodeURIComponent(
+            `RenovaExt (${lead.protocolCode}) — Retorno sobre solicitação da ${lead.workshopName}`
+          )}`;
+          mailLink.className = 'block text-emerald-400 hover:underline font-semibold';
+          mailLink.textContent = lead.email;
+          tdContact.appendChild(mailLink);
+
+          if (lead.phone) {
+            const cleanDigits = String(lead.phone).replace(/\D/g, '');
+            const waLink = document.createElement('a');
+            waLink.href = `https://wa.me/55${cleanDigits}`;
+            waLink.target = '_blank';
+            waLink.rel = 'noopener noreferrer';
+            waLink.className = 'block text-slate-300 hover:text-white underline';
+            waLink.textContent = `Tel/WhatsApp: ${lead.phone}`;
+            tdContact.appendChild(waLink);
+          }
+
+          // Coluna 4: Carteira, Escolha Efetiva de Plano e Sugestão Comercial
+          const tdPlan = document.createElement('td');
+          tdPlan.className = 'p-3 align-top space-y-1';
+          const selectedPlanLabels = {
+            nao_selecionado: 'Escolha expressa: Não selecionou plano',
+            inicial_49: 'Escolha expressa: Inicial (R$ 49/mês)',
+            profissional_79: 'Escolha expressa: Profissional (R$ 79/mês)',
+            avaliacao_acima_500: 'Carteira > 500: Avaliação de escopo',
+          };
+          const suggestedPlanLabels = {
+            inicial_49: 'Sugestão comercial: Inicial (até 150)',
+            profissional_79: 'Sugestão comercial: Profissional (até 500)',
+            sob_avaliacao_acima_500: 'Acima de 500 clientes (fora dos planos atuais)',
+            nao_aplicavel: 'Canal LGPD / Titular de dados',
+          };
+          const planDiv = document.createElement('div');
+          planDiv.className = 'font-bold text-white';
+          planDiv.textContent = selectedPlanLabels[lead.planInterest] || lead.planInterest;
+          const sugDiv = document.createElement('div');
+          sugDiv.className = 'text-[11px] text-emerald-400 font-medium';
+          sugDiv.textContent = suggestedPlanLabels[lead.suggestedPlan] || lead.suggestedPlan || '';
+          const sizeDiv = document.createElement('div');
+          sizeDiv.className = 'text-[11px] text-slate-400';
+          sizeDiv.textContent = PORTFOLIO_LABELS[lead.portfolioSize] || lead.portfolioSize;
+          tdPlan.appendChild(planDiv);
+          tdPlan.appendChild(sugDiv);
+          tdPlan.appendChild(sizeDiv);
+
+          // Coluna 5: Observações
+          const tdNotes = document.createElement('td');
+          tdNotes.className = 'p-3 align-top max-w-xs text-slate-300';
+          tdNotes.textContent = lead.notes || '—';
+
+          // Coluna 6: Status de Acompanhamento Editável
+          const tdStatus = document.createElement('td');
+          tdStatus.className = 'p-3 align-top space-y-1.5';
+          const select = document.createElement('select');
+          select.className =
+            'w-full rounded-lg bg-slate-950 border border-slate-700 px-2.5 py-1.5 text-xs text-white';
+          Object.keys(STATUS_LABELS).forEach((stKey) => {
+            const opt = document.createElement('option');
+            opt.value = stKey;
+            opt.textContent = STATUS_LABELS[stKey];
+            if (lead.crmStatus === stKey) opt.selected = true;
+            select.appendChild(opt);
+          });
+          select.onchange = () => updateLeadStatus(lead.id, select.value);
+          tdStatus.appendChild(select);
+
+          tr.appendChild(tdDate);
+          tr.appendChild(tdWorkshop);
+          tr.appendChild(tdContact);
+          tr.appendChild(tdPlan);
+          tr.appendChild(tdNotes);
+          tr.appendChild(tdStatus);
+          tbody.appendChild(tr);
+        });
+      }
+
+      async function updateLeadStatus(leadId, newStatus) {
+        if (!founderAccessToken) return;
+        const feedback = document.getElementById('dashboardFeedback');
+        feedback.classList.add('hidden');
+
+        const res = await fetch(
+          `${SUPABASE_URL}/rest/v1/rpc/founder_update_commercial_lead_status`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              apikey: SUPABASE_ANON_KEY,
+              Authorization: `Bearer ${founderAccessToken}`,
+            },
+            body: JSON.stringify({
+              p_lead_id: leadId,
+              p_new_status: newStatus,
+              p_founder_notes: null,
+            }),
+          }
+        );
+
+        const data = await res.json();
+        if (res.ok) {
+          feedback.textContent = `Status do protocolo ${data.protocolCode} (${data.workshopName}) atualizado para "${STATUS_LABELS[newStatus] || newStatus}" e sincronizado no CRM.`;
+          feedback.classList.remove('hidden');
+          await loadFounderData();
+        }
+      }
+
+      function exportCrmSnapshotJson() {
+        if (!latestDashboardPayload) return;
+        const blob = new Blob([JSON.stringify(latestDashboardPayload, null, 2)], {
+          type: 'application/json;charset=utf-8;',
+        });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `renovaext-crm-tempo-real-${new Date().toISOString().slice(0, 10)}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+
+      function founderLogout() {
+        founderAccessToken = null;
+        founderEmailLogged = null;
+        latestDashboardPayload = null;
+        document.getElementById('founderDashboardSection').classList.add('hidden');
+        document.getElementById('logoutBtn').classList.add('hidden');
+        document.getElementById('founderLoginSection').classList.remove('hidden');
+      }
+    </script>
+  </body>
+</html>

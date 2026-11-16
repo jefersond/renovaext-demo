@@ -1,0 +1,6 @@
+# Regras de Redirecionamento e Roteamento - Cloudflare Pages
+# Links antigos do GitHub Pages redirecionam permanentemente (301) para a raiz do site oficial
+/preview/comercial.html / 301
+/preview/proposta-piloto.html /proposta-piloto.html 301
+/preview/* / 302
+/comercial.html / 301
