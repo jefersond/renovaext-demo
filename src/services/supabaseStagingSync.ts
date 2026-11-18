@@ -361,13 +361,26 @@ export async function loginWithSupabaseStaging(
   return res;
 }
 
+async function hasAuthenticatedSupabaseSession(): Promise<boolean> {
+  if (!isSupabaseConfigured() || !supabase) return false;
+  try {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+    return Boolean(session?.access_token);
+  } catch {
+    return false;
+  }
+}
+
 export async function syncClientToSupabase(client: Client): Promise<void> {
   if (
     client.isDemo ||
     !isSupabaseConfigured() ||
     !supabase ||
     !isValidUuid(client.id) ||
-    !isValidUuid(client.companyId)
+    !isValidUuid(client.companyId) ||
+    !(await hasAuthenticatedSupabaseSession())
   ) {
     return;
   }
@@ -395,7 +408,8 @@ export async function syncEquipmentToSupabase(eq: EquipmentRecord): Promise<void
     !supabase ||
     !isValidUuid(eq.id) ||
     !isValidUuid(eq.companyId) ||
-    !isValidUuid(eq.clientId)
+    !isValidUuid(eq.clientId) ||
+    !(await hasAuthenticatedSupabaseSession())
   ) {
     return;
   }
@@ -423,7 +437,8 @@ export async function syncServiceHistoryToSupabase(entry: ServiceHistoryEntry): 
     !supabase ||
     !isValidUuid(entry.id) ||
     !isValidUuid(entry.companyId) ||
-    !isValidUuid(entry.clientId)
+    !isValidUuid(entry.clientId) ||
+    !(await hasAuthenticatedSupabaseSession())
   ) {
     return;
   }
@@ -445,7 +460,8 @@ export async function syncOpportunityHistoryToSupabase(
     !supabase ||
     !isValidUuid(entry.id) ||
     !isValidUuid(entry.companyId) ||
-    !isValidUuid(entry.clientId)
+    !isValidUuid(entry.clientId) ||
+    !(await hasAuthenticatedSupabaseSession())
   ) {
     return;
   }
@@ -466,7 +482,8 @@ export async function syncProposalToSupabase(proposal: Proposal): Promise<void> 
     !supabase ||
     !isValidUuid(proposal.id) ||
     !isValidUuid(proposal.companyId) ||
-    !isValidUuid(proposal.clientId)
+    !isValidUuid(proposal.clientId) ||
+    !(await hasAuthenticatedSupabaseSession())
   ) {
     return;
   }
@@ -485,7 +502,13 @@ export async function syncProposalToSupabase(proposal: Proposal): Promise<void> 
 }
 
 export async function syncCompanySettingsToSupabase(company: Company): Promise<void> {
-  if (company.isDemoCompany || !isSupabaseConfigured() || !supabase || !isValidUuid(company.id)) {
+  if (
+    company.isDemoCompany ||
+    !isSupabaseConfigured() ||
+    !supabase ||
+    !isValidUuid(company.id) ||
+    !(await hasAuthenticatedSupabaseSession())
+  ) {
     return;
   }
   await supabase
@@ -506,7 +529,13 @@ export async function syncCompanySettingsToSupabase(company: Company): Promise<v
 }
 
 export async function syncAuditLogToSupabase(log: AuditLogEntry): Promise<void> {
-  if (!isSupabaseConfigured() || !supabase || !isValidUuid(log.id) || !isValidUuid(log.companyId)) {
+  if (
+    !isSupabaseConfigured() ||
+    !supabase ||
+    !isValidUuid(log.id) ||
+    !isValidUuid(log.companyId) ||
+    !(await hasAuthenticatedSupabaseSession())
+  ) {
     return;
   }
   await supabase.from('audit_logs').insert({
