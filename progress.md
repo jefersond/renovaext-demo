@@ -349,3 +349,31 @@
 - `node tools/verify_public_bundle_security.mjs` confirmou 0 vazamentos de chaves ou segredos em 54 arquivos analisados;
 - Repositório remoto no GitHub sincronizado em `main` e `preview/nova-landing-chatgpt` (commit `3dfa6c7`).
 
+
+
+---
+
+## 2026-11-25 — Missão "RenovaExt: Pronto para Faturar" (Auditoria Real e Resolução de Bloqueios Indispensáveis)
+
+### 1. Auditoria Real em Produção (`https://renovaext.com.br`) e Ecossistema
+- **Site Comercial (`https://renovaext.com.br/`):** HTTP 200 OK na Cloudflare Pages (`katja.ns.cloudflare.com` / `rohin.ns.cloudflare.com`), 0 erros de console, 0 overflow em mobile (390×844), formulários de lead (`SOL-...`) e feedback (`FDB-...`) ativos, porém **não possuía nenhum link nem rota `/app/` para clientes reais fazerem cadastro/login**.
+- **Rota `/app/` em Produção:** Retornava HTTP 200 servindo a própria landing page (fallback SPA) e quebrando links relativos (`/app/demo/`).
+- **Bug de Loop na Demo (`/demo/`):** Ao clicar em `"Sair"` na demonstração ao vivo, o `useEffect` em `src/App.tsx` recarregava a demo automaticamente em loop infinito, impedindo acesso à tela de Cadastro/Login.
+- **Race Condition de Foreign Key na Persistência Supabase:** Em `tenantRepository.ts` / `supabaseStagingSync.ts`, a importação de planilhas disparava `upsert` concorrentes (`clients` e `equipments` sem ordenação), podendo perder equipamentos silenciosamente por erro `23503` no PostgreSQL.
+- **Limite do Plano no Cadastro Manual:** `createOrUpdateClient` não verificava `planSpec.maxClients` (150 ou 500 clientes).
+- **Status de Assinatura Hardcoded:** `billingActive` estava fixo como `false` no tipo `Company` e em `mapCompanyRow`, impedindo refletir uma assinatura paga ativada pelo fundador.
+- **Integração Comercial Zanotelli OS:** Confirmada operacional na ponte somente-leitura `https://xmuzcnjcwkhgojnaosha.supabase.co/functions/v1/renovaext-crm-readonly-feed` (`HTTP 401 {"error":"UNAUTHORIZED"}` sem token), porém o código-fonte da ponte segue isolado na worktree `feat/zanotelli-readonly-bridge` (fora da branch atual/main) e o canal de e-mail `renovaext` em `emailChannelRegistry.ts` da Zanotelli OS encontra-se `blocked_no_mailbox`.
+- **Caixa Comercial `@renovaext.com.br`:** DNS ao vivo confirmado travado em modo não-envio (`MX .`, `TXT v=spf1 -all`, `_dmarc v=DMARC1; p=reject;`). Nenhum serviço pago de e-mail (Google Workspace/Zoho/Resend) está contratado; serviços já existentes incluem Registro.br (domínio pago), Cloudflare Free (DNS + Pages + Email Routing inbound gratuito) e conta AWS (Lightsail).
+
+### 2. Correções Indispensáveis Implementadas Localmente (Sem Alterar Produção/DNS)
+1. **Rota Oficial `/app/` (`app/index.html` + `vite.config.ts`):** Criado entrypoint dedicado para Área da Oficina (`dist/app/index.html`) + links `"Entrar"` / `"Área do cliente"` em `index.html` e `public/proposta-piloto.html`.
+2. **Correção do Loop na Demo (`src/App.tsx`):** Adicionado `autoDemoInitializedRef` e botão `"Entrar / Criar Conta"` na demo, permitindo sair da demo para Cadastro/Login sem loop infinito.
+3. **Fila FIFO de Sincronização Supabase (`src/services/supabaseStagingSync.ts`):** Todas as escritas (`clients`, `equipments`, `service_history`, `opportunity_history`, `proposals`, `audit_logs`) agora executam em fila sequencial FIFO com notificação de erro na UI (`syncErrorBanner`), eliminando race conditions de FK.
+4. **Higienização do Onboarding Real (`src/components/AuthAndOnboardingView.tsx` + `src/services/supabaseStagingSync.ts`):** Removido selo `"MVP EM HOMOLOGAÇÃO"`, corrigidos links quebrados (`./comercial.html` -> `/`, `./proposta-piloto.html` -> `/proposta-piloto.html`), ajustado `emailRedirectTo` para `/app/` e adicionado botão `"Esqueci minha senha"`.
+5. **Limite de Carteira no Cadastro Manual (`src/services/tenantRepository.ts`):** `createOrUpdateClient` agora aplica o limite de 150 (Inicial) ou 500 clientes (Profissional).
+6. **Ativação Segura de Assinatura (Preparada, Não Aplicada):** Atualizado `Company` (`billingActive: boolean`, `subscriptionStatus`) + criada migração aditiva `supabase/migrations/20261125000012_subscription_activation_and_protection.sql` (com trigger de proteção contra alteração pelo cliente e RPC `founder_activate_company_subscription`) + CLI `tools/founder_activate_subscription_cli.mjs`.
+
+### 3. Entregáveis Comerciais e Validação
+- `docs/comercial/17-lista-verificada-25-empresas-alvo.md`: 25 empresas reais verificadas com `HTTP 200 OK` hoje (25/11/2026) + 5 reservas técnicas (total 30 empresas).
+- `docs/comercial/18-oferta-argumentos-e-roteiro-demonstracao-pronto-para-faturar.md`: Estudo real de unit economics (R$ 49 / R$ 79), oferta final, quebra de 7 objeções reais, roteiro de demo de 5 min e templates em espera (zero envios).
+- **Testes e Build:** `vitest` 11/11 arquivos, **33/33 testes aprovados** (incluindo `src/__tests__/commercial_readiness.test.tsx`), `npm run build` limpo (`dist/app/index.html`, `dist/demo/index.html`, `dist/index.html`) e `verify_public_bundle_security.mjs` aprovado (55 arquivos, 0 vazamentos).

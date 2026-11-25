@@ -12,10 +12,10 @@ export interface PlanHypothesisSpec {
 export const PLAN_HYPOTHESES: Record<PlanHypothesisId, PlanHypothesisSpec> = {
   inicial_49: {
     id: 'inicial_49',
-    name: 'Plano Inicial (Hipótese em Teste)',
+    name: 'Plano Inicial',
     monthlyPriceBrl: 49,
     maxClients: 150,
-    description: 'Para oficinas pequenas iniciando a organização comercial da carteira.',
+    description: 'Para empresas pequenas iniciando a organização comercial da carteira.',
     features: [
       'Até 150 clientes na carteira ativa',
       'Assistente de importação CSV e XLSX',
@@ -25,10 +25,10 @@ export const PLAN_HYPOTHESES: Record<PlanHypothesisId, PlanHypothesisSpec> = {
   },
   profissional_79: {
     id: 'profissional_79',
-    name: 'Plano Profissional (Hipótese em Teste)',
+    name: 'Plano Profissional',
     monthlyPriceBrl: 79,
     maxClients: 500,
-    description: 'Para oficinas com carteiras maiores e acompanhamento comercial completo.',
+    description: 'Para empresas com carteiras maiores e acompanhamento comercial completo.',
     features: [
       'Até 500 clientes na carteira ativa',
       'Assistente avançado CSV/XLSX com detecção de duplicatas',
@@ -78,6 +78,12 @@ export const RADAR_WINDOW_LABELS: Record<RadarWindow, string> = {
   FUTURO: 'Acima de 90 dias',
 };
 
+export type CompanySubscriptionStatus =
+  | 'aguardando_ativacao'
+  | 'piloto_ativo'
+  | 'assinatura_ativa'
+  | 'cancelado';
+
 export interface Company {
   id: string;
   name: string;
@@ -88,7 +94,9 @@ export interface Company {
   city: string;
   state: string;
   selectedPlanHypothesis: PlanHypothesisId;
-  billingActive: false;
+  billingActive: boolean;
+  subscriptionStatus?: CompanySubscriptionStatus;
+  subscriptionValidUntil?: string | null;
   defaultProposalValidityDays: number;
   defaultProposalNotes: string;
   isDemoCompany: boolean;

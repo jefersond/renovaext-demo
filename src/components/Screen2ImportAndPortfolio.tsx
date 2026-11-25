@@ -287,33 +287,38 @@ export const Screen2ImportAndPortfolio: React.FC<Screen2ImportAndPortfolioProps>
 
   const handleCreateManualClient = (e: React.FormEvent) => {
     e.preventDefault();
+    setImportError(null);
     const rawName = newClientForm.name.trim();
     const safeName =
       isDemoMode && !rawName.toLowerCase().includes('fictício')
         ? `${rawName} (Fictício — Demo)`
         : rawName;
-    const created = onSaveClient({
-      name: safeName,
-      organizationName: newClientForm.organizationName || safeName,
-      contactName: newClientForm.contactName,
-      contactPhone: newClientForm.contactPhone,
-      contactEmail: newClientForm.contactEmail,
-      city: newClientForm.city,
-      notes: newClientForm.notes,
-      needsReview: true,
-      reviewReason: 'Recém-cadastrado: adicione os equipamentos e datas de acompanhamento.',
-    });
-    setNewClientForm({
-      name: '',
-      organizationName: '',
-      contactName: '',
-      contactPhone: '',
-      contactEmail: '',
-      city: '',
-      notes: '',
-    });
-    setShowNewClientForm(false);
-    onSelectPortfolioClient(created.id);
+    try {
+      const created = onSaveClient({
+        name: safeName,
+        organizationName: newClientForm.organizationName || safeName,
+        contactName: newClientForm.contactName,
+        contactPhone: newClientForm.contactPhone,
+        contactEmail: newClientForm.contactEmail,
+        city: newClientForm.city,
+        notes: newClientForm.notes,
+        needsReview: true,
+        reviewReason: 'Recém-cadastrado: adicione os equipamentos e datas de acompanhamento.',
+      });
+      setNewClientForm({
+        name: '',
+        organizationName: '',
+        contactName: '',
+        contactPhone: '',
+        contactEmail: '',
+        city: '',
+        notes: '',
+      });
+      setShowNewClientForm(false);
+      onSelectPortfolioClient(created.id);
+    } catch (err) {
+      setImportError(err instanceof Error ? err.message : 'Erro ao cadastrar cliente.');
+    }
   };
 
   const handleEquipmentSubmit = (e: React.FormEvent) => {
@@ -469,7 +474,7 @@ export const Screen2ImportAndPortfolio: React.FC<Screen2ImportAndPortfolioProps>
                         Upload de planilhas externas bloqueado na Demonstração Pública
                       </h3>
                       <p className="text-xs text-slate-700 leading-relaxed">
-                        Para garantir que nenhuma oficina envie sua carteira real de clientes acidentalmente neste ambiente público de testes (<code className="font-mono">/?demo=1</code>), o seletor de arquivos do computador fica desativado aqui.
+                        Para garantir que nenhuma empresa envie sua carteira real de clientes acidentalmente neste ambiente público de testes (<code className="font-mono">/demo/</code>), o seletor de arquivos do computador fica desativado aqui.
                       </p>
                       <p className="text-xs text-slate-700 leading-relaxed">
                         Use o botão ao lado (<strong>"Carregar Planilha de Exemplo no Assistente"</strong>) para testar os 3 passos reais da importação com dados fictícios, ou solicite sua conta isolada por RLS no Piloto de 30 dias.

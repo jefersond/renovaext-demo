@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   ShieldCheck,
   CalendarClock,
@@ -30,7 +30,9 @@ import {
   fetchAuthenticatedTenantFromSupabase,
   loginWithSupabaseStaging,
   registerAccountInSupabaseStaging,
+  requestPasswordResetInSupabase,
   resendConfirmationEmailInSupabase,
+  subscribeSupabaseSyncErrors,
 } from './services/supabaseStagingSync';
 import { buildClientRadarSummaries, computeDashboardMetrics } from './services/radarEngine';
 import { AuthAndOnboardingView } from './components/AuthAndOnboardingView';
@@ -60,7 +62,9 @@ export const App: React.FC = () => {
   const [authError, setAuthError] = useState<string | null>(null);
   const [pendingConfirmationEmail, setPendingConfirmationEmail] = useState<string | null>(null);
   const [resendFeedback, setResendFeedback] = useState<string | null>(null);
+  const [syncErrorBanner, setSyncErrorBanner] = useState<string | null>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const autoDemoInitializedRef = useRef(false);
   const [leadModalIntent, setLeadModalIntent] = useState<CommercialLeadIntent | null>(() => {
     if (typeof window !== 'undefined') {
       if (window.location.search.includes('solicitar=piloto')) return 'quero_participar_piloto';
@@ -104,7 +108,16 @@ export const App: React.FC = () => {
   }, [session, refreshTenantState]);
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && (window.location.search.includes('demo=1') || window.location.pathname.includes('demo')) && !session) {
+    return subscribeSupabaseSyncErrors((msg) => setSyncErrorBanner(msg));
+  }, []);
+
+  useEffect(() => {
+    const isDemoRoute =
+      typeof window !== 'undefined' &&
+      (window.location.search.includes('demo=1') || window.location.pathname.includes('/demo'));
+
+    if (isDemoRoute && !session && !autoDemoInitializedRef.current) {
+      autoDemoInitializedRef.current = true;
       const { session: demoSession } = tenantRepository.ensureFictitiousDemoEnvironment();
       setSession(demoSession);
       setActiveScreen('screen1_radar');
@@ -201,6 +214,22 @@ export const App: React.FC = () => {
       .catch((err) => {
         setAuthError(
           err instanceof Error ? err.message : 'Não foi possível reenviar o e-mail de confirmação.'
+        );
+      });
+  };
+
+  const handleRequestPasswordReset = (emailToReset: string) => {
+    setAuthError(null);
+    setResendFeedback(null);
+    void requestPasswordResetInSupabase(emailToReset)
+      .then(() => {
+        setResendFeedback(
+          `Se existir conta para ${emailToReset.trim().toLowerCase()}, enviamos um link de redefinição de senha. Verifique sua caixa de entrada e spam.`
+        );
+      })
+      .catch((err) => {
+        setAuthError(
+          err instanceof Error ? err.message : 'Não foi possível solicitar a redefinição de senha.'
         );
       });
   };
@@ -416,6 +445,7 @@ export const App: React.FC = () => {
         <AuthAndOnboardingView
           onRegister={handleRegister}
           onLogin={handleLogin}
+          onRequestPasswordReset={handleRequestPasswordReset}
           onEnterDemo={handleEnterDemo}
           onOpenCommercialLeadModal={(intent) => setLeadModalIntent(intent)}
           registeredCompanies={registeredCompanies}
@@ -456,7 +486,13 @@ export const App: React.FC = () => {
             )}
             <span>
               Oficina: <strong className="text-white">{company.name}</strong> ({clients.length}/
-              {planSpec.maxClients} clientes • {planSpec.name}: R$ {planSpec.monthlyPriceBrl}/mês — Sem cobrança ativa)
+              {planSpec.maxClients} clientes • {planSpec.name}: R$ {planSpec.monthlyPriceBrl}/mês •{' '}
+              {company.isDemoCompany
+                ? 'Demonstração gratuita'
+                : company.billingActive
+                ? 'Assinatura ativa'
+                : 'Piloto / Aguardando ativação'}
+              )
             </span>
           </div>
 
@@ -499,7 +535,7 @@ export const App: React.FC = () => {
               className="inline-flex items-center gap-1 text-red-400 hover:text-red-300 font-semibold cursor-pointer"
             >
               <LogOut className="w-3.5 h-3.5" />
-              Sair
+              {company.isDemoCompany ? 'Entrar / Criar Conta' : 'Sair'}
             </button>
           </div>
         </div>
@@ -576,6 +612,23 @@ export const App: React.FC = () => {
 
       {/* Conteúdo Principal */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-4">
+        {syncErrorBanner && !company.isDemoCompany && (
+          <div
+            role="alert"
+            className="mb-4 p-3 rounded-xl bg-amber-50 border border-amber-300 text-xs text-amber-950 flex items-center justify-between gap-3"
+          >
+            <span>
+              <strong>Atenção na sincronização em nuvem:</strong> {syncErrorBanner}
+            </span>
+            <button
+              type="button"
+              onClick={() => setSyncErrorBanner(null)}
+              className="underline font-bold cursor-pointer shrink-0"
+            >
+              Fechar
+            </button>
+          </div>
+        )}
         {activeScreen === 'screen1_radar' && (
           <Screen1RadarDashboard
             metrics={dashboardMetrics}

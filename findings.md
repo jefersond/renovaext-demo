@@ -177,3 +177,22 @@ Para cobrança futura dos pilotos pagos (R$ 49/mês e R$ 79/mês) — **desativa
 
 
 
+
+
+---
+
+## 12. Descobertas da Auditoria "Pronto para Faturar" (25/11/2026)
+
+1. **Bloqueio de Entrada do Primeiro Cliente em `renovaext.com.br`:**
+   - Embora o site comercial (`https://renovaext.com.br/`) e a demonstração fictícia (`https://renovaext.com.br/demo/`) estejam online na Cloudflare Pages com DNS já delegado (`katja.ns.cloudflare.com`, `rohin.ns.cloudflare.com`), não existia rota `/app/` no build e o botão `"Sair"` da demo reiniciava em loop infinito. Resolvido localmente com `app/index.html`, ajuste de `vite.config.ts` e `autoDemoInitializedRef` em `src/App.tsx`.
+2. **Persistência Ordenada na Nuvem:**
+   - Chamadas `void syncClientToSupabase` + `void syncEquipmentToSupabase` concorrentes em `commitSpreadsheetImport` representavam risco real de erro `23503` (Foreign Key) na importação do primeiro cliente. Resolvido com fila sequencial FIFO (`enqueueSupabaseSync`) em `supabaseStagingSync.ts`.
+3. **DNS e Caixa Comercial `@renovaext.com.br`:**
+   - Registros atuais em `renovaext.com.br`: `MX .` (Null MX), `TXT v=spf1 -all` e `_dmarc.renovaext.com.br = v=DMARC1; p=reject;`.
+   - Serviços já contratados no ecossistema do fundador: Registro.br (domínio pago até 16/11/2027), Cloudflare Free (DNS + Pages + Email Routing inbound gratuito), Supabase Free, Vercel, AWS Lightsail (worker Zanotelli) e Hunter Free (1 slot único ocupado pela Zuno em `zunopropect@gmail.com`).
+   - Conclusão: É viável receber `comercial@renovaext.com.br` a R$ 0,00 via Cloudflare Email Routing já contratado, combinando com AWS SES (na conta AWS existente, ~R$ 0,00) ou Resend Free para envio, **ou** contratar Zoho Mail Lite (~R$ 5–6/mês) para ter caixa IMAP/SMTP profissional completa compatível com a Zanotelli OS.
+4. **Integração Comercial com a Zanotelli OS:**
+   - A ponte somente-leitura `renovaext-crm-readonly-feed` já está ativa em produção no Supabase (`HTTP 401` sem token) e conectada ao `ceo-commercial-ops` da Zanotelli OS (`0` leads reais). Faltam: (a) merge da branch `feat/zanotelli-readonly-bridge` no repositório RenovaExt; (b) desbloqueio do Turnstile `110200` no Preview Vercel da Zanotelli OS; (c) provisionamento da caixa `comercial@renovaext.com.br` para sair de `blocked_no_mailbox` em `emailChannelRegistry.ts`.
+5. **Viabilidade dos Preços R$ 49/mês e R$ 79/mês:**
+   - Viáveis para conquista e validação dos primeiros 10–20 clientes (margem bruta de infra > 95% pós-taxa Pix/Asaas; break-even de Supabase Pro R$ 145/mês atingido com apenas 2 clientes Profissionais ou 4 Iniciais).
+   - Alerta de margem de tempo: no plano de R$ 49/mês o atendimento precisa ser estritamente self-service/assíncrono; ancorar vendas no Plano Profissional (R$ 79/mês) com apoio na 1ª planilha e reavaliar tabela após os primeiros 10 clientes pagantes.

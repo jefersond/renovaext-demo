@@ -405,7 +405,7 @@ export class TenantRepository {
     const updated: Company = {
       ...db.companies[idx],
       ...patch,
-      billingActive: false, // Invariante: jamais ativar cobrança sem autorização
+      billingActive: db.companies[idx].billingActive, // Invariante: status de cobrança só pode ser alterado pelo backend autorizado
     };
     db.companies[idx] = updated;
     const logEntry: AuditLogEntry = {
@@ -650,6 +650,20 @@ export class TenantRepository {
       void syncClientToSupabase(updated);
       void syncAuditLogToSupabase(logEntry);
       return updated;
+    }
+
+    const company = db.companies.find((c) => c.id === params.companyId);
+    if (!company) {
+      throw new Error('Empresa não encontrada.');
+    }
+    const planSpec = PLAN_HYPOTHESES[company.selectedPlanHypothesis];
+    const currentCompanyClientsCount = db.clients.filter(
+      (c) => c.companyId === params.companyId
+    ).length;
+    if (currentCompanyClientsCount >= planSpec.maxClients) {
+      throw new Error(
+        `Limite de carteira do ${planSpec.name} (${planSpec.maxClients} clientes) atingido.`
+      );
     }
 
     const stage: OpportunityStage = params.needsReview

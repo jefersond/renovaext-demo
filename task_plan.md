@@ -239,3 +239,18 @@
   - Servidores autoritativos atuais: `d.sec.dns.br` e `f.sec.dns.br` (padrão Registro.br);
   - Status `renovaext.pages.dev`: projeto aguarda associação Git no painel Cloudflare para ativação sem risco de interrupção.
 - [x] 5. Sincronização completa de código e builds para `main` e `preview/nova-landing-chatgpt` no GitHub (commit `3dfa6c7`), mantendo versão funcional pública imediatamente disponível em `https://jefersond.github.io/renovaext-demo/`.
+
+
+---
+
+## Fase 17: Missão "RenovaExt: Pronto para Faturar" (Auditoria Real e Resolução de Bloqueios — 25/11/2026)
+- [x] 1. Auditar site comercial (`https://renovaext.com.br/`), demonstração (`https://renovaext.com.br/demo/`), proposta (`proposta-piloto.html`), `/app/`, DNS ao vivo e banco Supabase (`xmuzcnjcwkhgojnaosha`).
+- [x] 2. Resolver bloqueio de acesso do primeiro cliente: criar rota dedicada `/app/` (`app/index.html` + `vite.config.ts`) e links `"Entrar"` / `"Área do cliente"` no site oficial (`index.html` e `proposta-piloto.html`).
+- [x] 3. Resolver loop infinito ao sair da demonstração (`/demo/`) em `src/App.tsx` + botão `"Entrar / Criar Conta"`.
+- [x] 4. Resolver risco de race condition de Foreign Key na importação real para o Supabase com fila sequencial FIFO (`enqueueSupabaseSync`) em `src/services/supabaseStagingSync.ts` + alerta de erro de sincronização em `src/App.tsx`.
+- [x] 5. Higienizar `AuthAndOnboardingView.tsx` (remover `"MVP EM HOMOLOGAÇÃO"`, corrigir links quebrados `./comercial.html`, adicionar `"Esqueci minha senha"`, redirecionar e-mail de confirmação para `/app/`).
+- [x] 6. Aplicar limite de clientes do plano (`150` / `500`) também no cadastro manual (`createOrUpdateClient` em `tenantRepository.ts`).
+- [x] 7. Preparar ativação segura de assinatura pós-Pix/Boleto (`Company.billingActive`, migração aditiva **não aplicada** `20261125000012_subscription_activation_and_protection.sql` e CLI `tools/founder_activate_subscription_cli.mjs`).
+- [x] 8. Auditar viabilidade de preços (`R$ 49` / `R$ 79`), disponibilidade de caixa comercial `@renovaext.com.br` com serviços já contratados e integração comercial com a Zanotelli OS (`renovaext-crm-readonly-feed` + `emailChannelRegistry.ts`).
+- [x] 9. Selecionar e verificar HTTP `200 OK` de **25 empresas clientes** (+ 5 reservas técnicas = 30 alvos) em `docs/comercial/17-lista-verificada-25-empresas-alvo.md` e consolidar oferta, argumentos e roteiro de demo em `docs/comercial/18-oferta-argumentos-e-roteiro-demonstracao-pronto-para-faturar.md`.
+- [x] 10. Executar testes automatizados (`33/33` aprovados), build de produção (`dist/`), auditoria de segurança do bundle (`0` vazamentos) e validação visual no preview local (`http://127.0.0.1:4173/`) — **sem publicar em produção, alterar DNS, contratar serviços ou disparar mensagens**.

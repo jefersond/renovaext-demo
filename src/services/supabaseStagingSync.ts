@@ -3,6 +3,7 @@ import {
   AuditLogEntry,
   Client,
   Company,
+  CompanySubscriptionStatus,
   EquipmentRecord,
   OpportunityHistoryEntry,
   OpportunityStage,
@@ -13,6 +14,61 @@ import {
   ServiceHistoryEntry,
   UserSession,
 } from '../types/domain';
+
+type SyncErrorListener = (message: string | null) => void;
+const syncErrorListeners = new Set<SyncErrorListener>();
+let supabaseSyncQueue: Promise<void> = Promise.resolve();
+
+export function subscribeSupabaseSyncErrors(listener: SyncErrorListener): () => void {
+  syncErrorListeners.add(listener);
+  return () => {
+    syncErrorListeners.delete(listener);
+  };
+}
+
+function notifySyncError(message: string | null): void {
+  syncErrorListeners.forEach((listener) => {
+    try {
+      listener(message);
+    } catch {
+      // Ignorar erros em listeners de UI
+    }
+  });
+}
+
+/**
+ * Garante execução estritamente sequencial (FIFO) das escritas no PostgreSQL,
+ * impedindo race conditions de Foreign Key (ex: `equipments` chegando antes de `clients`).
+ */
+export function enqueueSupabaseSync(
+  operationLabel: string,
+  task: () => Promise<{ error: { message?: string } | null } | void>
+): Promise<void> {
+  const next = supabaseSyncQueue.then(async () => {
+    try {
+      const outcome = await task();
+      if (outcome && outcome.error) {
+        notifySyncError(
+          `Falha ao sincronizar ${operationLabel} na nuvem: ${outcome.error.message || 'erro desconhecido'}`
+        );
+      } else {
+        notifySyncError(null);
+      }
+    } catch (err) {
+      notifySyncError(
+        `Falha de conexão ao sincronizar ${operationLabel}: ${
+          err instanceof Error ? err.message : 'verifique sua internet'
+        }`
+      );
+    }
+  });
+  supabaseSyncQueue = next.catch(() => undefined);
+  return next;
+}
+
+export async function flushSupabaseSyncQueue(): Promise<void> {
+  await supabaseSyncQueue;
+}
 
 export interface RemoteStagingTenantData {
   userId: string;
@@ -27,6 +83,22 @@ export interface RemoteStagingTenantData {
 }
 
 function mapCompanyRow(row: Record<string, unknown>): Company {
+  const billingActive = Boolean(row.billing_active);
+  const rawStatus = String(row.subscription_status || '');
+  const validStatuses: CompanySubscriptionStatus[] = [
+    'aguardando_ativacao',
+    'piloto_ativo',
+    'assinatura_ativa',
+    'cancelado',
+  ];
+  const subscriptionStatus: CompanySubscriptionStatus = validStatuses.includes(
+    rawStatus as CompanySubscriptionStatus
+  )
+    ? (rawStatus as CompanySubscriptionStatus)
+    : billingActive
+    ? 'assinatura_ativa'
+    : 'aguardando_ativacao';
+
   return {
     id: String(row.id),
     name: String(row.name || ''),
@@ -38,7 +110,9 @@ function mapCompanyRow(row: Record<string, unknown>): Company {
     state: String(row.state || 'SP'),
     selectedPlanHypothesis:
       row.selected_plan_hypothesis === 'inicial_49' ? 'inicial_49' : 'profissional_79',
-    billingActive: false,
+    billingActive,
+    subscriptionStatus,
+    subscriptionValidUntil: row.pilot_ends_at ? String(row.pilot_ends_at) : null,
     defaultProposalValidityDays: Number(row.default_proposal_validity_days) || 15,
     defaultProposalNotes: String(row.default_proposal_notes || ''),
     isDemoCompany: Boolean(row.is_demo_company),
@@ -227,7 +301,32 @@ export interface SupabaseRegistrationOutcome {
 
 function getSafeEmailRedirectUrl(): string | undefined {
   if (typeof window === 'undefined' || !window.location) return undefined;
-  return `${window.location.origin}${window.location.pathname}`;
+  const path = window.location.pathname || '/';
+  // Garantir que confirmação de e-mail e recuperação de senha sempre retornem à área /app/
+  if (path.includes('/demo')) {
+    const basePrefix = path.split('/demo')[0];
+    return `${window.location.origin}${basePrefix}/app/`;
+  }
+  if (path.includes('/app')) {
+    return `${window.location.origin}${path}`;
+  }
+  return `${window.location.origin}/app/`;
+}
+
+export async function requestPasswordResetInSupabase(email: string): Promise<void> {
+  const cleanEmail = email.trim().toLowerCase();
+  if (!cleanEmail || !cleanEmail.includes('@')) {
+    throw new Error('Informe o e-mail cadastrado da sua oficina para receber o link de redefinição.');
+  }
+  if (!isSupabaseConfigured() || !supabase) {
+    throw new Error('Serviço de recuperação de senha disponível apenas no ambiente conectado à nuvem.');
+  }
+  const { error } = await supabase.auth.resetPasswordForEmail(cleanEmail, {
+    redirectTo: getSafeEmailRedirectUrl(),
+  });
+  if (error) {
+    throw new Error(error.message || 'Não foi possível enviar o link de redefinição de senha.');
+  }
 }
 
 /**
@@ -373,86 +472,92 @@ async function hasAuthenticatedSupabaseSession(): Promise<boolean> {
   }
 }
 
-export async function syncClientToSupabase(client: Client): Promise<void> {
+export function syncClientToSupabase(client: Client): Promise<void> {
   if (
     client.isDemo ||
     !isSupabaseConfigured() ||
     !supabase ||
     !isValidUuid(client.id) ||
-    !isValidUuid(client.companyId) ||
-    !(await hasAuthenticatedSupabaseSession())
+    !isValidUuid(client.companyId)
   ) {
-    return;
+    return Promise.resolve();
   }
-  await supabase.from('clients').upsert({
-    id: client.id,
-    company_id: client.companyId,
-    name: client.name,
-    organization_name: client.organizationName,
-    contact_name: client.contactName,
-    contact_phone: client.contactPhone,
-    contact_email: client.contactEmail,
-    city: client.city,
-    notes: client.notes,
-    needs_review: client.needsReview,
-    review_reason: client.reviewReason,
-    opportunity_stage: client.opportunityStage,
-    is_demo: client.isDemo,
-    updated_at: client.updatedAt,
+  return enqueueSupabaseSync('cliente', async () => {
+    if (!supabase || !(await hasAuthenticatedSupabaseSession())) return;
+    return supabase.from('clients').upsert({
+      id: client.id,
+      company_id: client.companyId,
+      name: client.name,
+      organization_name: client.organizationName,
+      contact_name: client.contactName,
+      contact_phone: client.contactPhone,
+      contact_email: client.contactEmail,
+      city: client.city,
+      notes: client.notes,
+      needs_review: client.needsReview,
+      review_reason: client.reviewReason,
+      opportunity_stage: client.opportunityStage,
+      is_demo: client.isDemo,
+      updated_at: client.updatedAt,
+    });
   });
 }
 
-export async function syncEquipmentToSupabase(eq: EquipmentRecord): Promise<void> {
+export function syncEquipmentToSupabase(eq: EquipmentRecord): Promise<void> {
   if (
     !isSupabaseConfigured() ||
     !supabase ||
     !isValidUuid(eq.id) ||
     !isValidUuid(eq.companyId) ||
-    !isValidUuid(eq.clientId) ||
-    !(await hasAuthenticatedSupabaseSession())
+    !isValidUuid(eq.clientId)
   ) {
-    return;
+    return Promise.resolve();
   }
-  await supabase.from('equipments').upsert({
-    id: eq.id,
-    company_id: eq.companyId,
-    client_id: eq.clientId,
-    description: eq.description,
-    extinguisher_type: eq.extinguisherType,
-    capacity: eq.capacity,
-    quantity: eq.quantity,
-    last_service_date: eq.lastServiceDate,
-    next_due_date: eq.nextDueDate,
-    needs_review: eq.needsReview,
-    review_notes: eq.reviewNotes,
-    notes: eq.notes,
-    dedupe_fingerprint: eq.dedupeFingerprint,
-    updated_at: eq.updatedAt,
+  return enqueueSupabaseSync('equipamento', async () => {
+    if (!supabase || !(await hasAuthenticatedSupabaseSession())) return;
+    return supabase.from('equipments').upsert({
+      id: eq.id,
+      company_id: eq.companyId,
+      client_id: eq.clientId,
+      description: eq.description,
+      extinguisher_type: eq.extinguisherType,
+      capacity: eq.capacity,
+      quantity: eq.quantity,
+      last_service_date: eq.lastServiceDate,
+      next_due_date: eq.nextDueDate,
+      needs_review: eq.needsReview,
+      review_notes: eq.reviewNotes,
+      notes: eq.notes,
+      dedupe_fingerprint: eq.dedupeFingerprint,
+      updated_at: eq.updatedAt,
+    });
   });
 }
 
-export async function syncServiceHistoryToSupabase(entry: ServiceHistoryEntry): Promise<void> {
+export function syncServiceHistoryToSupabase(entry: ServiceHistoryEntry): Promise<void> {
   if (
     !isSupabaseConfigured() ||
     !supabase ||
     !isValidUuid(entry.id) ||
     !isValidUuid(entry.companyId) ||
-    !isValidUuid(entry.clientId) ||
-    !(await hasAuthenticatedSupabaseSession())
+    !isValidUuid(entry.clientId)
   ) {
-    return;
+    return Promise.resolve();
   }
-  await supabase.from('service_history').upsert({
-    id: entry.id,
-    company_id: entry.companyId,
-    client_id: entry.clientId,
-    service_date: entry.serviceDate,
-    description: entry.description,
-    notes: entry.notes,
+  return enqueueSupabaseSync('histórico de serviço', async () => {
+    if (!supabase || !(await hasAuthenticatedSupabaseSession())) return;
+    return supabase.from('service_history').upsert({
+      id: entry.id,
+      company_id: entry.companyId,
+      client_id: entry.clientId,
+      service_date: entry.serviceDate,
+      description: entry.description,
+      notes: entry.notes,
+    });
   });
 }
 
-export async function syncOpportunityHistoryToSupabase(
+export function syncOpportunityHistoryToSupabase(
   entry: OpportunityHistoryEntry
 ): Promise<void> {
   if (
@@ -460,89 +565,97 @@ export async function syncOpportunityHistoryToSupabase(
     !supabase ||
     !isValidUuid(entry.id) ||
     !isValidUuid(entry.companyId) ||
-    !isValidUuid(entry.clientId) ||
-    !(await hasAuthenticatedSupabaseSession())
+    !isValidUuid(entry.clientId)
   ) {
-    return;
+    return Promise.resolve();
   }
-  await supabase.from('opportunity_history').upsert({
-    id: entry.id,
-    company_id: entry.companyId,
-    client_id: entry.clientId,
-    from_stage: entry.fromStage,
-    to_stage: entry.toStage,
-    note: entry.note,
-    changed_by: entry.changedBy,
+  return enqueueSupabaseSync('histórico comercial', async () => {
+    if (!supabase || !(await hasAuthenticatedSupabaseSession())) return;
+    return supabase.from('opportunity_history').upsert({
+      id: entry.id,
+      company_id: entry.companyId,
+      client_id: entry.clientId,
+      from_stage: entry.fromStage,
+      to_stage: entry.toStage,
+      note: entry.note,
+      changed_by: entry.changedBy,
+    });
   });
 }
 
-export async function syncProposalToSupabase(proposal: Proposal): Promise<void> {
+export function syncProposalToSupabase(proposal: Proposal): Promise<void> {
   if (
     !isSupabaseConfigured() ||
     !supabase ||
     !isValidUuid(proposal.id) ||
     !isValidUuid(proposal.companyId) ||
-    !isValidUuid(proposal.clientId) ||
-    !(await hasAuthenticatedSupabaseSession())
+    !isValidUuid(proposal.clientId)
   ) {
-    return;
+    return Promise.resolve();
   }
-  await supabase.from('proposals').upsert({
-    id: proposal.id,
-    company_id: proposal.companyId,
-    client_id: proposal.clientId,
-    proposal_number: proposal.proposalNumber,
-    status: proposal.status,
-    validity_days: proposal.validityDays,
-    items: proposal.items,
-    total_brl: proposal.totalBrl,
-    notes: proposal.notes,
-    updated_at: proposal.updatedAt,
+  return enqueueSupabaseSync('proposta comercial', async () => {
+    if (!supabase || !(await hasAuthenticatedSupabaseSession())) return;
+    return supabase.from('proposals').upsert({
+      id: proposal.id,
+      company_id: proposal.companyId,
+      client_id: proposal.clientId,
+      proposal_number: proposal.proposalNumber,
+      status: proposal.status,
+      validity_days: proposal.validityDays,
+      items: proposal.items,
+      total_brl: proposal.totalBrl,
+      notes: proposal.notes,
+      updated_at: proposal.updatedAt,
+    });
   });
 }
 
-export async function syncCompanySettingsToSupabase(company: Company): Promise<void> {
+export function syncCompanySettingsToSupabase(company: Company): Promise<void> {
   if (
     company.isDemoCompany ||
     !isSupabaseConfigured() ||
     !supabase ||
-    !isValidUuid(company.id) ||
-    !(await hasAuthenticatedSupabaseSession())
+    !isValidUuid(company.id)
   ) {
-    return;
+    return Promise.resolve();
   }
-  await supabase
-    .from('companies')
-    .update({
-      name: company.name,
-      cnpj: company.cnpj || null,
-      responsible_name: company.responsibleName,
-      phone: company.phone,
-      city: company.city,
-      state: company.state,
-      selected_plan_hypothesis: company.selectedPlanHypothesis,
-      default_proposal_validity_days: company.defaultProposalValidityDays,
-      default_proposal_notes: company.defaultProposalNotes,
-      updated_at: new Date().toISOString(),
-    })
-    .eq('id', company.id);
+  return enqueueSupabaseSync('configurações da oficina', async () => {
+    if (!supabase || !(await hasAuthenticatedSupabaseSession())) return;
+    return supabase
+      .from('companies')
+      .update({
+        name: company.name,
+        cnpj: company.cnpj || null,
+        responsible_name: company.responsibleName,
+        phone: company.phone,
+        city: company.city,
+        state: company.state,
+        selected_plan_hypothesis: company.selectedPlanHypothesis,
+        default_proposal_validity_days: company.defaultProposalValidityDays,
+        default_proposal_notes: company.defaultProposalNotes,
+        updated_at: new Date().toISOString(),
+      })
+      .eq('id', company.id);
+  });
 }
 
-export async function syncAuditLogToSupabase(log: AuditLogEntry): Promise<void> {
+export function syncAuditLogToSupabase(log: AuditLogEntry): Promise<void> {
   if (
     !isSupabaseConfigured() ||
     !supabase ||
     !isValidUuid(log.id) ||
-    !isValidUuid(log.companyId) ||
-    !(await hasAuthenticatedSupabaseSession())
+    !isValidUuid(log.companyId)
   ) {
-    return;
+    return Promise.resolve();
   }
-  await supabase.from('audit_logs').insert({
-    id: log.id,
-    company_id: log.companyId,
-    actor_email: log.actorEmail,
-    action: log.action,
-    details: log.details,
+  return enqueueSupabaseSync('log de auditoria', async () => {
+    if (!supabase || !(await hasAuthenticatedSupabaseSession())) return;
+    return supabase.from('audit_logs').insert({
+      id: log.id,
+      company_id: log.companyId,
+      actor_email: log.actorEmail,
+      action: log.action,
+      details: log.details,
+    });
   });
 }

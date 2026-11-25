@@ -26,6 +26,7 @@ interface AuthAndOnboardingViewProps {
     selectedPlanHypothesis: PlanHypothesisId;
   }) => void;
   onLogin: (email: string, password: string) => void;
+  onRequestPasswordReset?: (email: string) => void;
   onEnterDemo: () => void;
   onOpenCommercialLeadModal?: (intent: CommercialLeadIntent) => void;
   registeredCompanies: Array<{
@@ -45,6 +46,7 @@ interface AuthAndOnboardingViewProps {
 export const AuthAndOnboardingView: React.FC<AuthAndOnboardingViewProps> = ({
   onRegister,
   onLogin,
+  onRequestPasswordReset,
   onEnterDemo,
   onOpenCommercialLeadModal,
   registeredCompanies,
@@ -95,11 +97,11 @@ export const AuthAndOnboardingView: React.FC<AuthAndOnboardingViewProps> = ({
       <div className="bg-slate-900 border-b border-slate-800 px-4 py-2 text-xs text-slate-300">
         <div className="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2">
-            <span className="px-2 py-0.5 rounded bg-red-600/20 text-red-400 border border-red-500/30 font-semibold">
-              MVP EM HOMOLOGAÇÃO
+            <span className="px-2 py-0.5 rounded bg-emerald-600/20 text-emerald-300 border border-emerald-500/30 font-semibold">
+              ÁREA DA OFICINA • RLS ATIVO
             </span>
             <span>
-              Ambiente isolado por empresa (RLS) • Sem cobrança automática ativa • Sem disparos externos
+              Ambiente isolado por empresa • Sem cobrança automática no cadastro • Sem disparos externos
             </span>
           </div>
           <div className="flex flex-wrap items-center gap-3">
@@ -122,13 +124,13 @@ export const AuthAndOnboardingView: React.FC<AuthAndOnboardingViewProps> = ({
               </>
             )}
             <a
-              href="./comercial.html"
+              href="/"
               className="text-slate-300 hover:text-white font-semibold underline"
             >
-              Ver Explicação & Vídeo Comercial
+              ← Voltar ao site oficial
             </a>
             <a
-              href="./proposta-piloto.html"
+              href="/proposta-piloto.html"
               className="text-slate-300 hover:text-white font-semibold underline"
             >
               Proposta de Piloto (30 Dias)
@@ -507,7 +509,7 @@ export const AuthAndOnboardingView: React.FC<AuthAndOnboardingViewProps> = ({
               </div>
 
               <div className="p-3 rounded-lg bg-slate-950 border border-slate-800 text-[11px] text-slate-300 leading-relaxed">
-                <strong className="text-white">Isolamento Técnico por RLS:</strong> Ao confirmar seu e-mail, sua conta recebe um identificador próprio (<code className="font-mono">company_id</code>) protegido por políticas de <em>Row Level Security (RLS)</em> no PostgreSQL. Nenhuma outra oficina visualiza seus registros. Não insira planilhas reais na demonstração pública (<code className="font-mono">/?demo=1</code>).
+                <strong className="text-white">Isolamento Técnico por RLS:</strong> Ao confirmar seu e-mail, sua conta recebe um identificador próprio (<code className="font-mono">company_id</code>) protegido por políticas de <em>Row Level Security (RLS)</em> no PostgreSQL. Nenhuma outra empresa visualiza seus registros. Para testes sem cadastro, utilize apenas a demonstração fictícia (<code className="font-mono">/demo/</code>).
               </div>
 
               <button
@@ -551,6 +553,17 @@ export const AuthAndOnboardingView: React.FC<AuthAndOnboardingViewProps> = ({
               >
                 Entrar no RenovaExt
               </button>
+              {onRequestPasswordReset && (
+                <div className="text-center pt-1">
+                  <button
+                    type="button"
+                    onClick={() => onRequestPasswordReset(loginEmail)}
+                    className="text-xs text-slate-400 hover:text-white underline cursor-pointer"
+                  >
+                    Esqueci minha senha (enviar link de redefinição para o e-mail acima)
+                  </button>
+                </div>
+              )}
             </form>
           )}
         </div>
